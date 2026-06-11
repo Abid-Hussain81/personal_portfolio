@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#fafafa"/>
+  <rect x="200" y="80" width="400" height="340" rx="20" fill="#fff" stroke="#e5e7eb"/>
+  <rect x="240" y="120" width="200" height="24" rx="6" fill="#111827"/>
+  <rect x="240" y="160" width="320" height="12" rx="4" fill="#d1d5db"/>
+  <rect x="240" y="220" width="160" height="48" rx="12" fill="#4f46e5"/>
+  <text x="400" y="460" text-anchor="middle" fill="#9ca3af" font-family="system-ui,sans-serif" font-size="16">Startup Launch Page</text>
+</svg>

@@ -1,0 +1,12 @@
+export { profile, navLinks, stats, socialLinks } from "./profile";
+export { services, featuredServiceIds } from "./services";
+export type { Service, ServiceIconName } from "./services";
+export { projects, featuredProjects, projectCategories } from "./projects";
+export type { Project, ProjectCategory } from "./projects";
+export { skillCategories, levelLabels } from "./skills";
+export type { Skill, SkillCategory, SkillLevel } from "./skills";
+export { testimonials } from "./testimonials";
+export type { Testimonial } from "./testimonials";
+export { blogPosts, blogCategories, featuredPost } from "./blog";
+export type { BlogPost, BlogCategory } from "./blog";
+export { resume } from "./resume";
