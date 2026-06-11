@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abid Hussain — Frontend Developer Portfolio
+
+Personal portfolio built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. It showcases my projects, skills, services, and experience as a frontend developer.
+
+**Live site:** [https://abidhussain.dev](https://abidhussain.dev)
+
+---
+
+## Stack
+
+- [Next.js](https://nextjs.org) (App Router)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Framer Motion](https://www.framer.com/motion)
+- [next-themes](https://github.com/pacocoursey/next-themes) for dark/light mode
+
+## Features
+
+- Responsive design with dark/light mode toggle
+- Animated page transitions and scroll reveals
+- SEO-optimized metadata and Open Graph tags
+- Auto-generated sitemap and robots.txt
+- Config-driven content — all data lives in `/data`
+
+## Project Structure
+
+```
+data/          # All site content (profile, projects, skills, etc.)
+public/        # Static assets (images, resume PDF)
+src/
+  app/         # Next.js App Router pages
+  components/  # Layout, section, UI, and icon components
+  lib/         # Utilities and metadata helpers
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local   # set NEXT_PUBLIC_SITE_URL
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All content is managed through the files in `/data`:
 
-## Learn More
+| File | Contents |
+|------|----------|
+| `profile.ts` | Name, bio, contact links, stats |
+| `projects.ts` | Portfolio projects |
+| `skills.ts` | Skills and proficiency levels |
+| `services.ts` | Services offered |
+| `resume.ts` | Work experience, education, certifications |
+| `testimonials.ts` | Client testimonials |
+| `blog.ts` | Blog post metadata |
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_SITE_URL=https://abidhussain.dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Deploy to [Vercel](https://vercel.com) with zero config — connect your repo and it just works.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2025 Abid Hussain. All rights reserved.

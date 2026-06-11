@@ -7,9 +7,9 @@ export const profile = {
     "I create responsive, fast, and user-friendly websites that help businesses grow online.",
   about:
     "I am a Frontend Developer passionate about building responsive, modern, and user-friendly web applications. I specialize in converting UI/UX designs into pixel-perfect websites and creating clean, scalable interfaces using modern frontend technologies. I enjoy solving UI challenges, optimizing user experiences, and continuously learning new technologies.",
-  email: "abid.hussain@example.com",
-  linkedin: "https://linkedin.com/in/abid-hussain",
-  github: "https://github.com/abid-hussain",
+  email: "dev.abidhussain@gmail.com",
+  linkedin: "https://linkedin.com/in/abid-hussain81",
+  github: "https://github.com/Abid-Hussain81",
   resumeUrl: "/resume.pdf",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://abidhussain.dev",
   focus: [
@@ -91,17 +91,17 @@ export const stats = [
 export const socialLinks = [
   {
     name: "GitHub",
-    href: "https://github.com/abid-hussain",
+    href: "https://github.com/Abid-Hussain81",
     label: "GitHub profile",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/abid-hussain",
+    href: "https://linkedin.com/in/abid-hussain81",
     label: "LinkedIn profile",
   },
   {
     name: "Email",
-    href: "mailto:abid.hussain@example.com",
+    href: "mailto:dev.abidhussain@gmail.com",
     label: "Send email",
   },
 ] as const;
