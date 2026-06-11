@@ -96,7 +96,7 @@ export const socialLinks = [
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/abid-hussain81",
+    href: "https://www.linkedin.com/in/abid-hussain-6853043a1",
     label: "LinkedIn profile",
   },
   {
