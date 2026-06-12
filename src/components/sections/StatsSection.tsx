@@ -8,16 +8,18 @@ import {
 
 export function StatsSection() {
   return (
-    <section className="border-y border-border bg-card/50 py-16">
+    <section className="relative border-y border-border py-16 overflow-hidden">
+      <div className="absolute inset-0 gradient-bg opacity-5" />
       <Container>
-        <StaggerContainer className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        <StaggerContainer className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {stats.map((stat) => (
             <StaggerItem key={stat.label}>
-              <div className="text-center">
-                <p className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                  <span className="gradient-text">{stat.value}</span>
+              <div className="group relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+                <div className="absolute inset-0 gradient-bg opacity-0 transition-opacity duration-300 group-hover:opacity-5" />
+                <p className="text-4xl font-bold tracking-tight sm:text-5xl">
+                  <span className="shimmer-text">{stat.value}</span>
                 </p>
-                <p className="mt-2 text-sm text-muted sm:text-base">
+                <p className="mt-2 text-sm font-medium text-muted sm:text-base">
                   {stat.label}
                 </p>
               </div>

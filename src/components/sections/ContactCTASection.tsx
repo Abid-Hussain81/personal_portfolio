@@ -1,39 +1,43 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export function ContactCTASection() {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="py-10">
       <Container>
         <FadeIn>
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-16 text-center sm:px-12">
-            <div className="absolute inset-0 grid-pattern opacity-20" />
-            <div className="absolute -left-20 top-0 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-            <div className="absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
+          <div className="relative overflow-hidden rounded-2xl bg-foreground px-8 py-16 text-center sm:px-16">
+            {/* subtle grid */}
+            <div className="absolute inset-0 grid-pattern opacity-[0.06]" />
 
             <div className="relative">
-              <div className="mx-auto mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <MessageCircle className="h-7 w-7" />
-              </div>
-              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              <p className="text-xs font-semibold uppercase tracking-widest text-background/50 mb-4">
+                Let&apos;s work together
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-background sm:text-3xl">
                 Ready to Start Your Project?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg text-muted">
-                Let&apos;s discuss your ideas and build something exceptional
-                together. I&apos;m available for freelance projects and remote
-                opportunities.
+              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-background/60">
+                I&apos;m available for freelance projects and remote opportunities.
+                Let&apos;s build something great together.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button href="/contact" size="lg">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-background px-6 py-2.5 text-sm font-semibold text-foreground transition-all hover:opacity-80 hover:gap-3"
+                >
                   Get In Touch
                   <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button href={`mailto:${profile.email}`} variant="secondary" size="lg">
+                </Link>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-background/20 px-6 py-2.5 text-sm font-medium text-background/70 transition-all hover:border-background/40 hover:text-background"
+                >
                   {profile.email}
-                </Button>
+                </a>
               </div>
             </div>
           </div>

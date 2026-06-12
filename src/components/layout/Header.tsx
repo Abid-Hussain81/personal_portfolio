@@ -41,21 +41,15 @@ export function Header() {
           : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link
           href="/"
-          className="group flex items-center gap-2 text-lg font-bold tracking-tight"
+          className="text-sm font-bold tracking-tight text-foreground hover:opacity-70 transition-opacity"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground transition-transform group-hover:scale-105">
-            AH
-          </span>
-          <span className="hidden sm:inline">
-            {profile.name.split(" ")[0]}
-            <span className="text-primary">.</span>
-          </span>
+          {profile.name}
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
@@ -67,10 +61,10 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                  "text-sm transition-colors",
                   isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground",
+                    ? "font-semibold text-foreground"
+                    : "text-muted hover:text-foreground",
                 )}
               >
                 {link.label}

@@ -16,8 +16,8 @@ export function TestimonialCard({
   testimonial: (typeof testimonials)[number];
 }) {
   return (
-    <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-      <Quote className="h-8 w-8 text-primary/40" />
+    <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10">
+      <Quote className="h-8 w-8 text-primary/30" />
       <div className="mt-3 flex gap-1">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
           <Star
@@ -30,13 +30,15 @@ export function TestimonialCard({
         &ldquo;{testimonial.feedback}&rdquo;
       </blockquote>
       <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-4">
-        <div className="relative h-11 w-11 overflow-hidden rounded-full border border-border">
+        <div className="relative h-11 w-11 overflow-hidden rounded-full p-px gradient-bg">
+          <div className="relative h-full w-full overflow-hidden rounded-full">
           <Image
             src={testimonial.avatar}
             alt={testimonial.name}
             fill
             className="object-cover"
           />
+          </div>
         </div>
         <div>
           <p className="text-sm font-semibold text-foreground">
@@ -55,7 +57,7 @@ export function TestimonialsPreviewSection() {
   const preview = testimonials.slice(0, 3);
 
   return (
-    <section className="border-y border-border bg-card/30 py-20 sm:py-28">
+    <section className="border-y border-border bg-card/30 py-10">
       <Container>
         <FadeIn>
           <SectionHeading
@@ -65,7 +67,7 @@ export function TestimonialsPreviewSection() {
           />
         </FadeIn>
 
-        <StaggerContainer className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <StaggerContainer className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {preview.map((testimonial) => (
             <StaggerItem key={testimonial.id}>
               <TestimonialCard testimonial={testimonial} />
@@ -76,7 +78,7 @@ export function TestimonialsPreviewSection() {
         <FadeIn className="mt-10 text-center">
           <Link
             href="/testimonials"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-accent"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 hover:border-primary/50 hover:gap-3"
           >
             Read all testimonials
             <ArrowRight className="h-4 w-4" />

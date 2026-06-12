@@ -6,6 +6,7 @@ type SectionHeadingProps = {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  invertColors?: boolean;
 };
 
 export function SectionHeading({
@@ -14,6 +15,7 @@ export function SectionHeading({
   description,
   align = "center",
   className,
+  invertColors = false,
 }: SectionHeadingProps) {
   return (
     <div
@@ -24,15 +26,26 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+        <p className={cn(
+          "mb-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest",
+          invertColors
+            ? "bg-background/20 text-background"
+            : "bg-foreground/10 text-foreground"
+        )}>
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      <h2 className={cn(
+        "text-2xl font-bold tracking-tight sm:text-3xl",
+        invertColors ? "text-background" : "text-foreground"
+      )}>
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+        <p className={cn(
+          "mt-3 text-sm leading-relaxed",
+          invertColors ? "text-background/70" : "text-muted"
+        )}>
           {description}
         </p>
       )}

@@ -1,109 +1,156 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowDown, Download, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Download } from "lucide-react";
 import { profile } from "@/data/profile";
-import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/layout/Container";
+import { resume } from "@/data/resume";
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden pt-16">
-      <div className="absolute inset-0 grid-pattern opacity-30" />
-      <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
-      <div className="absolute -right-32 bottom-20 h-96 w-96 rounded-full bg-accent/15 blur-3xl" />
+    <section className="pt-20 pb-10">
+      <div className="mx-auto max-w-7xl w-full px-6 lg:px-8">
 
-      <Container className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 lg:flex-row lg:gap-16">
-        <div className="flex-1 text-center lg:text-left">
-          <FadeIn delay={0.1}>
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-1.5 text-sm text-muted backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-              </span>
-              Available for freelance & remote work
-            </p>
-          </FadeIn>
+        {/* Availability badge */}
+        <FadeIn delay={0.05}>
+          <div className="mb-0 flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+            </span>
+            <span className="text-sm text-muted">Available for new projects</span>
+          </div>
+        </FadeIn>
 
-          <FadeIn delay={0.2}>
-            <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Frontend Developer Building{" "}
-              <span className="gradient-text">Modern Web Experiences</span>
-            </h1>
-          </FadeIn>
+        {/* TOP GRID */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20 lg:items-center">
 
-          <FadeIn delay={0.3}>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted lg:mx-0">
-              {profile.subheadline}
-            </p>
-          </FadeIn>
+          {/* Left */}
+          <div>
+            <FadeIn delay={0.1}>
+              <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                Hello! I&apos;m
+                <span className="block mt-1">{profile.name}</span>
+              </h1>
+            </FadeIn>
 
-          <FadeIn delay={0.4}>
-            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground lg:justify-start">
-              <MapPin className="h-4 w-4 text-primary" />
-              {profile.location} · {profile.role}
-            </div>
-          </FadeIn>
+            <FadeIn delay={0.2}>
+              <p className="mt-5 text-base leading-relaxed text-muted max-w-md">
+                {profile.subheadline}
+              </p>
+            </FadeIn>
 
-          <FadeIn delay={0.5}>
-            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
-              <Button href="/projects" size="lg">
-                View Projects
-              </Button>
-              <Button href="/contact" variant="secondary" size="lg">
-                Contact Me
-              </Button>
-              <Button
-                href={profile.resumeUrl}
-                variant="outline"
-                size="lg"
-                external
-              >
-                <Download className="h-4 w-4" />
-                Download Resume
-              </Button>
+            <FadeIn delay={0.3}>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-all hover:opacity-75 hover:gap-3"
+                >
+                  View my work
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-card"
+                >
+                  Get in touch
+                </Link>
+                <a
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-card hover:text-foreground"
+                >
+                  <Download className="h-4 w-4" />
+                  Resume
+                </a>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Right — square profile image */}
+          <FadeIn delay={0.25} direction="left">
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-md">
+                <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border bg-card shadow-lg transition-shadow hover:shadow-xl">
+                  <Image
+                    src="/profile-placeholder.svg"
+                    alt={profile.name}
+                    fill
+                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    priority
+                  />
+                </div>
+                <div className="absolute -bottom-2 -right-2 h-20 w-20 rounded-2xl border border-border bg-card -z-10" />
+                <div className="absolute -top-2 -left-2 h-12 w-12 rounded-xl border border-border bg-secondary -z-10" />
+              </div>
             </div>
           </FadeIn>
         </div>
 
-        <FadeIn delay={0.3} direction="left" className="relative mt-12 lg:mt-0">
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative"
-          >
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/30 to-accent/30 blur-2xl" />
-            <div className="gradient-border relative overflow-hidden rounded-3xl p-1 glow">
-              <div className="relative aspect-square w-72 overflow-hidden rounded-[calc(1.5rem-4px)] bg-card sm:w-80 lg:w-96">
-                <Image
-                  src="/profile-placeholder.svg"
-                  alt={`${profile.name} profile photo`}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -right-4 -top-4 h-16 w-16 rounded-2xl border border-primary/30 bg-card/90 p-3 backdrop-blur-sm"
-            >
-              <div className="h-full w-full rounded-lg bg-gradient-to-br from-primary to-accent" />
-            </motion.div>
-          </motion.div>
-        </FadeIn>
-      </Container>
+        {/* Working Experience + Awards — clean flat list */}
+        <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-2">
 
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted"
-      >
-        <ArrowDown className="h-5 w-5" />
-      </motion.div>
+          {/* Working Experience */}
+          <FadeIn delay={0.1}>
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted mb-6">
+              Working experience
+            </h2>
+            <div className="space-y-6">
+              {resume.experience.map((exp) => (
+                <div key={exp.id} className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card border border-border text-xs font-bold text-foreground">
+                    {exp.company.charAt(0)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-foreground truncate">{exp.role}</p>
+                    <p className="text-xs text-muted">{exp.company} · {exp.period}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          {/* Awards / Certifications */}
+          <FadeIn delay={0.2}>
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted mb-6">
+              Awards &amp; Recognition
+            </h2>
+            <div className="space-y-6">
+              {resume.certifications.map((cert) => (
+                <div key={cert.id} className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card border border-border text-xs font-bold text-foreground">
+                    {cert.issuer.charAt(0)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-foreground truncate">{cert.name}</p>
+                    <p className="text-xs text-muted">{cert.issuer} · {cert.year}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* I can help you with */}
+        <FadeIn delay={0.1}>
+          <div className="mt-16 pt-16 border-t border-border">
+            <p className="text-sm font-semibold uppercase tracking-widest text-muted mb-6">
+              I can help you with
+            </p>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {profile.whatIDo.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-foreground">
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-foreground" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeIn>
+
+      </div>
     </section>
   );
 }

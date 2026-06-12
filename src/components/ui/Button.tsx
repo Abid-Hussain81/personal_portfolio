@@ -14,11 +14,11 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> & {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20",
+    "bg-foreground text-background hover:opacity-80 hover:scale-[1.02] active:scale-[0.98]",
   secondary:
-    "bg-card text-foreground border border-border hover:border-primary/40 hover:text-primary",
+    "bg-card text-foreground border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5",
   outline:
-    "border border-border bg-transparent hover:border-primary/40 hover:text-primary",
+    "border border-border bg-transparent hover:border-primary/50 hover:text-primary hover:bg-primary/5",
   ghost: "hover:bg-card hover:text-primary",
 };
 
