@@ -29,10 +29,10 @@ export function ProjectsGrid() {
               type="button"
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-all",
+                "rounded-xl px-4 py-2 text-sm font-medium transition-all",
                 activeCategory === category
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "border border-border bg-card text-muted hover:border-primary/40 hover:text-foreground",
+                  ? "bg-primary text-white shadow-md shadow-primary/25"
+                  : "border border-border bg-white text-muted-foreground hover:border-primary/30 hover:text-primary hover:bg-primary/5",
               )}
             >
               {category}
@@ -50,9 +50,9 @@ export function ProjectsGrid() {
       </div>
 
       {filteredProjects.length === 0 && (
-        <p className="mt-10 text-center text-muted">
-          No projects found in this category.
-        </p>
+        <div className="mt-16 text-center">
+          <p className="text-base text-muted">No projects found in this category.</p>
+        </div>
       )}
     </>
   );

@@ -8,14 +8,13 @@ import {
 
 export function StatsSection() {
   return (
-    <section className="relative border-y border-border py-16 overflow-hidden">
-      <div className="absolute inset-0 gradient-bg opacity-5" />
+    <section className="relative border-y border-border bg-secondary/40 py-14">
       <Container>
-        <StaggerContainer className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+        <StaggerContainer className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {stats.map((stat) => (
             <StaggerItem key={stat.label}>
-              <div className="group relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
-                <div className="absolute inset-0 gradient-bg opacity-0 transition-opacity duration-300 group-hover:opacity-5" />
+              <div className="group relative overflow-hidden rounded-2xl border border-border bg-white p-6 text-center shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:shadow-primary/8 hover:-translate-y-1">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/3 to-accent/3 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <p className="text-4xl font-bold tracking-tight sm:text-5xl">
                   <span className="shimmer-text">{stat.value}</span>
                 </p>
@@ -38,7 +37,7 @@ export function StatsGrid({ className }: { className?: string }) {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border border-border bg-card p-4 text-center"
+            className="rounded-2xl border border-border bg-white p-4 text-center shadow-sm"
           >
             <p className="text-2xl font-bold gradient-text">{stat.value}</p>
             <p className="mt-1 text-xs text-muted sm:text-sm">{stat.label}</p>

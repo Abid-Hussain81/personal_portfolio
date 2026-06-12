@@ -36,7 +36,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border">
+    <footer className="border-t border-border bg-secondary/50">
       <div className="mx-auto max-w-7xl px-6 pt-14 pb-8 lg:px-8">
 
         {/* Top section */}
@@ -45,10 +45,12 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="inline-flex items-center gap-3 group">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl gradient-bg text-sm font-bold text-white shadow-md shadow-primary/30 transition-transform group-hover:scale-110">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl gradient-bg text-sm font-bold text-white shadow-md transition-transform group-hover:scale-110">
                 AH
               </span>
-              <span className="text-base font-bold text-foreground">{profile.name}</span>
+              <span className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                {profile.name}
+              </span>
             </Link>
 
             <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -66,9 +68,9 @@ export function Footer() {
                     target={link.name === "Email" ? undefined : "_blank"}
                     rel={link.name === "Email" ? undefined : "noopener noreferrer"}
                     aria-label={link.label}
-                    className="text-muted transition-colors hover:text-foreground"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white text-muted transition-all hover:border-primary/40 hover:text-primary hover:bg-primary/5"
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4" />
                   </a>
                 );
               })}
@@ -79,13 +81,15 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-x-12 gap-y-10 sm:grid-cols-3">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h3 className="mb-4 text-sm font-semibold text-foreground">{col.title}</h3>
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-foreground">
+                  {col.title}
+                </h3>
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-muted transition-colors hover:text-foreground"
+                        className="text-sm text-muted transition-colors hover:text-primary"
                       >
                         {link.label}
                       </Link>
@@ -106,9 +110,24 @@ export function Footer() {
             &copy; {currentYear} {profile.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/" className="text-sm text-muted underline underline-offset-4 hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="/" className="text-sm text-muted underline underline-offset-4 hover:text-foreground transition-colors">Terms of Service</Link>
-            <Link href="/contact" className="text-sm text-muted underline underline-offset-4 hover:text-foreground transition-colors">Contact</Link>
+            <Link
+              href="/"
+              className="text-sm text-muted hover:text-primary transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/"
+              className="text-sm text-muted hover:text-primary transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="text-sm text-muted hover:text-primary transition-colors"
+            >
+              Contact
+            </Link>
           </div>
         </div>
       </div>

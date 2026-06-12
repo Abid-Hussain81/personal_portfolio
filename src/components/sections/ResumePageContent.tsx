@@ -12,42 +12,48 @@ export function ResumePageContent() {
       <FadeIn>
         <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              {profile.name}
-            </h2>
-            <p className="text-muted">{profile.role}</p>
+            <h2 className="text-2xl font-bold text-foreground">{profile.name}</h2>
+            <p className="mt-1 text-base text-muted">{profile.role}</p>
           </div>
           <Button href={profile.resumeUrl} external>
             <Download className="h-4 w-4" />
-            Download Resume
+            Download PDF
           </Button>
         </div>
       </FadeIn>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-8">
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Main column */}
+        <div className="lg:col-span-2 space-y-6">
+
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
                 Professional Summary
               </h3>
-              <p className="mt-3 leading-relaxed text-muted">{resume.summary}</p>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
+              <p className="mt-4 leading-relaxed text-muted-foreground">
+                {resume.summary}
+              </p>
             </section>
           </FadeIn>
 
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
                 Experience
               </h3>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
               <div className="mt-6 space-y-8">
                 {resume.experience.map((job) => (
                   <div
                     key={job.id}
-                    className="relative border-l-2 border-primary/30 pl-6"
+                    className="relative border-l-2 border-primary/20 pl-6"
                   >
-                    <span className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-primary" />
-                    <p className="text-sm font-medium text-primary">{job.period}</p>
+                    <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary" />
+                    <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                      {job.period}
+                    </p>
                     <h4 className="mt-1 text-base font-semibold text-foreground">
                       {job.role}
                     </h4>
@@ -58,8 +64,9 @@ export function ResumePageContent() {
                       {job.highlights.map((highlight) => (
                         <li
                           key={highlight}
-                          className="text-sm leading-relaxed text-muted before:mr-2 before:content-['•']"
+                          className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground"
                         >
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/50" />
                           {highlight}
                         </li>
                       ))}
@@ -71,15 +78,19 @@ export function ResumePageContent() {
           </FadeIn>
         </div>
 
-        <div className="space-y-8">
+        {/* Sidebar */}
+        <div className="space-y-6">
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">Skills</h3>
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
+                Skills
+              </h3>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
               <ul className="mt-4 flex flex-wrap gap-2">
                 {resume.skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground"
+                    className="rounded-lg border border-primary/15 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary"
                   >
                     {skill}
                   </li>
@@ -89,33 +100,48 @@ export function ResumePageContent() {
           </FadeIn>
 
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">Education</h3>
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
+                Education
+              </h3>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
               {resume.education.map((edu) => (
-                <div key={edu.id} className="mt-4">
-                  <p className="text-sm font-medium text-primary">{edu.period}</p>
-                  <h4 className="mt-1 font-semibold text-foreground">
+                <div key={edu.id} className="mt-5">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    {edu.period}
+                  </p>
+                  <h4 className="mt-1 text-sm font-semibold text-foreground">
                     {edu.degree}
                   </h4>
                   <p className="text-sm text-muted">{edu.institution}</p>
-                  <p className="mt-2 text-sm text-muted">{edu.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {edu.description}
+                  </p>
                 </div>
               ))}
             </section>
           </FadeIn>
 
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
                 Certifications
               </h3>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
               <ul className="mt-4 space-y-4">
                 {resume.certifications.map((cert) => (
-                  <li key={cert.id}>
-                    <p className="font-medium text-foreground">{cert.name}</p>
-                    <p className="text-sm text-muted">
-                      {cert.issuer} · {cert.year}
-                    </p>
+                  <li key={cert.id} className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-xs font-bold text-primary">
+                      {cert.year.slice(2)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground leading-snug">
+                        {cert.name}
+                      </p>
+                      <p className="text-xs text-muted mt-0.5">
+                        {cert.issuer}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -123,13 +149,16 @@ export function ResumePageContent() {
           </FadeIn>
 
           <FadeIn>
-            <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-foreground">Contact</h3>
+            <section className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold uppercase tracking-widest text-primary">
+                Contact
+              </h3>
+              <div className="mt-1 h-0.5 w-12 rounded bg-primary/25" />
               <ul className="mt-4 space-y-2 text-sm">
                 <li>
                   <a
                     href={`mailto:${profile.email}`}
-                    className="text-muted hover:text-primary"
+                    className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     {profile.email}
                   </a>
@@ -137,7 +166,7 @@ export function ResumePageContent() {
                 <li>
                   <Link
                     href="/contact"
-                    className="text-primary hover:text-accent"
+                    className="text-primary hover:text-accent transition-colors font-medium"
                   >
                     Send a message →
                   </Link>

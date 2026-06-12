@@ -13,7 +13,7 @@ export function SkillsPreviewSection() {
   const previewCategories = skillCategories.slice(0, 4);
 
   return (
-    <section className="py-10">
+    <section className="py-14 bg-secondary/30">
       <Container>
         <FadeIn>
           <SectionHeading
@@ -23,18 +23,18 @@ export function SkillsPreviewSection() {
           />
         </FadeIn>
 
-        <StaggerContainer className="mt-8 grid gap-6 md:grid-cols-2">
+        <StaggerContainer className="mt-10 grid gap-5 md:grid-cols-2">
           {previewCategories.map((category) => (
             <StaggerItem key={category.id}>
-              <div className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1">
-                <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+              <div className="group rounded-2xl border border-border bg-white p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:shadow-primary/8 hover:-translate-y-1">
+                <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
                   {category.title}
                 </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {category.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:text-primary cursor-default"
+                      className="rounded-lg border border-border bg-secondary px-3 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:bg-primary/5 hover:text-primary cursor-default"
                     >
                       {skill.name}
                     </span>
@@ -48,7 +48,7 @@ export function SkillsPreviewSection() {
         <FadeIn className="mt-10 text-center">
           <Link
             href="/skills"
-            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 hover:border-primary/50 hover:gap-3"
+            className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/8 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white hover:border-primary hover:gap-3 hover:scale-[1.02]"
           >
             Explore all skills
             <ArrowRight className="h-4 w-4" />

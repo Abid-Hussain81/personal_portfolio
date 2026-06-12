@@ -27,24 +27,24 @@ export function SectionHeading({
     >
       {eyebrow && (
         <p className={cn(
-          "mb-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest",
+          "mb-4 inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest",
           invertColors
-            ? "bg-background/20 text-background"
-            : "bg-foreground/10 text-foreground"
+            ? "border-white/25 bg-white/15 text-white"
+            : "border-primary/20 bg-primary/8 text-primary"
         )}>
           {eyebrow}
         </p>
       )}
       <h2 className={cn(
         "text-2xl font-bold tracking-tight sm:text-3xl",
-        invertColors ? "text-background" : "text-foreground"
+        invertColors ? "text-white" : "text-foreground"
       )}>
         {title}
       </h2>
       {description && (
         <p className={cn(
-          "mt-3 text-sm leading-relaxed",
-          invertColors ? "text-background/70" : "text-muted"
+          "mt-3 text-sm leading-relaxed sm:text-base",
+          invertColors ? "text-white/70" : "text-muted"
         )}>
           {description}
         </p>

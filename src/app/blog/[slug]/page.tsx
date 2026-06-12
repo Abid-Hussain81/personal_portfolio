@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, Clock, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, User } from "lucide-react";
 import { blogPosts } from "@/data/blog";
 import { Container } from "@/components/layout/Container";
 import { formatDate } from "@/lib/utils";
@@ -45,35 +45,42 @@ export default async function BlogPostPage({ params }: Props) {
         Back to Blog
       </Link>
 
-      <article className="mx-auto mt-8 max-w-3xl">
-        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+      <article className="mx-auto mt-10 max-w-3xl">
+        <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/8 px-3 py-1 text-xs font-semibold text-primary">
           {post.category}
         </span>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl leading-tight">
           {post.title}
         </h1>
-        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
+        <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-muted">
+          <span className="flex items-center gap-1.5">
+            <User className="h-4 w-4" />
+            {post.author}
+          </span>
+          <span className="flex items-center gap-1.5">
             <Calendar className="h-4 w-4" />
             {formatDate(post.date)}
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1.5">
             <Clock className="h-4 w-4" />
             {post.readTime}
           </span>
-          <span>By {post.author}</span>
         </div>
-        <div className="mt-8 rounded-2xl border border-border bg-card p-8">
-          <p className="text-lg leading-relaxed text-muted">{post.excerpt}</p>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            This is a placeholder article page. Full blog content management
-            will be added in a future update. For now, you can update article
-            metadata in{" "}
-            <code className="rounded bg-background px-1.5 py-0.5 text-primary">
-              data/blog.ts
-            </code>
-            .
-          </p>
+
+        <div className="mt-8 rounded-2xl border border-border bg-white p-8 shadow-sm">
+          <p className="text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+          <div className="mt-6 rounded-xl border border-primary/15 bg-primary/5 p-4">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-primary">Note: </span>
+              This is a placeholder article page. Full blog content management
+              will be added in a future update. For now, you can update article
+              metadata in{" "}
+              <code className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs font-mono text-primary">
+                data/blog.ts
+              </code>
+              .
+            </p>
+          </div>
         </div>
       </article>
     </Container>

@@ -1,43 +1,39 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
+  /* ── Base surfaces ── */
   --background: #ffffff;
-  --foreground: #0f0f0f;
-  --card: #f9f9f9;
-  --card-foreground: #0f0f0f;
-  --muted: #737373;
-  --muted-foreground: #525252;
-  --border: #e8e8e8;
-  --primary: #0f0f0f;
-  --primary-foreground: #ffffff;
-  --accent: #6366f1;
-  --accent-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --ring: #0f0f0f;
-  --gradient-start: #4f46e5;
-  --gradient-mid: #8b5cf6;
-  --gradient-end: #06b6d4;
-}
+  --foreground: #111827;
 
-.dark {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
-  --card: #141414;
-  --card-foreground: #fafafa;
-  --muted: #a3a3a3;
-  --muted-foreground: #d4d4d4;
-  --border: #262626;
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --accent: #818cf8;
-  --accent-foreground: #0a0a0a;
-  --secondary: #1a1a1a;
-  --ring: #fafafa;
-  --gradient-start: #6366f1;
-  --gradient-mid: #a78bfa;
-  --gradient-end: #22d3ee;
+  /* ── Cards & sections ── */
+  --card: #f8fafc;
+  --card-foreground: #111827;
+
+  /* ── Muted text ── */
+  --muted: #6b7280;
+  --muted-foreground: #374151;
+
+  /* ── Borders ── */
+  --border: #e5e7eb;
+
+  /* ── Brand / primary — indigo ── */
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+
+  /* ── Accent — violet ── */
+  --accent: #7c3aed;
+  --accent-foreground: #ffffff;
+
+  /* ── Secondary surface ── */
+  --secondary: #f1f5f9;
+
+  /* ── Focus ring ── */
+  --ring: #4f46e5;
+
+  /* ── Gradient palette ── */
+  --gradient-start: #4f46e5;
+  --gradient-mid: #7c3aed;
+  --gradient-end: #06b6d4;
 }
 
 @theme inline {
@@ -74,7 +70,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
   color: var(--foreground);
 }
 
@@ -112,8 +108,8 @@ body {
 /* ── Grid pattern ── */
 .grid-pattern {
   background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--border) 80%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 80%, transparent) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -180,16 +176,12 @@ body {
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px -8px rgba(0,0,0,0.12);
-}
-
-.dark .card-hover:hover {
-  box-shadow: 0 12px 40px -8px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.15);
 }
 
 /* ── Glow ── */
 .glow {
   box-shadow:
-    0 0 60px -10px color-mix(in srgb, var(--accent) 40%, transparent),
-    0 0 30px -5px color-mix(in srgb, var(--gradient-mid) 25%, transparent);
+    0 0 60px -10px color-mix(in srgb, var(--primary) 35%, transparent),
+    0 0 30px -5px color-mix(in srgb, var(--accent) 20%, transparent);
 }
