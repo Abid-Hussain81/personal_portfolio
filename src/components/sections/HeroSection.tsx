@@ -95,7 +95,7 @@ export function HeroSection() {
               <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px]">
                 <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-primary/10 transition-shadow hover:shadow-2xl hover:shadow-primary/15">
                   <Image
-                    src="/profile-placeholder.svg"
+                    src="/persoanll.jpeg"
                     alt={`${profile.name} — Frontend Developer`}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-105"
