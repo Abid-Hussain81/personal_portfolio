@@ -28,7 +28,7 @@ export default function ContactPage() {
           <div className="lg:col-span-2 space-y-8">
             <FadeIn>
               <section>
-                <h2 className="text-xl font-semibold text-foreground">
+                <h2 className="text-h3 text-foreground">
                   Let&apos;s Connect
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted">

@@ -1,72 +1,88 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   Design tokens
+───────────────────────────────────────── */
 :root {
-  /* ── Base surfaces ── */
-  --background: #ffffff;
-  --foreground: #111827;
-
-  /* ── Cards & sections ── */
-  --card: #f8fafc;
+  /* Surfaces */
+  --background:    #ffffff;
+  --foreground:    #111827;
+  --card:          #f8fafc;
   --card-foreground: #111827;
 
-  /* ── Muted text ── */
-  --muted: #6b7280;
+  /* Text */
+  --muted:         #6b7280;
   --muted-foreground: #374151;
 
-  /* ── Borders ── */
-  --border: #e5e7eb;
+  /* Borders */
+  --border:        #e5e7eb;
 
-  /* ── Brand / primary — indigo ── */
-  --primary: #4f46e5;
+  /* Brand */
+  --primary:       #4f46e5;
   --primary-foreground: #ffffff;
-
-  /* ── Accent — violet ── */
-  --accent: #7c3aed;
+  --accent:        #7c3aed;
   --accent-foreground: #ffffff;
 
-  /* ── Secondary surface ── */
-  --secondary: #f1f5f9;
+  /* Secondary surface */
+  --secondary:     #f1f5f9;
 
-  /* ── Focus ring ── */
-  --ring: #4f46e5;
+  /* Focus ring */
+  --ring:          #4f46e5;
 
-  /* ── Gradient palette ── */
+  /* Gradient */
   --gradient-start: #4f46e5;
-  --gradient-mid: #7c3aed;
-  --gradient-end: #06b6d4;
+  --gradient-mid:   #7c3aed;
+  --gradient-end:   #06b6d4;
+
+  /* Layout */
+  --container-max: 72rem;   /* 1152px — tighter than 1280, better reading on 1440+ */
+  --container-px:  1.5rem;  /* 24px sides */
+  --section-py:    5rem;    /* 80px standard vertical section padding */
+  --section-py-sm: 3.5rem;  /* 56px compact variant */
 }
 
+/* ─────────────────────────────────────────
+   Tailwind theme bridge
+───────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-muted: var(--muted);
+  --color-background:       var(--background);
+  --color-foreground:       var(--foreground);
+  --color-card:             var(--card);
+  --color-card-foreground:  var(--card-foreground);
+  --color-muted:            var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-primary: var(--primary);
+  --color-border:           var(--border);
+  --color-primary:          var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-accent: var(--accent);
+  --color-accent:           var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-secondary: var(--secondary);
-  --color-ring: var(--ring);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-secondary:        var(--secondary);
+  --color-ring:             var(--ring);
+  --font-sans:  var(--font-geist-sans);
+  --font-mono:  var(--font-geist-mono);
 }
 
-* {
+/* ─────────────────────────────────────────
+   Base reset
+───────────────────────────────────────── */
+*, *::before, *::after {
   border-color: var(--border);
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;        /* 16px base */
+  line-height: 1.625;     /* leading-relaxed */
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
@@ -74,7 +90,102 @@ body {
   color: var(--foreground);
 }
 
-/* ── Gradient utilities ── */
+/* ─────────────────────────────────────────
+   Typography scale
+   Uses clamp() so it's fluid between
+   mobile (375px) and desktop (1200px)
+───────────────────────────────────────── */
+
+/* Display — hero H1 */
+.text-display {
+  font-size: clamp(2.25rem, 5vw, 3.75rem); /* 36px → 60px */
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+/* Heading 1 — page titles */
+.text-h1 {
+  font-size: clamp(1.875rem, 4vw, 3rem);   /* 30px → 48px */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Heading 2 — section titles */
+.text-h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);  /* 24px → 36px */
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+/* Heading 3 — card/sub-section titles */
+.text-h3 {
+  font-size: clamp(1.125rem, 2vw, 1.375rem); /* 18px → 22px */
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+/* Eyebrow label */
+.text-eyebrow {
+  font-size: 0.6875rem;  /* 11px */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+/* Body lead (intro paragraphs) */
+.text-lead {
+  font-size: clamp(1rem, 1.5vw, 1.125rem); /* 16px → 18px */
+  line-height: 1.75;
+  color: var(--muted-foreground);
+}
+
+/* Body default */
+.text-body {
+  font-size: 0.9375rem; /* 15px */
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+
+/* Small / captions */
+.text-caption {
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────
+   Layout utilities
+───────────────────────────────────────── */
+
+/* The one true container — max-width + horizontal padding */
+.container-base {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+@media (min-width: 640px) {
+  .container-base { padding-inline: 2rem; }      /* 32px */
+}
+@media (min-width: 1024px) {
+  .container-base { padding-inline: 3rem; }      /* 48px */
+}
+@media (min-width: 1280px) {
+  .container-base { padding-inline: 4rem; }      /* 64px — generous desktop breathing room */
+}
+
+/* Standard section vertical rhythm */
+.section-pad    { padding-block: var(--section-py); }
+.section-pad-sm { padding-block: var(--section-py-sm); }
+
+/* ─────────────────────────────────────────
+   Gradient utilities
+───────────────────────────────────────── */
 .gradient-text {
   background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
   -webkit-background-clip: text;
@@ -88,10 +199,8 @@ body {
 
 .gradient-border {
   position: relative;
-  background: var(--card);
   border-radius: 1rem;
 }
-
 .gradient-border::before {
   content: "";
   position: absolute;
@@ -105,7 +214,9 @@ body {
   pointer-events: none;
 }
 
-/* ── Grid pattern ── */
+/* ─────────────────────────────────────────
+   Grid pattern
+───────────────────────────────────────── */
 .grid-pattern {
   background-image:
     linear-gradient(to right, color-mix(in srgb, var(--border) 80%, transparent) 1px, transparent 1px),
@@ -113,55 +224,46 @@ body {
   background-size: 40px 40px;
 }
 
-/* ── Animations ── */
+/* ─────────────────────────────────────────
+   Animations
+───────────────────────────────────────── */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
-
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
 }
-
 @keyframes pulse-soft {
   0%, 100% { opacity: 0.5; }
   50%       { opacity: 0.9; }
 }
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
 @keyframes scale-in {
   from { opacity: 0; transform: scale(0.95); }
   to   { opacity: 1; transform: scale(1); }
 }
 
-.animate-fade-up   { animation: fade-up 0.6s cubic-bezier(0.22,1,0.36,1) both; }
-.animate-fade-in   { animation: fade-in 0.5s ease both; }
-.animate-scale-in  { animation: scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both; }
-.float-animation   { animation: float 4s ease-in-out infinite; }
-.pulse-glow        { animation: pulse-soft 3s ease-in-out infinite; }
-.spin-slow         { animation: spin-slow 12s linear infinite; }
+.animate-fade-up  { animation: fade-up  0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-fade-in  { animation: fade-in  0.5s ease both; }
+.animate-scale-in { animation: scale-in 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.float-animation  { animation: float    4s ease-in-out infinite; }
+.pulse-glow       { animation: pulse-soft 3s ease-in-out infinite; }
 
 .shimmer-text {
   background: linear-gradient(90deg,
     var(--gradient-start) 0%,
-    var(--gradient-mid) 30%,
-    var(--gradient-end) 50%,
-    var(--gradient-mid) 70%,
+    var(--gradient-mid)   30%,
+    var(--gradient-end)   50%,
+    var(--gradient-mid)   70%,
     var(--gradient-start) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -170,18 +272,24 @@ body {
   animation: shimmer 4s linear infinite;
 }
 
-/* ── Card hover ── */
+/* ─────────────────────────────────────────
+   Card hover
+───────────────────────────────────────── */
 .card-hover {
-  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px -8px rgba(79, 70, 229, 0.15);
+  box-shadow: 0 12px 40px -8px rgba(79,70,229,0.15);
 }
 
-/* ── Glow ── */
+/* ─────────────────────────────────────────
+   Glow
+───────────────────────────────────────── */
 .glow {
   box-shadow:
-    0 0 60px -10px color-mix(in srgb, var(--primary) 35%, transparent),
-    0 0 30px -5px color-mix(in srgb, var(--accent) 20%, transparent);
+    0 0 60px -10px color-mix(in srgb, var(--primary) 30%, transparent),
+    0 0 30px -5px  color-mix(in srgb, var(--accent)  20%, transparent);
 }

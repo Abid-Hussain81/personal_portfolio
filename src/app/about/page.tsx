@@ -23,16 +23,16 @@ export default function AboutPage() {
           <div className="lg:col-span-2 space-y-10">
             <FadeIn>
               <section>
-                <h2 className="text-2xl font-bold text-foreground">
+                <h2 className="text-h2 text-foreground">
                   Professional Introduction
                 </h2>
-                <p className="mt-4 leading-relaxed text-muted">{profile.about}</p>
+                <p className="mt-4 text-body leading-relaxed">{profile.about}</p>
               </section>
             </FadeIn>
 
             <FadeIn>
               <section>
-                <h2 className="text-2xl font-bold text-foreground">My Story</h2>
+                <h2 className="text-h2 text-foreground">My Story</h2>
                 <p className="mt-4 leading-relaxed text-muted">
                   {profile.careerStory}
                 </p>
@@ -41,7 +41,7 @@ export default function AboutPage() {
 
             <FadeIn>
               <section>
-                <h2 className="text-2xl font-bold text-foreground">What I Do</h2>
+                <h2 className="text-h2 text-foreground">What I Do</h2>
                 <ul className="mt-4 space-y-3">
                   {profile.whatIDo.map((item) => (
                     <li
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
             <FadeIn>
               <section>
-                <h2 className="text-2xl font-bold text-foreground">
+                <h2 className="text-h2 text-foreground">
                   Learning Journey
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted">
@@ -69,7 +69,7 @@ export default function AboutPage() {
 
             <FadeIn>
               <section>
-                <h2 className="text-2xl font-bold text-foreground">Timeline</h2>
+                <h2 className="text-h2 text-foreground">Timeline</h2>
                 <div className="mt-8 space-y-8">
                   {profile.timeline.map((item) => (
                     <div

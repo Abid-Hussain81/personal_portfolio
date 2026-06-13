@@ -4,25 +4,19 @@ import { featuredServiceIds, services } from "@/data/services";
 import { serviceIconMap } from "@/components/icons/ServiceIcons";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import {
-  FadeIn,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animations/FadeIn";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 export function FeaturedServicesSection() {
-  const featured = services.filter((service) =>
-    featuredServiceIds.includes(service.id),
-  );
+  const featured = services.filter((s) => featuredServiceIds.includes(s.id));
 
   return (
-    <section className="py-14 bg-secondary/30">
+    <section className="bg-secondary/30 py-20">
       <Container>
         <FadeIn>
           <SectionHeading
             eyebrow="Services"
             title="What I Can Build For You"
-            description="From pixel-perfect design conversions to full-scale frontend applications — tailored solutions for your business needs."
+            description="From pixel-perfect design conversions to full-scale frontend applications — tailored solutions for your needs."
           />
         </FadeIn>
 
@@ -32,13 +26,13 @@ export function FeaturedServicesSection() {
             return (
               <StaggerItem key={service.id}>
                 <div className="group flex h-full flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:gradient-bg group-hover:text-white group-hover:shadow-md group-hover:shadow-primary/25">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:gradient-bg group-hover:text-white group-hover:shadow-md">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-h3 text-foreground transition-colors group-hover:text-primary">
                     {service.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+                  <p className="mt-2 flex-1 text-sm text-muted-foreground">
                     {service.description}
                   </p>
                 </div>
@@ -50,7 +44,7 @@ export function FeaturedServicesSection() {
         <FadeIn className="mt-10 text-center">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/8 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white hover:border-primary hover:gap-3 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/8 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:border-primary hover:text-white hover:gap-3"
           >
             View all services
             <ArrowRight className="h-4 w-4" />

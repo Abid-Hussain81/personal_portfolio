@@ -8,51 +8,49 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { cn } from "@/lib/utils";
 
 export function ProjectsGrid() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [active, setActive] = useState<string>("All");
 
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === "All") return projects;
-    return projects.filter((project) =>
-      project.categories.includes(
-        activeCategory as (typeof project.categories)[number],
-      ),
+  const filtered = useMemo(() => {
+    if (active === "All") return projects;
+    return projects.filter((p) =>
+      p.categories.includes(active as (typeof p.categories)[number]),
     );
-  }, [activeCategory]);
+  }, [active]);
 
   return (
     <>
       <FadeIn>
         <div className="flex flex-wrap gap-2">
-          {projectCategories.map((category) => (
+          {projectCategories.map((cat) => (
             <button
-              key={category}
+              key={cat}
               type="button"
-              onClick={() => setActiveCategory(category)}
+              onClick={() => setActive(cat)}
               className={cn(
                 "rounded-xl px-4 py-2 text-sm font-medium transition-all",
-                activeCategory === category
-                  ? "bg-primary text-white shadow-md shadow-primary/25"
-                  : "border border-border bg-white text-muted-foreground hover:border-primary/30 hover:text-primary hover:bg-primary/5",
+                active === cat
+                  ? "bg-primary text-white shadow-sm shadow-primary/25"
+                  : "border border-border bg-white text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-primary",
               )}
             >
-              {category}
+              {cat}
             </button>
           ))}
         </div>
       </FadeIn>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {filteredProjects.map((project, index) => (
-          <FadeIn key={project.id} delay={index * 0.05}>
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {filtered.map((project, i) => (
+          <FadeIn key={project.id} delay={i * 0.05}>
             <ProjectCard project={project} />
           </FadeIn>
         ))}
       </div>
 
-      {filteredProjects.length === 0 && (
-        <div className="mt-16 text-center">
-          <p className="text-base text-muted">No projects found in this category.</p>
-        </div>
+      {filtered.length === 0 && (
+        <p className="mt-16 text-center text-base text-muted">
+          No projects in this category.
+        </p>
       )}
     </>
   );

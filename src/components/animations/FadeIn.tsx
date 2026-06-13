@@ -14,10 +14,10 @@ type FadeInProps = {
 };
 
 const directionOffset = {
-  up: { y: 24 },
-  down: { y: -24 },
-  left: { x: 24 },
-  right: { x: -24 },
+  up: { y: 20 },
+  down: { y: -20 },
+  left: { x: 20 },
+  right: { x: -20 },
   none: {},
 };
 
@@ -44,7 +44,7 @@ export function FadeIn({
       className={cn(className)}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-80px" }}
+      viewport={{ once, margin: "-40px" }}
       variants={variants}
     >
       {children}
@@ -55,7 +55,7 @@ export function FadeIn({
 export function StaggerContainer({
   children,
   className,
-  stagger = 0.1,
+  stagger = 0.08,
 }: {
   children: ReactNode;
   className?: string;
@@ -66,7 +66,7 @@ export function StaggerContainer({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: "-40px" }}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: stagger } },
@@ -88,11 +88,11 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 14 },
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
         },
       }}
     >

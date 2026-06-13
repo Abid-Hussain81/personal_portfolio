@@ -1,16 +1,12 @@
 import { levelLabels, skillCategories } from "@/data/skills";
 import { Container } from "@/components/layout/Container";
-import {
-  FadeIn,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animations/FadeIn";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 const levelColors: Record<string, string> = {
-  beginner: "bg-slate-100 text-slate-600 border-slate-200",
-  intermediate: "bg-blue-50 text-blue-700 border-blue-200",
-  advanced: "bg-primary/8 text-primary border-primary/20",
-  expert: "bg-violet-50 text-violet-700 border-violet-200",
+  beginner:     "border-slate-200  bg-slate-50   text-slate-600",
+  intermediate: "border-blue-200   bg-blue-50    text-blue-700",
+  advanced:     "border-primary/20 bg-primary/8  text-primary",
+  expert:       "border-violet-200 bg-violet-50  text-violet-700",
 };
 
 export function SkillsPageContent() {
@@ -20,17 +16,13 @@ export function SkillsPageContent() {
         {skillCategories.map((category) => (
           <StaggerItem key={category.id}>
             <div className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8">
-              <h2 className="text-lg font-bold text-foreground">
-                {category.title}
-              </h2>
+              <h2 className="text-h3 text-foreground">{category.title}</h2>
               <div className="mt-6 space-y-5">
                 {category.skills.map((skill) => (
                   <div key={skill.name}>
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="text-sm font-medium text-foreground">
-                        {skill.name}
-                      </span>
-                      <span className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${levelColors[skill.level] ?? levelColors.beginner}`}>
+                    <div className="mb-2 flex items-center justify-between gap-4">
+                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                      <span className={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-medium ${levelColors[skill.level] ?? levelColors.beginner}`}>
                         {levelLabels[skill.level]}
                       </span>
                     </div>
@@ -42,9 +34,7 @@ export function SkillsPageContent() {
                         />
                       </FadeIn>
                     </div>
-                    <p className="mt-1 text-right text-xs text-muted">
-                      {skill.proficiency}%
-                    </p>
+                    <p className="mt-1 text-right text-xs text-muted">{skill.proficiency}%</p>
                   </div>
                 ))}
               </div>

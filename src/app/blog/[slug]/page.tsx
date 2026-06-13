@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: Props) {
         <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/8 px-3 py-1 text-xs font-semibold text-primary">
           {post.category}
         </span>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl leading-tight">
+        <h1 className="mt-4 text-h1 text-foreground">
           {post.title}
         </h1>
         <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-muted">

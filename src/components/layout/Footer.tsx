@@ -6,59 +6,56 @@ const footerColumns = [
   {
     title: "Pages",
     links: [
-      { label: "Home", href: "/" },
-      { label: "About", href: "/about" },
+      { label: "Home",     href: "/" },
+      { label: "About",    href: "/about" },
       { label: "Projects", href: "/projects" },
-      { label: "Resume", href: "/resume" },
+      { label: "Resume",   href: "/resume" },
     ],
   },
   {
     title: "Services",
     links: [
       { label: "Web Development", href: "/services" },
-      { label: "UI/UX Design", href: "/services" },
-      { label: "Figma to Code", href: "/services" },
-      { label: "Optimization", href: "/services" },
+      { label: "UI/UX Design",    href: "/services" },
+      { label: "Figma to Code",   href: "/services" },
+      { label: "Optimization",    href: "/services" },
     ],
   },
   {
     title: "Connect",
     links: [
-      { label: "Contact", href: "/contact" },
-      { label: "GitHub", href: profile.github },
+      { label: "Contact",  href: "/contact" },
+      { label: "GitHub",   href: profile.github },
       { label: "LinkedIn", href: profile.linkedin },
-      { label: "Email", href: `mailto:${profile.email}` },
+      { label: "Email",    href: `mailto:${profile.email}` },
     ],
   },
 ];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-secondary/50">
-      <div className="mx-auto max-w-7xl px-6 pt-14 pb-8 lg:px-8">
+    <footer className="border-t border-border bg-secondary/40">
+      <div className="container-base pt-14 pb-8">
 
-        {/* Top section */}
+        {/* Top */}
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
 
           {/* Brand */}
-          <div className="max-w-xs">
+          <div className="max-w-64">
             <Link href="/" className="inline-flex items-center gap-3 group">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl gradient-bg text-sm font-bold text-white shadow-md transition-transform group-hover:scale-110">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl gradient-bg text-sm font-bold text-white shadow-sm transition-transform group-hover:scale-105">
                 AH
               </span>
               <span className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
                 {profile.name}
               </span>
             </Link>
-
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {profile.subheadline}
             </p>
-
-            {/* Social icons */}
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-6 flex items-center gap-2.5">
               {socialLinks.map((link) => {
                 const Icon = socialIconMap[link.name as keyof typeof socialIconMap];
                 return (
@@ -78,12 +75,10 @@ export function Footer() {
           </div>
 
           {/* Nav columns */}
-          <div className="grid grid-cols-2 gap-x-12 gap-y-10 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-16 gap-y-10 sm:grid-cols-3">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-foreground">
-                  {col.title}
-                </h3>
+                <h3 className="text-eyebrow mb-4 text-foreground">{col.title}</h3>
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
@@ -102,26 +97,23 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="mt-12 h-px w-full bg-border" />
+        <div className="mt-12 h-px bg-border" />
 
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col items-center justify-between gap-3 sm:flex-row">
           <p className="text-sm text-muted">
-            &copy; {currentYear} {profile.name}. All rights reserved.
+            &copy; {year} {profile.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm text-muted hover:text-primary transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/"
-              className="text-sm text-muted hover:text-primary transition-colors"
-            >
-              Terms of Service
-            </Link>
+          <div className="flex items-center gap-5">
+            {["Privacy Policy", "Terms of Service"].map((label) => (
+              <Link
+                key={label}
+                href="/"
+                className="text-sm text-muted hover:text-primary transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
             <Link
               href="/contact"
               className="text-sm text-muted hover:text-primary transition-colors"
