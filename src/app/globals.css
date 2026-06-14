@@ -36,9 +36,9 @@
 
   /* Layout */
   --container-max: 84rem;   
-  --container-px:  1.5rem;  /* 24px sides */
-  --section-py:    5rem;    /* 80px standard vertical section padding */
-  --section-py-sm: 3.5rem;  /* 56px compact variant */
+  --container-px:  1rem;    /* Tightened horizontal side padding */
+  --section-py:    4rem;    /* Tightened vertical padding */
+  --section-py-sm: 2.5rem;  /* Tightened compact vertical padding */
 }
 
 /* ─────────────────────────────────────────

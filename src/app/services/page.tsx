@@ -29,14 +29,19 @@ export default function ServicesPage() {
             const Icon = serviceIconMap[service.icon];
             return (
               <StaggerItem key={service.id}>
-                <article className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 sm:p-8">
-                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <article className="group relative flex h-full flex-col rounded-2xl border border-border bg-white/70 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/20 hover:bg-white hover:shadow-xl hover:shadow-primary/5 sm:p-8">
+                  {/* Subtle hover gradient border glow */}
+                  <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-primary/4 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-primary shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white group-hover:shadow-md group-hover:shadow-primary/10">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h2 className="text-xl font-semibold text-foreground">
+                  
+                  <h2 className="text-lg font-bold text-foreground transition-colors duration-300 group-hover:text-primary leading-snug">
                     {service.title}
                   </h2>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
+                  
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground group-hover:text-muted transition-colors duration-300">
                     {service.description}
                   </p>
                 </article>

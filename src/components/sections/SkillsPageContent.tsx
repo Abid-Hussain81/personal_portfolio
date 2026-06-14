@@ -15,26 +15,29 @@ export function SkillsPageContent() {
       <StaggerContainer className="grid gap-6 lg:grid-cols-2">
         {skillCategories.map((category) => (
           <StaggerItem key={category.id}>
-            <div className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8">
-              <h2 className="text-h3 text-foreground">{category.title}</h2>
-              <div className="mt-6 space-y-5">
+            <div className="group relative rounded-2xl border border-border bg-white/70 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-primary/20 hover:bg-white hover:shadow-xl hover:shadow-primary/5 sm:p-8">
+              {/* Radial gradient backdrop hover glow */}
+              <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-primary/3 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              
+              <h2 className="text-lg font-bold text-foreground transition-colors duration-300 group-hover:text-primary leading-snug">{category.title}</h2>
+              <div className="mt-7 space-y-6">
                 {category.skills.map((skill) => (
-                  <div key={skill.name}>
+                  <div key={skill.name} className="group/item">
                     <div className="mb-2 flex items-center justify-between gap-4">
-                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                      <span className={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-medium ${levelColors[skill.level] ?? levelColors.beginner}`}>
+                      <span className="text-sm font-semibold text-foreground group-hover/item:text-primary transition-colors duration-300">{skill.name}</span>
+                      <span className={`shrink-0 rounded-xl border px-3 py-1 text-[11px] font-bold shadow-sm transition-all duration-300 ${levelColors[skill.level] ?? levelColors.beginner}`}>
                         {levelLabels[skill.level]}
                       </span>
                     </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-secondary">
+                    <div className="relative h-2.5 overflow-hidden rounded-full bg-secondary shadow-inner">
                       <FadeIn>
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-700"
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/item:brightness-110"
                           style={{ width: `${skill.proficiency}%` }}
                         />
                       </FadeIn>
                     </div>
-                    <p className="mt-1 text-right text-xs text-muted">{skill.proficiency}%</p>
+                    <p className="mt-1.5 text-right text-[11px] font-bold text-muted-foreground">{skill.proficiency}% Proficiency</p>
                   </div>
                 ))}
               </div>

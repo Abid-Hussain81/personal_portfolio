@@ -110,17 +110,46 @@ export function ResumePageContent() {
             <SectionCard>
               <CardTitle>Certifications</CardTitle>
               <ul className="mt-4 space-y-4">
-                {resume.certifications.map((cert) => (
-                  <li key={cert.id} className="flex items-start gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-xs font-bold text-primary mt-0.5">
-                      {cert.year.slice(2)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground leading-snug">{cert.name}</p>
-                      <p className="mt-0.5 text-xs text-muted">{cert.issuer}</p>
-                    </div>
-                  </li>
-                ))}
+                {resume.certifications.map((cert) => {
+                  const content = (
+                    <>
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-primary mt-0.5">
+                        {cert.issuer.toLowerCase().includes("meta") ? (
+                          <svg className="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.847 4.148c-1.127 0-2.18.528-3.053 1.488L12 9.94l-3.794-4.304c-.873-.96-1.926-1.488-3.053-1.488C2.31 4.148 0 6.643 0 9.878c0 2.378 1.258 4.385 3.328 5.253a6.837 6.837 0 0 0 1.205.39c.307.07.625.109.95.109 1.127 0 2.18-.528 3.053-1.488L12 9.839l3.464 3.931a5.614 5.614 0 0 0 3.053 1.488c.325 0 .643-.039.95-.11.417-.09.82-.222 1.205-.39C22.742 14.263 24 12.256 24 9.878c0-3.235-2.31-5.73-5.153-5.73Zm.689 9.388c-.183.08-.376.143-.579.186a4.004 4.004 0 0 1-2.197-.847L13.7 9.839l2.766-3.136a4.238 4.238 0 0 1 2.381-1.111c1.554 0 2.81 1.346 2.81 3.018 0 1.326-.807 2.457-2.121 2.926Zm-15.072.186a3.265 3.265 0 0 1-.58-.186c-1.313-.47-2.12-1.6-2.12-2.926 0-1.672 1.256-3.018 2.81-3.018a4.238 4.238 0 0 1 2.38 1.11L9.7 9.84l-3.06 3.473a4.015 4.015 0 0 1-2.197.848Z" />
+                          </svg>
+                        ) : (
+                          <span className="text-[10px] font-bold">{cert.year.slice(2)}</span>
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-foreground leading-snug group-hover:text-primary transition-colors">{cert.name}</p>
+                        <p className="mt-0.5 text-xs text-muted">{cert.issuer}</p>
+                      </div>
+                    </>
+                  );
+
+                  if (cert.url) {
+                    return (
+                      <li key={cert.id}>
+                        <a
+                          href={cert.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-start gap-3 hover:opacity-90 transition-opacity"
+                        >
+                          {content}
+                        </a>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={cert.id} className="flex items-start gap-3">
+                      {content}
+                    </li>
+                  );
+                })}
               </ul>
             </SectionCard>
           </FadeIn>
