@@ -169,16 +169,6 @@ body {
   padding-inline: var(--container-px);
 }
 
-@media (min-width: 640px) {
-  .container-base { padding-inline: 1rem; }      
-}
-@media (min-width: 1024px) {
-  .container-base { padding-inline: 1rem; }
-}
-@media (min-width: 1280px) {
-  .container-base { padding-inline: 1rem; }    
-}
-
 /* Standard section vertical rhythm */
 .section-pad    { padding-block: var(--section-py); }
 .section-pad-sm { padding-block: var(--section-py-sm); }
