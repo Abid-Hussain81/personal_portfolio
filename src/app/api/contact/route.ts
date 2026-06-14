@@ -8,7 +8,7 @@ const ContactSchema = z.object({
   subject: z.string().min(1, "Subject is required"),
   message: z.string().min(1, "Message cannot be empty"),
   _gotcha: z.string().optional(),
-  recaptchaToken: z.string().min(1, "reCAPTCHA token missing"),
+
 });
 
 type ContactData = z.infer<typeof ContactSchema>;
@@ -19,21 +19,12 @@ export async function POST(request: Request) {
   if (!parseResult.success) {
     return NextResponse.json({ error: "Invalid input", details: parseResult.error.format() }, { status: 400 });
   }
-  const { name, email, subject, message, _gotcha, recaptchaToken } = parseResult.data;
+  const { name, email, subject, message, _gotcha } = parseResult.data;
 
   // Honeypot check – if filled, silently succeed
   if (_gotcha) return NextResponse.json({ ok: true }, { status: 200 });
 
-  // Verify reCAPTCHA with Google
-  const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-  });
-  const verification = await verifyRes.json();
-  if (!verification.success) {
-    return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
-  }
+  // reCAPTCHA verification removed
 
   // Nodemailer transport (Gmail SMTP)
   const transporter = nodemailer.createTransport({
