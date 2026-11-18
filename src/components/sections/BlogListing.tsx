@@ -9,6 +9,7 @@ import { formatDate } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { cn } from "@/lib/utils";
+import { profile } from "@/data/profile";
 
 export function BlogListing() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -24,6 +25,10 @@ export function BlogListing() {
       return matchesCat && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
+
+  if (blogPosts.length === 0) {
+    return <Container className="py-16 sm:py-20"><div className="rounded-2xl border border-border bg-card p-8"><h2 className="text-h2 text-foreground">Development notes on LinkedIn</h2><p className="mt-4 max-w-xl text-muted-foreground">Connect with me on LinkedIn for development discussions and professional updates.</p><a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 font-semibold text-primary">Visit LinkedIn <ArrowRight className="h-4 w-4" /></a></div></Container>;
+  }
 
   return (
     <Container className="py-16 sm:py-20">

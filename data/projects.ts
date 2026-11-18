@@ -6,6 +6,7 @@ export type ProjectCategory =
   | "Personal Projects";
 
 export type Project = {
+  published?: boolean;
   id: string;
   title: string;
   description: string;
@@ -28,7 +29,8 @@ export const projectCategories: Array<ProjectCategory | "All"> = [
   "Personal Projects",
 ];
 
-export const projects: Project[] = [
+// Supplied examples remain unpublished until verified and permitted.
+const projectDrafts: Project[] = [
   {
     id: "devfolio-pro",
     title: "DevFolio Pro",
@@ -113,4 +115,5 @@ export const projects: Project[] = [
   },
 ];
 
+export const projects = projectDrafts.filter((project) => project.published === true);
 export const featuredProjects = projects.filter((p) => p.featured);

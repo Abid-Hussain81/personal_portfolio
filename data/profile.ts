@@ -1,104 +1,52 @@
 export const profile = {
   name: "Abid Hussain",
-  role: "Frontend Developer & Web Developer",
-  location: "Pakistan",
-  tagline: "Frontend Developer Building Modern Web Experiences",
-  subheadline:
-    "I create responsive, fast, and user-friendly websites that help businesses grow online.",
-  about:
-    "I am a Frontend Developer passionate about building responsive, modern, and user-friendly web applications. I specialize in converting UI/UX designs into pixel-perfect websites and creating clean, scalable interfaces using modern frontend technologies. I enjoy solving UI challenges, optimizing user experiences, and continuously learning new technologies.",
+  role: "Frontend-Focused Full-Stack Developer",
+  location: "Lahore, Pakistan",
+  tagline: "From a clear idea to a working product.",
+  subheadline: "I help startup founders and software teams build web applications, booking platforms and API integrations. Clear interfaces, connected workflows and code your team can maintain.",
+  about: "I'm a frontend-focused full-stack developer based in Lahore, Pakistan, with 2+ years of experience across freelance projects and production web applications. I work with startup founders, software agencies and development teams to turn Figma designs into responsive interfaces and connect applications to REST APIs. My experience includes booking workflows, API-driven interfaces, PHP and CodeIgniter debugging, and website performance improvements.",
   email: "dev.abidhussain@gmail.com",
-  linkedin: "https://linkedin.com/in/abid-hussain81",
+  linkedin: "https://www.linkedin.com/in/abid-hussain-6853043a1/",
   github: "https://github.com/Abid-Hussain81",
   resumeUrl: "/resume.pdf",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://abidhussain.dev",
-  focus: [
-    "Frontend Development",
-    "Responsive Web Design",
-    "HTML5",
-    "CSS3",
-    "Tailwind CSS",
-    "Bootstrap",
-    "JavaScript",
-    "Next.js",
-    "React.js",
-    "Firebase Authentication",
-    "Email Template Development",
-    "Figma to HTML",
-    "Figma to React",
-    "Website Optimization",
-  ],
-  mission:
-    "To craft exceptional digital experiences that combine beautiful design with flawless functionality, helping businesses and individuals establish a powerful online presence.",
-  learningJourney:
-    "From exploring HTML and CSS fundamentals to mastering modern React ecosystems, my journey has been driven by curiosity and a commitment to building products that users love.",
-  careerStory:
-    "What started as a fascination with how websites work evolved into a dedicated career in frontend development. Today, I partner with clients and teams to transform ideas into polished, production-ready web applications.",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://abidhussainportfolio.vercel.app",
+  focus: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "REST APIs", "PHP", "CodeIgniter", "Node.js", "NestJS", "PostgreSQL", "Prisma", "Git", "Figma"],
+  mission: "Make complex application workflows easier to use through clear interfaces, dependable integrations and maintainable code.",
+  learningJourney: "My toolkit spans frontend development, backend support, authentication, databases and automation. I choose tools around the requirements and keep learning through practical implementation and debugging.",
+  careerStory: "Before joining The Mind Gauge, I delivered independent freelance web projects. Since June 2025, I have worked on production applications with designers and backend developers. I also contributed remotely to client projects at Gaply. That experience shapes how I approach responsive design, API integration and cross-stack troubleshooting.",
   whatIDo: [
-    "Convert Figma designs into pixel-perfect, responsive websites",
-    "Build scalable React and Next.js applications",
-    "Optimize websites for performance and accessibility",
-    "Integrate authentication and modern backend services",
-    "Develop email templates and landing pages that convert",
+    "Build responsive web application interfaces",
+    "Develop booking search and reservation workflows",
+    "Connect third-party APIs and handle application states",
+    "Turn Figma designs into working interfaces",
+    "Debug PHP and CodeIgniter applications",
+    "Improve performance and maintain existing websites",
   ],
   timeline: [
-    {
-      year: "2020",
-      title: "Learning Web Development",
-      description:
-        "Started with HTML, CSS, and JavaScript fundamentals. Built small projects to understand how the web works.",
-    },
-    {
-      year: "2021",
-      title: "Building Real Projects",
-      description:
-        "Created responsive websites and interactive UIs. Explored Bootstrap, Tailwind CSS, and modern layout techniques.",
-    },
-    {
-      year: "2022",
-      title: "Freelance Work",
-      description:
-        "Began taking on freelance projects — landing pages, portfolio sites, and Figma-to-code conversions for clients.",
-    },
-    {
-      year: "2023 – Present",
-      title: "Advanced Frontend Development",
-      description:
-        "Focused on React, Next.js, TypeScript, and Firebase. Delivering premium web experiences with performance and UX in mind.",
-    },
+    { year: "2021 - 2025", title: "BS Information Technology", description: "Studied at MNS University of Agriculture, Multan, graduating with a CGPA of 3.60/4.00." },
+    { year: "Before June 2025", title: "Independent Freelance Projects", description: "Delivered freelance web development projects before joining The Mind Gauge." },
+    { year: "June 2025 - Present", title: "Frontend Developer at The Mind Gauge", description: "Build and maintain production interfaces, integrate REST APIs and support PHP and CodeIgniter applications." },
+    { year: "September 2025 - January 2026", title: "Frontend Developer at Gaply", description: "Contributed remotely to client web applications in a part-time role." },
   ],
 } as const;
 
 export const navLinks = [
-  { href: "/", label: "Home" },
+  { href: "/", label: "Overview" },
   { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/resume", label: "Resume" },
+  { href: "/services", label: "Expertise" },
+  { href: "/resume", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 export const stats = [
-  { label: "Projects Completed", value: "25+" },
-  { label: "Technologies Used", value: "15+" },
-  { label: "Client Satisfaction", value: "98%" },
-  { label: "Years Learning & Building", value: "4+" },
+  { label: "Across freelance & production work", value: "2+ years" },
+  { label: "Information Technology", value: "BS IT" },
+  { label: "University CGPA", value: "3.60/4.00" },
+  { label: "Open to international opportunities", value: "Remote" },
 ] as const;
 
 export const socialLinks = [
-  {
-    name: "GitHub",
-    href: "https://github.com/Abid-Hussain81",
-    label: "GitHub profile",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/abid-hussain-6853043a1",
-    label: "LinkedIn profile",
-  },
-  {
-    name: "Email",
-    href: "mailto:dev.abidhussain@gmail.com",
-    label: "Send email",
-  },
+  { name: "GitHub", href: profile.github, label: "GitHub profile" },
+  { name: "LinkedIn", href: profile.linkedin, label: "LinkedIn profile" },
+  { name: "Email", href: "mailto:" + profile.email, label: "Send email" },
 ] as const;

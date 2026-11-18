@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Resume",
   description:
-    "Professional resume of Abid Hussain — Frontend Developer with experience in React, Next.js, and modern web technologies.",
+    "Professional resume of Abid Hussain, a frontend-focused full-stack developer working on production interfaces, booking workflows and API integrations.",
   path: "/resume",
 });
 

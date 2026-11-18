@@ -12,7 +12,7 @@ const iconMap = socialIconMap;
 
 export const metadata: Metadata = createMetadata({
   title: "Contact",
-  description: `Get in touch with ${profile.name} for freelance frontend development projects and collaborations.`,
+  description: `Get in touch with ${profile.name} for freelance development projects, contracts and international remote roles.`,
   path: "/contact",
 });
 
@@ -21,7 +21,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         title="Contact Me"
-        description="Have a project in mind? Let's discuss how I can help bring your vision to life."
+        description="Planning a web application, booking platform or API integration? Let's discuss your requirements."
       />
       <Container className="py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-5">
@@ -32,9 +32,7 @@ export default function ContactPage() {
                   Let&apos;s Connect
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
-                  I&apos;m always open to discussing new projects, creative ideas,
-                  or opportunities to be part of your vision. Fill out the form
-                  or reach out directly through any of the channels below.
+                  Tell me what you need to build, what already exists and your expected scope or timeline. I&apos;m also open to international remote development roles. Use the form or reach out directly below.
                 </p>
               </section>
             </FadeIn>

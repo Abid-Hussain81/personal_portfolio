@@ -11,10 +11,11 @@ const ContactSchema = z.object({
 
 });
 
-type ContactData = z.infer<typeof ContactSchema>;
-
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: unknown;
+  try { body = await request.json(); } catch {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
   const parseResult = ContactSchema.safeParse(body);
   if (!parseResult.success) {
     return NextResponse.json({ error: "Invalid input", details: parseResult.error.format() }, { status: 400 });
@@ -24,7 +25,10 @@ export async function POST(request: Request) {
   // Honeypot check – if filled, silently succeed
   if (_gotcha) return NextResponse.json({ ok: true }, { status: 200 });
 
-  // reCAPTCHA verification removed
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return NextResponse.json({ error: "Message delivery is temporarily unavailable." }, { status: 503 });
+  }
+
 
   // Nodemailer transport (Gmail SMTP)
   const transporter = nodemailer.createTransport({
@@ -38,6 +42,7 @@ export async function POST(request: Request) {
   const mailOptions = {
     from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_USER,
+    replyTo: email,
     subject: "New Portfolio Contact Form Submission",
     text: `New contact form submission (${new Date().toISOString()}):\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage:\n${message}\n`,
   };

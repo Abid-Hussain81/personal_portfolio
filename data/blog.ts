@@ -6,6 +6,7 @@ export type BlogCategory =
   | "Tools";
 
 export type BlogPost = {
+  published?: boolean;
   id: string;
   slug: string;
   title: string;
@@ -28,7 +29,8 @@ export const blogCategories: Array<BlogCategory | "All"> = [
   "Tools",
 ];
 
-export const blogPosts: BlogPost[] = [
+// Metadata-only examples are drafts, not published articles.
+const blogDrafts: BlogPost[] = [
   {
     id: "nextjs-portfolio-guide",
     slug: "building-modern-portfolio-nextjs",
@@ -109,4 +111,5 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
+export const blogPosts = blogDrafts.filter((post) => post.published === true && Boolean(post.content?.trim()));
 export const featuredPost = blogPosts.find((post) => post.featured);

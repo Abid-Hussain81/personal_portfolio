@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "About",
-  description: `Learn about ${profile.name}, a ${profile.role} from ${profile.location} specializing in modern frontend development.`,
+  description: `Learn about ${profile.name}, a ${profile.role} from ${profile.location} building web applications, booking workflows and API integrations.`,
   path: "/about",
 });
 
@@ -16,7 +16,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="About Me"
-        description="Frontend developer passionate about crafting responsive, modern, and user-friendly web experiences."
+        description="Frontend-focused full-stack developer helping founders and teams build web applications and connected workflows."
       />
       <Container className="py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-3">
@@ -97,7 +97,7 @@ export default function AboutPage() {
             <StatsGrid />
 
             <FadeIn>
-              <section className="rounded-2xl border border-border bg-card p-6">
+              <section className="rounded-xl border border-border bg-card p-6">
                 <h2 className="text-lg font-semibold text-foreground">
                   Personal Mission
                 </h2>
@@ -108,7 +108,7 @@ export default function AboutPage() {
             </FadeIn>
 
             <FadeIn>
-              <section className="rounded-2xl border border-border bg-card p-6">
+              <section className="rounded-xl border border-border bg-card p-6">
                 <h2 className="text-lg font-semibold text-foreground">
                   Technologies
                 </h2>

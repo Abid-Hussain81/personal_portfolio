@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Skills",
   description:
-    "Technical skills and proficiency in HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, and more.",
+    "Technical toolkit spanning frontend development, REST APIs, PHP, Node.js, databases, authentication and performance.",
   path: "/skills",
 });
 
@@ -15,7 +15,7 @@ export default function SkillsPage() {
     <>
       <PageHeader
         title="Skills & Expertise"
-        description="Technologies and tools I use to build fast, accessible, and beautifully crafted web experiences."
+        description="The frontend, backend and integration tools I use across web development work."
       />
       <SkillsPageContent />
     </>

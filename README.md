@@ -1,72 +1,48 @@
-# Abid Hussain — Frontend Developer Portfolio
+# Abid Hussain - Personal Portfolio
 
-Personal portfolio built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. It showcases my projects, skills, services, and experience as a frontend developer.
+Frontend-focused full-stack developer helping startup founders build web applications, booking platforms and API integrations.
 
-**Live site:** [https://abidhussain.dev](https://abidhussain.dev)
+Built with Next.js App Router, React, TypeScript, Tailwind CSS and Framer Motion. This repository contains the portfolio source. Local edits remain local; pushing main triggers the connected Vercel deployment.
 
----
+## Local development
 
-## Stack
+    npm install
+    npm run dev
 
-- [Next.js](https://nextjs.org) (App Router)
-- [TypeScript](https://www.typescriptlang.org)
-- [Tailwind CSS v4](https://tailwindcss.com)
-- [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes) for dark/light mode
+Open the local URL printed by Next.js. Validate changes with:
 
-## Features
+    npm run typecheck
+    npm run build
 
-- Responsive design with dark/light mode toggle
-- Animated page transitions and scroll reveals
-- SEO-optimized metadata and Open Graph tags
-- Auto-generated sitemap and robots.txt
-- Config-driven content — all data lives in `/data`
+## Content
 
-## Project Structure
+| File | Purpose |
+| --- | --- |
+| data/profile.ts | Positioning, contact links, availability and background |
+| data/resume.ts | Verified work history, education and certifications |
+| data/services.ts | Services and collaboration process |
+| data/skills.ts | Technical toolkit without invented proficiency scores |
+| data/projects.ts | Project drafts and explicitly published entries |
+| data/testimonials.ts | Feedback drafts and explicitly published entries |
+| data/blog.ts | Article drafts; publication requires complete content |
+| public/resume.pdf | Public-safe resume download |
 
-```
-data/          # All site content (profile, projects, skills, etc.)
-public/        # Static assets (images, resume PDF)
-src/
-  app/         # Next.js App Router pages
-  components/  # Layout, section, UI, and icon components
-  lib/         # Utilities and metadata helpers
-```
+Only add published: true to a project or testimonial after verifying its accuracy and obtaining any required permission. Blog entries also require full content. Supplied template examples remain unpublished. Add project details, source links and images only when permitted by the client or employer.
 
-## Getting Started
+The public pages and resume omit restricted employer project names, supplier identities and internal screenshots/code. Regenerate the downloadable PDF after updating resume data with:
 
-```bash
-npm install
-cp .env.example .env.local   # set NEXT_PUBLIC_SITE_URL
-npm run dev
-```
+    node scripts/generate-resume.mjs
 
-Open [http://localhost:3000](http://localhost:3000) to view locally.
+The generator uses a local Chrome/Chromium installation. Set CHROME_PATH if it is not found automatically.
 
-## Customization
+## Configuration
 
-All content is managed through the files in `/data`:
+NEXT_PUBLIC_SITE_URL sets the canonical site URL; the existing default is https://abidhussainportfolio.vercel.app. Set it to the actual deployment URL before publishing.
 
-| File | Contents |
-|------|----------|
-| `profile.ts` | Name, bio, contact links, stats |
-| `projects.ts` | Portfolio projects |
-| `skills.ts` | Skills and proficiency levels |
-| `services.ts` | Services offered |
-| `resume.ts` | Work experience, education, certifications |
-| `testimonials.ts` | Client testimonials |
-| `blog.ts` | Blog post metadata |
+The contact form uses the existing server-side Gmail SMTP integration. Configure EMAIL_USER and EMAIL_PASS in local or deployment environment variables for delivery. Never commit credentials. Direct email, LinkedIn and GitHub links are also available on the Contact page.
 
-## Environment Variables
+## Design and release
 
-```env
-NEXT_PUBLIC_SITE_URL=https://abidhussain.dev
-```
+The interface uses warm ivory, charcoal, olive and rust with a symbol-based header and a concise founder-facing introduction. Geist fonts are self-hosted with their original licenses, so builds do not fetch Google Fonts. The standard development and production scripts use Next.js with its native compiler; no Webpack override is required.
 
-## Deployment
-
-Deploy to [Vercel](https://vercel.com) with zero config — connect your repo and it just works.
-
----
-
-© 2025 Abid Hussain. All rights reserved.
+The connected production app is https://abidhussainportfolio.vercel.app/. Pushes to main use the existing Git-to-Vercel deployment integration.

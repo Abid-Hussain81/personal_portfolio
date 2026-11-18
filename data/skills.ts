@@ -1,60 +1,9 @@
-export type SkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
-
-export type Skill = {
-  name: string;
-  level: SkillLevel;
-  proficiency: number;
-};
-
-export type SkillCategory = {
-  id: string;
-  title: string;
-  skills: Skill[];
-};
-
+export type Skill = { name: string };
+export type SkillCategory = { id: string; title: string; skills: Skill[] };
 export const skillCategories: SkillCategory[] = [
-  {
-    id: "frontend",
-    title: "Frontend",
-    skills: [
-      { name: "HTML5", level: "expert", proficiency: 95 },
-      { name: "CSS3", level: "expert", proficiency: 92 },
-      { name: "JavaScript", level: "advanced", proficiency: 88 },
-      { name: "TypeScript", level: "advanced", proficiency: 82 },
-      { name: "React.js", level: "advanced", proficiency: 90 },
-      { name: "Next.js", level: "advanced", proficiency: 85 },
-    ],
-  },
-  {
-    id: "styling",
-    title: "Styling",
-    skills: [
-      { name: "Tailwind CSS", level: "expert", proficiency: 93 },
-      { name: "Bootstrap", level: "advanced", proficiency: 85 },
-    ],
-  },
-  {
-    id: "tools",
-    title: "Tools",
-    skills: [
-      { name: "Git", level: "advanced", proficiency: 85 },
-      { name: "GitHub", level: "advanced", proficiency: 88 },
-      { name: "Figma", level: "advanced", proficiency: 80 },
-      { name: "VS Code", level: "expert", proficiency: 95 },
-    ],
-  },
-  {
-    id: "backend-services",
-    title: "Backend & Services",
-    skills: [
-      { name: "Firebase", level: "intermediate", proficiency: 75 },
-    ],
-  },
+  { id: "frontend", title: "Frontend & Responsive Interfaces", skills: ["React.js", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "shadcn/ui", "Zustand", "TanStack Query", "Zod"].map(name => ({ name })) },
+  { id: "backend", title: "Backend & API Integration", skills: ["REST APIs", "PHP", "CodeIgniter", "Node.js", "NestJS", "Convex", "Axios"].map(name => ({ name })) },
+  { id: "data-auth", title: "Data, Authentication & Automation", skills: ["MySQL", "PostgreSQL", "Prisma ORM", "Clerk", "JWT Authentication", "Webhooks", "n8n"].map(name => ({ name })) },
+  { id: "tools", title: "Tools & Performance", skills: ["Git", "GitHub", "Postman", "Figma", "VS Code", "Docker", "Lighthouse", "Google PageSpeed Insights", "Image Optimization"].map(name => ({ name })) },
+  { id: "wordpress", title: "Website Maintenance", skills: ["WordPress", "Elementor", "Theme & Plugin Management", "Compatibility Testing", "Website Troubleshooting"].map(name => ({ name })) },
 ];
-
-export const levelLabels: Record<SkillLevel, string> = {
-  beginner: "Beginner",
-  intermediate: "Intermediate",
-  advanced: "Advanced",
-  expert: "Expert",
-};

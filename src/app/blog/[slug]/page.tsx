@@ -69,18 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-8 rounded-2xl border border-border bg-white p-8 shadow-sm">
           <p className="text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
-          <div className="mt-6 rounded-xl border border-primary/15 bg-primary/5 p-4">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              <span className="font-semibold text-primary">Note: </span>
-              This is a placeholder article page. Full blog content management
-              will be added in a future update. For now, you can update article
-              metadata in{" "}
-              <code className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs font-mono text-primary">
-                data/blog.ts
-              </code>
-              .
-            </p>
-          </div>
+          <div className="mt-6 space-y-4">{post.content?.split(/\n\s*\n/).map((paragraph, index) => <p key={index} className="leading-relaxed text-muted-foreground">{paragraph}</p>)}</div>
         </div>
       </article>
     </Container>

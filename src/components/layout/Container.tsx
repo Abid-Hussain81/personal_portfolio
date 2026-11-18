@@ -24,37 +24,6 @@ export function Container({
   );
 }
 
-export function PageHeader({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description?: string;
-  children?: ReactNode;
-}) {
-  return (
-    <section className="relative overflow-hidden border-b border-border bg-secondary/50 pt-28 pb-14 sm:pt-32 sm:pb-16">
-      {/* Texture */}
-      <div className="absolute inset-0 grid-pattern opacity-40" />
-      {/* Blobs */}
-      <div className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-primary/8 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-64 rounded-full bg-accent/6 blur-3xl" />
-
-      <Container className="relative">
-        <span className="text-eyebrow mb-4 inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.5 text-primary">
-          Portfolio
-        </span>
-        <h1 className="text-h1 mt-2 max-w-3xl text-foreground">
-          {title}
-        </h1>
-        {description && (
-          <p className="text-lead mt-4 max-w-2xl">
-            {description}
-          </p>
-        )}
-        {children}
-      </Container>
-    </section>
-  );
+export function PageHeader({ title, description, children }: { title: string; description?: string; children?: ReactNode }) {
+  return <section className="page-header"><Container><span className="section-kicker text-eyebrow text-muted">Abid Hussain / Portfolio</span><h1 className="text-h1 max-w-3xl">{title}</h1>{description && <p className="text-lead">{description}</p>}{children}</Container></section>;
 }

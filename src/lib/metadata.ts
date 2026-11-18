@@ -10,9 +10,9 @@ type PageMetadataOptions = {
 
 export function createMetadata({
   title,
-  description = profile.about.slice(0, 160),
+  description = "Abid Hussain helps startup founders build web applications, booking platforms and API integrations. Frontend-focused full-stack developer in Lahore, Pakistan.",
   path = "",
-  image = "/og-image.svg",
+  image = "/og-image.png",
 }: PageMetadataOptions = {}): Metadata {
   const pageTitle = title
     ? `${title} | ${profile.name}`
@@ -22,6 +22,7 @@ export function createMetadata({
   return {
     title: pageTitle,
     description,
+    icons: { icon: "/brand-mark.svg", apple: "/brand-mark.svg" },
     authors: [{ name: profile.name }],
     creator: profile.name,
     metadataBase: new URL(profile.siteUrl),

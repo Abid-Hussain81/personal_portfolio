@@ -8,7 +8,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 
 function SectionCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <section className={`rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8 ${className}`}>
+    <section className={`rounded-xl border border-border bg-white p-6  sm:p-8 ${className}`}>
       {children}
     </section>
   );

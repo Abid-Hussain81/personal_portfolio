@@ -1,4 +1,5 @@
 export type Testimonial = {
+  published?: boolean;
   id: string;
   name: string;
   position: string;
@@ -8,7 +9,8 @@ export type Testimonial = {
   rating: number;
 };
 
-export const testimonials: Testimonial[] = [
+// Publish only genuine feedback with permission. Supplied examples stay drafts.
+const testimonialDrafts: Testimonial[] = [
   {
     id: "sarah-mitchell",
     name: "Sarah Mitchell",
@@ -70,3 +72,5 @@ export const testimonials: Testimonial[] = [
     rating: 5,
   },
 ];
+
+export const testimonials = testimonialDrafts.filter((item) => item.published === true);

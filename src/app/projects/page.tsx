@@ -6,7 +6,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Projects",
   description:
-    "Explore my portfolio of frontend projects built with React, Next.js, and modern web technologies.",
+    "Explore my development experience across web applications, booking interfaces and API integrations.",
   path: "/projects",
 });
 
@@ -14,8 +14,8 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
-        title="Projects"
-        description="A collection of web applications, landing pages, and UI projects showcasing modern frontend craftsmanship."
+        title="Work & Capabilities"
+        description="Web application interfaces, booking workflows and connected systems, with respect for client and employer confidentiality."
       />
       <ProjectsPageContent />
     </>

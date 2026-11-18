@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { ProjectCard } from "@/components/sections/FeaturedProjectsSection";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { cn } from "@/lib/utils";
+import { WorkOverview } from "@/components/sections/WorkOverview";
 
 export function ProjectsGrid() {
   const [active, setActive] = useState<string>("All");
@@ -17,6 +18,8 @@ export function ProjectsGrid() {
     );
   }, [active]);
 
+  if (projects.length === 0) return <WorkOverview />;
+
   return (
     <>
       <FadeIn>
@@ -26,6 +29,7 @@ export function ProjectsGrid() {
               key={cat}
               type="button"
               onClick={() => setActive(cat)}
+              aria-pressed={active === cat}
               className={cn(
                 "rounded-xl px-4 py-2 text-sm font-medium transition-all",
                 active === cat
