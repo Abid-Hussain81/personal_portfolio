@@ -21,7 +21,7 @@ export function HeroSection() {
           </div>
           <div className="portrait-frame">
             <figure>
-              <div className="portrait-image"><Image src="/persoanll.jpeg" alt="Abid Hussain" fill sizes="(max-width: 1024px) 85vw, 400px" className="object-cover object-top" priority /></div>
+              <div className="portrait-image"><Image src="/Profile.jpg" alt="Abid Hussain" fill sizes="(max-width: 480px) calc(100vw - 56px), 400px" className="object-cover object-center" priority /></div>
               <figcaption className="portrait-caption">
                 <div><p className="text-sm font-semibold text-foreground">Abid Hussain</p><p className="mt-1 max-w-48 text-xs leading-relaxed text-muted">{profile.role}</p></div>
                 <span className="text-eyebrow text-primary">Based in<br />Lahore, PK</span>
