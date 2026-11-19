@@ -44,7 +44,7 @@ export function Header() {
         <nav className="hidden items-center gap-7 md:flex lg:gap-9" aria-label="Main navigation">
           {navLinks.map(link => <Link key={link.href} href={link.href} className="nav-link" aria-current={active(link.href) ? "page" : undefined}>{link.label}</Link>)}
         </nav>
-        <span className="hidden items-center gap-2 text-eyebrow text-muted xl:inline-flex"><span className="status-dot" />Lahore / UTC+5</span>
+        <span className="hidden text-eyebrow text-muted xl:inline-flex">Lahore, PK</span>
         <button ref={toggle} className="mobile-toggle inline-flex md:hidden" aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen} aria-controls="mobile-navigation" type="button" onClick={() => setIsOpen(value => !value)}>{isOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}</button>
       </div>
       {isOpen && <nav id="mobile-navigation" className="container-base mobile-nav md:hidden" aria-label="Mobile navigation">
