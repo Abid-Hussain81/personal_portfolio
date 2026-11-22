@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
 import { featuredProjects } from "@/data/projects";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Container } from "@/components/layout/Container";
 import { WorkOverview } from "@/components/sections/WorkOverview";
 
@@ -71,7 +71,7 @@ export function FeaturedProjectsSection() {
   return (
     <section className="py-20">
       <Container>
-        <FadeIn>
+        <ScrollReveal direction="left">
           <div className="mb-10 flex items-end justify-between">
             <div>
               <span className="text-eyebrow mb-3 inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.5 text-primary">
@@ -87,17 +87,17 @@ export function FeaturedProjectsSection() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </FadeIn>
+        </ScrollReveal>
 
-        <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.slice(0, 3).map((project) => (
-            <StaggerItem key={project.id}>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredProjects.slice(0, 3).map((project, index) => (
+            <ScrollReveal direction="up" delay={index * 0.14} key={project.id}>
               <ProjectCard project={project} />
-            </StaggerItem>
+            </ScrollReveal>
           ))}
-        </StaggerContainer>
+        </div>
 
-        <FadeIn className="mt-8 text-center sm:hidden">
+        <ScrollReveal className="mt-8 text-center sm:hidden">
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/8 px-6 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white hover:border-primary"
@@ -105,7 +105,7 @@ export function FeaturedProjectsSection() {
             View all projects
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </FadeIn>
+        </ScrollReveal>
       </Container>
     </section>
   );

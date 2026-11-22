@@ -38,7 +38,7 @@ export function Header() {
   }, []);
   const active = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
   return (
-    <header className={"site-header" + (scrolled ? " is-scrolled" : "")}>
+    <header className={"site-header" + (pathname === "/" ? " home-header" : "") + (scrolled ? " is-scrolled" : "")}>
       <div className="container-base site-header-inner">
         <Link href="/" className="brand-symbol" aria-label="Abid Hussain — Home" onClick={() => setIsOpen(false)}><BrandMark /></Link>
         <nav className="hidden items-center gap-7 md:flex lg:gap-9" aria-label="Main navigation">
