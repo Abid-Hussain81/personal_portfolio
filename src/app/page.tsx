@@ -7,6 +7,7 @@ import { ContactCTASection } from "@/components/sections/ContactCTASection";
 import { HomeEffects } from "@/components/animations/HomeEffects";
 import "./home-effects.css";
 import "./process-stack.css";
+import "./expertise-cards.css";
 
 export default function HomePage() {
   return <HomeEffects><HeroSection /><FeaturedServicesSection /><ProcessSection /><FeaturedProjectsSection /><SkillsPreviewSection /><ContactCTASection /></HomeEffects>;

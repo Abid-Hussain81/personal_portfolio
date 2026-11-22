@@ -35,7 +35,7 @@ export function HomeEffects({ children }: { children: ReactNode }) {
           }
 
           const mobile = window.matchMedia("(max-width: 639px)").matches;
-          const distance = mobile ? 40 : 80;
+          const distance = Number(target.dataset.revealDistance ?? (mobile ? 40 : 80));
           const direction = target.dataset.reveal;
           const from = direction === "left" ? `translate3d(-${distance}px, 0, 0)`
             : direction === "right" ? `translate3d(${distance}px, 0, 0)`
@@ -47,12 +47,13 @@ export function HomeEffects({ children }: { children: ReactNode }) {
             { opacity: 0, transform: from },
             { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)" },
           ], {
-            duration: mobile ? 750 : 1000,
+            duration: Number(target.dataset.revealDuration ?? (mobile ? .75 : 1)) * 1000,
             delay: Number(target.dataset.revealDelay || 0) * (mobile ? 500 : 1000),
             easing: "cubic-bezier(.16, 1, .3, 1)",
             fill: "both",
           });
           running.set(target, animation);
+          if (target.dataset.revealOnce === "true") observer?.unobserve(entry.target);
           animation.onfinish = () => {
             animation.cancel();
             running.delete(target);
