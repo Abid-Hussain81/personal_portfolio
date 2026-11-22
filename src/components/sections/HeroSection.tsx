@@ -32,7 +32,6 @@ export function HeroSection() {
                 <div><p className="portrait-name">{profile.name}</p><p className="portrait-role">{profile.role}</p></div>
               </figcaption>
             </figure>
-            <div className="portrait-location"><span className="status-dot" aria-hidden="true" />Based in Lahore · Building everywhere</div>
           </div>
         </div>
         <div className="hero-footnote">
