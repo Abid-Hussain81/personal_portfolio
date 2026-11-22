@@ -1,0 +1,47 @@
+.home-page .toolkit-layout { display: grid; gap: 2.5rem 4rem; align-items: start; }
+.home-page .toolkit-intro .section-heading { max-width: 27rem; }
+.home-page .toolkit-full-link { display: inline-flex; align-items: center; gap: 1.25rem; margin-top: 2rem; padding-block: .25rem; font-size: 1rem; color: #294b46; }
+.home-page .toolkit-full-link > span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid #294b4626; border-radius: 50%; transition: background .25s, color .25s; }
+.home-page .toolkit-full-link:hover > span { background: #294b46; color: #fffefa; }
+.home-page .toolkit-panels { display: grid; gap: 1rem; }
+.home-page .toolkit-panel {
+  --toolkit-bg: #fdfcf8;
+  --toolkit-ink: #294b46;
+  --toolkit-muted: #52615b;
+  --toolkit-edge: #294b4614;
+  --toolkit-chip: #ffffff80;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--toolkit-edge);
+  border-radius: 1.25rem;
+  background: var(--toolkit-bg);
+  color: var(--toolkit-ink);
+}
+.home-page .toolkit-panel-frontend { --toolkit-bg: #244b47; --toolkit-ink: #fafbf4; --toolkit-muted: #ceded6; --toolkit-edge: #ffffff26; --toolkit-chip: #ffffff0d; }
+.home-page .toolkit-panel-data-auth { --toolkit-bg: #eceaf5; --toolkit-ink: #504773; --toolkit-muted: #625c77; --toolkit-edge: #5047731a; --toolkit-chip: #ffffff66; }
+.home-page .toolkit-panel-tools { --toolkit-bg: #f5ede3; --toolkit-ink: #835338; --toolkit-muted: #715e51; --toolkit-edge: #8353381a; --toolkit-chip: #ffffff66; }
+.home-page .toolkit-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.home-page .toolkit-panel-icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--toolkit-edge); border-radius: .8rem; background: var(--toolkit-chip); }
+.home-page .toolkit-panel-index { font-family: var(--font-geist-mono), monospace; font-size: .75rem; color: var(--toolkit-muted); }
+.home-page .toolkit-panel h3 { margin-top: 1.25rem; font-size: 1.1875rem; font-weight: 500; line-height: 1.35; letter-spacing: -.03em; }
+.home-page .toolkit-panel-caption { margin-top: .35rem; font-size: .875rem; line-height: 1.6; color: var(--toolkit-muted); }
+.home-page .toolkit-chips { display: flex; flex-wrap: wrap; gap: .5rem; align-content: flex-start; padding: 0; margin: 1.5rem 0 0; list-style: none; }
+.home-page .toolkit-chips > li { display: inline-flex; align-items: center; min-height: 2.125rem; padding: .35rem .7rem; border: 1px solid var(--toolkit-edge); border-radius: .55rem; background: var(--toolkit-chip); font-size: .875rem; line-height: 1.45; }
+.home-page .toolkit-chips > .toolkit-more-chip { padding: 0; background: transparent; border-style: dashed; }
+.home-page .toolkit-more-chip a { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .35rem .7rem; min-height: 2.125rem; border-radius: .5rem; text-decoration: underline; text-underline-offset: .2rem; text-decoration-color: transparent; transition: text-decoration-color .2s; }
+.home-page .toolkit-more-chip a:hover { text-decoration-color: currentColor; }
+.home-page .toolkit-panel a:focus-visible { outline-color: var(--toolkit-ink); }
+@media (min-width: 640px) { .home-page .toolkit-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .home-page .toolkit-layout { grid-template-columns: .75fr 1.25fr; gap: 3.5rem; }
+  .home-page .toolkit-panels { gap: 1.25rem; }
+  .home-page .toolkit-intro { position: sticky; top: 7rem; }
+}
+@media (max-width: 639px) {
+  .home-page .toolkit-layout { gap: 2rem; }
+  .home-page .toolkit-full-link { margin-top: 1.25rem; }
+  .home-page .toolkit-panel { padding: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .home-page .toolkit-intro { position: static; } }
