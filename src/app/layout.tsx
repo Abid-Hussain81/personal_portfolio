@@ -20,7 +20,12 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
-export const metadata: Metadata = createMetadata();
+export const metadata: Metadata = {
+  ...createMetadata(),
+  verification: {
+    google: "0lV3EMyO4KKoy_dX236RThK2NnByF8mxdgZGKNkO1Bo",
+  },
+};
 
 export default function RootLayout({
   children,
