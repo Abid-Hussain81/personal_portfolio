@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
-import { profile } from "@/data/profile";
-import { PageHeader, Container } from "@/components/layout/Container";
-import { StatsGrid } from "@/components/sections/StatsSection";
-import { FadeIn } from "@/components/animations/FadeIn";
+﻿import type { Metadata } from "next";
+import Image from "next/image";
+import { ArrowRight, Check, MapPin } from "lucide-react";
+import { profile, stats } from "@/data/profile";
+import { Container } from "@/components/layout/Container";
+import {
+  InteriorHero,
+  InteriorPage,
+  InteriorPanel,
+  InteriorReveal,
+} from "@/components/layout/InteriorPage";
+import { Button } from "@/components/ui/Button";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
@@ -13,120 +20,137 @@ export const metadata: Metadata = createMetadata({
 
 export default function AboutPage() {
   return (
-    <>
-      <PageHeader
-        title="About Me"
-        description="Frontend-focused full-stack developer helping founders and teams build web applications and connected workflows."
+    <InteriorPage>
+      <InteriorHero
+        eyebrow="01 / About"
+        title="Thoughtful work."
+        accent="A human approach."
+        description={`${profile.role}, helping founders and teams build web applications and connected workflows.`}
       />
-      <Container className="py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-3">
-          <div className="lg:col-span-2 space-y-10">
-            <FadeIn>
-              <section>
-                <h2 className="text-h2 text-foreground">
-                  Professional Introduction
-                </h2>
-                <p className="mt-4 text-body leading-relaxed">{profile.about}</p>
-              </section>
-            </FadeIn>
 
-            <FadeIn>
-              <section>
-                <h2 className="text-h2 text-foreground">My Story</h2>
-                <p className="mt-4 leading-relaxed text-muted">
-                  {profile.careerStory}
-                </p>
-              </section>
-            </FadeIn>
+      <Container className="interior-content">
+        <div className="interior-grid">
+          <div className="interior-stack">
+            <InteriorReveal>
+              <InteriorPanel>
+                <p className="interior-section-label">A little introduction</p>
+                <h2>Interfaces with purpose.</h2>
+                <p className="interior-body">{profile.about}</p>
+              </InteriorPanel>
+            </InteriorReveal>
 
-            <FadeIn>
-              <section>
-                <h2 className="text-h2 text-foreground">What I Do</h2>
-                <ul className="mt-4 space-y-3">
+            <InteriorReveal>
+              <InteriorPanel tone="peach">
+                <p className="interior-section-label">My story</p>
+                <h2>Learning through real work.</h2>
+                <p className="interior-body">{profile.careerStory}</p>
+              </InteriorPanel>
+            </InteriorReveal>
+
+            <InteriorReveal>
+              <InteriorPanel tone="lilac">
+                <p className="interior-section-label">What I do</p>
+                <h2>From design to a working product.</h2>
+                <ul className="about-capabilities">
                   {profile.whatIDo.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-muted"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                      {item}
+                    <li key={item}>
+                      <Check size={16} aria-hidden="true" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              </section>
-            </FadeIn>
+              </InteriorPanel>
+            </InteriorReveal>
 
-            <FadeIn>
-              <section>
-                <h2 className="text-h2 text-foreground">
-                  Learning Journey
-                </h2>
-                <p className="mt-4 leading-relaxed text-muted">
-                  {profile.learningJourney}
-                </p>
-              </section>
-            </FadeIn>
+            <InteriorReveal>
+              <InteriorPanel>
+                <p className="interior-section-label">Learning journey</p>
+                <h2>Curiosity, put into practice.</h2>
+                <p className="interior-body">{profile.learningJourney}</p>
+              </InteriorPanel>
+            </InteriorReveal>
 
-            <FadeIn>
-              <section>
-                <h2 className="text-h2 text-foreground">Timeline</h2>
-                <div className="mt-8 space-y-8">
+            <InteriorReveal>
+              <InteriorPanel>
+                <p className="interior-section-label">Along the way</p>
+                <h2>Education &amp; experience.</h2>
+                <div className="about-timeline">
                   {profile.timeline.map((item) => (
-                    <div
-                      key={item.title}
-                      className="relative border-l-2 border-primary/30 pl-6"
-                    >
-                      <span className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-primary" />
-                      <p className="text-sm font-semibold text-primary">
-                        {item.year}
-                      </p>
-                      <h3 className="mt-1 text-lg font-semibold text-foreground">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">
-                        {item.description}
-                      </p>
+                    <div key={item.title} className="about-timeline-item">
+                      <p className="text-sm font-medium text-primary">{item.year}</p>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
                     </div>
                   ))}
                 </div>
-              </section>
-            </FadeIn>
+              </InteriorPanel>
+            </InteriorReveal>
           </div>
 
-          <div className="space-y-8">
-            <StatsGrid />
-
-            <FadeIn>
-              <section className="rounded-xl border border-border bg-card p-6">
-                <h2 className="text-lg font-semibold text-foreground">
-                  Personal Mission
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {profile.mission}
-                </p>
-              </section>
-            </FadeIn>
-
-            <FadeIn>
-              <section className="rounded-xl border border-border bg-card p-6">
-                <h2 className="text-lg font-semibold text-foreground">
-                  Technologies
-                </h2>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {profile.focus.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+          <aside className="interior-stack" aria-label="Profile and approach">
+            <InteriorReveal delay={0.08}>
+              <InteriorPanel tone="teal">
+                <div className="about-profile-image">
+                  <Image
+                    src="/Profile.jpg"
+                    alt={profile.name}
+                    fill
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 580px, 90vw"
+                    priority
+                  />
                 </div>
-              </section>
-            </FadeIn>
-          </div>
+                <h2 className="about-profile-name">{profile.name}</h2>
+                <p className="about-profile-role">{profile.role}</p>
+                <p className="about-profile-role flex items-center gap-2">
+                  <MapPin size={16} aria-hidden="true" />
+                  {profile.location}
+                </p>
+              </InteriorPanel>
+            </InteriorReveal>
+
+            <InteriorReveal>
+              <div className="about-stats" aria-label="Professional facts">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="about-stat">
+                    <strong>{stat.value}</strong>
+                    <p>{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </InteriorReveal>
+
+            <InteriorReveal>
+              <InteriorPanel tone="sage">
+                <p className="interior-section-label">Personal mission</p>
+                <h2>Make the complex feel clear.</h2>
+                <p className="interior-body">{profile.mission}</p>
+              </InteriorPanel>
+            </InteriorReveal>
+
+            <InteriorReveal>
+              <InteriorPanel tone="lilac">
+                <p className="interior-section-label">Technologies</p>
+                <h2>Tools for the task.</h2>
+                <ul className="interior-chips">
+                  {profile.focus.map((tech) => <li key={tech}>{tech}</li>)}
+                </ul>
+              </InteriorPanel>
+            </InteriorReveal>
+          </aside>
         </div>
+
+        <InteriorReveal>
+          <InteriorPanel tone="teal" className="interior-cta">
+            <div>
+              <h2>Have something in mind?</h2>
+              <p>Let’s talk about your application, interface or next integration.</p>
+            </div>
+            <Button href="/contact" className="action-primary">
+              Start a conversation <ArrowRight size={18} aria-hidden="true" />
+            </Button>
+          </InteriorPanel>
+        </InteriorReveal>
       </Container>
-    </>
+    </InteriorPage>
   );
 }

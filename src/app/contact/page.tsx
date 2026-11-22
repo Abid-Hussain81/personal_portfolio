@@ -1,14 +1,11 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { MapPin } from "lucide-react";
+﻿import type { Metadata } from "next";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { profile, socialLinks } from "@/data/profile";
 import { socialIconMap, MailIcon } from "@/components/icons/SocialIcons";
-import { PageHeader, Container } from "@/components/layout/Container";
+import { Container } from "@/components/layout/Container";
+import { InteriorPage, InteriorHero, InteriorPanel, InteriorReveal } from "@/components/layout/InteriorPage";
 import { ContactForm } from "@/components/sections/ContactForm";
-import { FadeIn } from "@/components/animations/FadeIn";
 import { createMetadata } from "@/lib/metadata";
-
-const iconMap = socialIconMap;
 
 export const metadata: Metadata = createMetadata({
   title: "Contact",
@@ -17,94 +14,25 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function ContactPage() {
-  return (
-    <>
-      <PageHeader
-        title="Contact Me"
-        description="Planning a web application, booking platform or API integration? Let's discuss your requirements."
-      />
-      <Container className="py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-5">
-          <div className="lg:col-span-2 space-y-8">
-            <FadeIn>
-              <section>
-                <h2 className="text-h3 text-foreground">
-                  Let&apos;s Connect
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  Tell me what you need to build, what already exists and your expected scope or timeline. I&apos;m also open to international remote development roles. Use the form or reach out directly below.
-                </p>
-              </section>
-            </FadeIn>
-
-            <FadeIn>
-              <section className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-                  Contact Info
-                </h3>
-                <ul className="mt-4 space-y-4">
-                  <li className="flex items-center gap-3 text-sm text-muted">
-                    <MailIcon className="h-4 w-4 text-primary" />
-                    <a
-                      href={`mailto:${profile.email}`}
-                      className="hover:text-primary"
-                    >
-                      {profile.email}
-                    </a>
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-muted">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    {profile.location}
-                  </li>
-                </ul>
-              </section>
-            </FadeIn>
-
-            <FadeIn>
-              <section className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-                  Social Links
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {socialLinks.map((link) => {
-                    const Icon = iconMap[link.name as keyof typeof iconMap];
-                    return (
-                      <li key={link.name}>
-                        <a
-                          href={link.href}
-                          target={link.name === "Email" ? undefined : "_blank"}
-                          rel={
-                            link.name === "Email"
-                              ? undefined
-                              : "noopener noreferrer"
-                          }
-                          className="inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary"
-                        >
-                          <Icon className="h-4 w-4" />
-                          {link.name}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            </FadeIn>
-
-            <FadeIn>
-              <p className="text-sm text-muted">
-                Prefer email?{" "}
-                <Link href={`mailto:${profile.email}`} className="text-primary hover:text-accent">
-                  Send me a message directly
-                </Link>
-              </p>
-            </FadeIn>
-          </div>
-
-          <FadeIn className="lg:col-span-3">
-            <ContactForm />
-          </FadeIn>
-        </div>
-      </Container>
-    </>
-  );
+  return <InteriorPage className="contact-page">
+    <InteriorHero eyebrow="04 / Contact" title="Good work starts" accent="with a conversation." description="A new product, an integration or an extra pair of hands. Tell me what you have in mind, and let's work through the next step." />
+    <Container className="interior-content"><div className="contact-layout">
+      <div className="interior-stack">
+        <InteriorReveal><InteriorPanel tone="teal" className="contact-direct">
+          <h2>Let&apos;s connect<br />the right pieces.</h2>
+          <p>Tell me what you need to build, what already exists and your expected scope or timeline. I&apos;m also open to international remote development roles.</p>
+          <a className="contact-email" href={"mailto:" + profile.email}><MailIcon className="h-4 w-4 shrink-0" />{profile.email}<ArrowUpRight size={16} className="shrink-0" aria-hidden="true" /></a>
+          <p className="contact-meta"><MapPin size={16} className="shrink-0" aria-hidden="true" />{profile.location}</p>
+          <p className="contact-meta"><span className="status-dot bg-[#c5d8b5]" aria-hidden="true" />Open to freelance projects and remote roles</p>
+        </InteriorPanel></InteriorReveal>
+        <InteriorReveal delay={.08}><InteriorPanel tone="lilac"><h2 className="resume-section-title">Find me elsewhere</h2><p className="interior-body">A little more about the work, and a direct way to reach me.</p><ul className="contact-socials">
+          {socialLinks.map(link => {
+            const Icon = socialIconMap[link.name as keyof typeof socialIconMap];
+            return <li key={link.name}><a href={link.href} target={link.name === "Email" ? undefined : "_blank"} rel={link.name === "Email" ? undefined : "noopener noreferrer"}><Icon className="h-4 w-4" />{link.name}<ArrowUpRight size={13} aria-hidden="true" /></a></li>;
+          })}
+        </ul></InteriorPanel></InteriorReveal>
+      </div>
+      <InteriorReveal delay={.08}><InteriorPanel className="contact-form-panel"><h2>Tell me about your project.</h2><p>A few details about your goals and where you need support are a good place to start.</p><ContactForm className="interior-contact-form" /></InteriorPanel></InteriorReveal>
+    </div></Container>
+  </InteriorPage>;
 }

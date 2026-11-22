@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
-export function HomeEffects({ children }: { children: ReactNode }) {
+export function HomeEffects({ children, className = "home-page" }: { children: ReactNode; className?: string }) {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,5 +77,5 @@ export function HomeEffects({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return <div ref={root} className="home-page">{children}</div>;
+  return <div ref={root} className={className}>{children}</div>;
 }

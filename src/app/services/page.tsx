@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
 import { serviceIconMap } from "@/components/icons/ServiceIcons";
-import { PageHeader, Container } from "@/components/layout/Container";
+import { Container } from "@/components/layout/Container";
 import {
-  FadeIn,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animations/FadeIn";
+  InteriorPage,
+  InteriorHero,
+  InteriorReveal,
+  InteriorPanel,
+} from "@/components/layout/InteriorPage";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
@@ -18,48 +20,60 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function ServicesPage() {
+  const tones = ["teal", "lilac", undefined, "peach", undefined, "sage", "lilac", undefined];
+
   return (
-    <>
-      <PageHeader
-        title="Services"
-        description="Practical development support for your application, booking workflow or integration project."
+    <InteriorPage>
+      <InteriorHero
+        eyebrow="02 / Expertise"
+        title="The right support."
+        accent="Where it matters."
+        description="From responsive interfaces to connected workflows, practical development support for your product and the people who use it."
       />
-      <Container className="py-16 sm:py-20">
-        <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
+      <Container className="interior-content">
+        <div className="services-detail-grid">
+          {services.map((service, index) => {
             const Icon = serviceIconMap[service.icon];
             return (
-              <StaggerItem key={service.id}>
-                <article id={service.id} className="group relative flex h-full flex-col rounded-xl border border-border bg-card  p-6  transition-all duration-300  hover:border-primary/20 hover:bg-white   sm:p-8">
-                  
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-primary  transition-all duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-white group-hover:shadow-md group-hover:shadow-primary/10">
-                    <Icon className="h-6 w-6" />
+              <InteriorReveal key={service.id} delay={(index % 3) * .07}>
+                <article
+                  id={service.id}
+                  className={"interior-panel service-detail-card" + (tones[index] ? " tone-" + tones[index] : "")}
+                >
+                  <div className="service-detail-top">
+                    <span className="interior-icon">
+                      <Icon size={23} strokeWidth={1.6} aria-hidden="true" />
+                    </span>
+                    <span className="service-detail-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                  
-                  <h2 className="text-lg font-bold text-foreground transition-colors duration-300 group-hover:text-primary leading-snug">
-                    {service.title}
-                  </h2>
-                  
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground group-hover:text-muted transition-colors duration-300">
-                    {service.description}
-                  </p>
+                  <h2>{service.title}</h2>
+                  <p>{service.description}</p>
+                  <Link href="/contact" className="action-text" aria-label={"Discuss " + service.title}>
+                    Discuss this service <ArrowUpRight size={16} aria-hidden="true" />
+                  </Link>
                 </article>
-              </StaggerItem>
+              </InteriorReveal>
             );
           })}
-        </StaggerContainer>
+        </div>
 
-        <FadeIn className="mt-16 rounded-xl border border-border bg-card/50 p-8 text-center">
-          <h2 className="text-xl font-semibold text-foreground">
-            Have a specific scope in mind?
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm text-muted">
-            Share what you need to build so we can discuss requirements and
-            agree on the scope, deliverables and next steps for your project.
-          </p>
-          <Link href="/contact" className="mt-6 inline-flex rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white">Discuss your requirements</Link>
-        </FadeIn>
+        <InteriorReveal>
+          <InteriorPanel tone="teal" className="interior-cta">
+            <div>
+              <h2>Have a specific scope in mind?</h2>
+              <p>
+                Share what you need to build. We can work through your requirements,
+                define the deliverables and agree on the next steps.
+              </p>
+            </div>
+            <Link href="/contact" className="action-primary">
+              Let&apos;s discuss your project <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+          </InteriorPanel>
+        </InteriorReveal>
       </Container>
-    </>
+    </InteriorPage>
   );
 }

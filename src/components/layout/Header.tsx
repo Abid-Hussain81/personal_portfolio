@@ -37,8 +37,9 @@ export function Header() {
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
   const active = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const refreshed = ["/", "/about", "/services", "/resume", "/contact"].includes(pathname);
   return (
-    <header className={"site-header" + (pathname === "/" ? " home-header" : "") + (scrolled ? " is-scrolled" : "")}>
+    <header className={"site-header" + (refreshed ? " portfolio-header" : "") + (pathname === "/" ? " home-header" : "") + (scrolled ? " is-scrolled" : "")}>
       <div className="container-base site-header-inner">
         <Link href="/" className="brand-symbol" aria-label="Abid Hussain — Home" onClick={() => setIsOpen(false)}><BrandMark /></Link>
         <nav className="hidden items-center gap-7 md:flex lg:gap-9" aria-label="Main navigation">

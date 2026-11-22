@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/layout/Container";
+import { InteriorPage, InteriorHero } from "@/components/layout/InteriorPage";
 import { ResumePageContent } from "@/components/sections/ResumePageContent";
 import { createMetadata } from "@/lib/metadata";
 
@@ -12,12 +12,14 @@ export const metadata: Metadata = createMetadata({
 
 export default function ResumePage() {
   return (
-    <>
-      <PageHeader
-        title="Resume"
-        description="Professional experience, skills, education, and certifications."
+    <InteriorPage className="experience-page">
+      <InteriorHero
+        eyebrow="03 / Experience"
+        title="Practical experience."
+        accent="Thoughtful execution."
+        description="The roles, projects and learning behind the work. Explore my experience, skills, education and certifications."
       />
       <ResumePageContent />
-    </>
+    </InteriorPage>
   );
 }

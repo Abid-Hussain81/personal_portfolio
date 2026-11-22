@@ -61,6 +61,9 @@ button { cursor: pointer; }
 .bg-white { background-color: var(--card); }
 .site-header { position: fixed; inset: 0 0 auto; z-index: 50; background: #f7f5f0f5; border-bottom: 1px solid transparent; transition: border-color .2s ease; }
 .site-header.is-scrolled { border-color: var(--border); }
+.portfolio-header { background: #f7f5f0cc; -webkit-backdrop-filter: blur(20px) saturate(135%); backdrop-filter: blur(20px) saturate(135%); }
+.portfolio-header.is-scrolled { background: #f7f5f0e0; border-color: #ffffffb3; box-shadow: 0 8px 32px #42452d06; }
+.portfolio-header .nav-link { font-size: 1rem; }
 .site-header-inner { height: 5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 .brand-symbol { display: inline-flex; width: 2.75rem; height: 2.75rem; align-items: center; justify-content: center; color: var(--foreground); }
 .brand-symbol:hover { color: var(--primary); }
