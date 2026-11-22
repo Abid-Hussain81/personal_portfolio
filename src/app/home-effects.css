@@ -23,7 +23,7 @@
 .home-header .brand-symbol { transition: transform .35s, color .25s; }
 .home-header .brand-symbol:hover { transform: rotate(-8deg); }
 .home-header .nav-link { transition: color .25s, text-decoration-color .25s; }
-.home-page .hero-section { position: relative; padding-bottom: 2rem; }
+.home-page .hero-section { position: relative; padding-top: 7rem; padding-bottom: 2rem; }
 .home-page .hero-section > .container-base { position: relative; z-index: 1; }
 .hero-atmosphere { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .hero-orb { position: absolute; border-radius: 50%; filter: blur(55px); opacity: .65; }
@@ -107,11 +107,12 @@
 @keyframes ambient-drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(24px, 24px, 0) scale(1.06); } }
 @keyframes glass-float { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-7px) rotate(-3deg); } }
 @media (min-width: 1024px) {
-  .home-page .hero-section { padding-top: 10rem; padding-bottom: 2.5rem; }
+  .home-page .hero-section { padding-bottom: 2.5rem; }
   .home-page .hero-grid { gap: clamp(3rem, 6vw, 6rem); }
   .home-page .portrait-frame { margin-right: 1.25rem; }
 }
 @media (max-width: 639px) {
+  .home-page .hero-section { padding-top: 6.5rem; }
   .home-page .hero-grid { gap: 3rem; }
   .home-page .hero-heading { font-size: clamp(2.5rem, 9.5vw, 3.6rem); }
   .home-page .hero-copy > .section-kicker { font-size: .56rem; gap: .5rem; letter-spacing: .04em; }

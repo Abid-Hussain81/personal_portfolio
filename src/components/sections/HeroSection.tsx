@@ -11,7 +11,7 @@ export function HeroSection() {
       <Container>
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="section-kicker text-eyebrow text-muted">Frontend-focused. Full-stack capable.</p>
+            <p className="section-kicker text-eyebrow text-muted">{profile.role}</p>
             <h1 id="hero-heading" className="text-display hero-heading">
               <span>From a clear idea</span>{" "}
               <span className="hero-heading-accent">to a working product.</span>

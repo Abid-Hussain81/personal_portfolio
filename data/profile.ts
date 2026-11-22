@@ -1,6 +1,6 @@
 export const profile = {
   name: "Abid Hussain",
-  role: "Frontend-Focused Full-Stack Developer",
+  role: "Full Stack Developer (Frontend Focused)",
   location: "Lahore, Pakistan",
   tagline: "From a clear idea to a working product.",
   subheadline: "I help startup founders and software teams build web applications, booking platforms and API integrations. Clear interfaces, connected workflows and code your team can maintain.",
