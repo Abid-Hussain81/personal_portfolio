@@ -7,6 +7,8 @@ import { ContactCTASection } from "@/components/sections/ContactCTASection";
 import { HomeEffects } from "@/components/animations/HomeEffects";
 import "./home-effects.css";
 import "./process-stack.css";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 import "./expertise-cards.css";
 import "./toolkit-panels.css";
 

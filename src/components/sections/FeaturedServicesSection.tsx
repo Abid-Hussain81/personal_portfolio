@@ -1,10 +1,20 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { featuredServiceIds, services } from "@/data/services";
+import { featuredServiceIds, services, type ServiceIconName } from "@/data/services";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { serviceIconMap } from "@/components/icons/ServiceIcons";
+
+const expertiseIcons: Record<ServiceIconName, string> = {
+  code: "fa-code",
+  layout: "fa-table-columns",
+  rocket: "fa-gauge-high",
+  briefcase: "fa-briefcase",
+  "pen-tool": "fa-pen-nib",
+  layers: "fa-layer-group",
+  mail: "fa-envelope",
+  shield: "fa-shield-halved",
+  wrench: "fa-wrench",
+};
 
 const previews: Record<string, { title: string; summary: string; label: string }> = {
   "web-applications": { title: "Web applications", summary: "Responsive interfaces and reusable components that turn your product idea into something people can use.", label: "Build your product" },
@@ -25,16 +35,23 @@ export function FeaturedServicesSection() {
     <div className="expertise-grid">
       {featured.map((service, index) => {
         const preview = previews[service.id];
-        const Icon = serviceIconMap[service.icon];
         return <ScrollReveal distance={24} duration={.65} delay={(index % 3) * .07} once key={service.id}>
           <Link href={"/services#" + service.id} className={"expertise-card expertise-card-" + service.id}>
-            <div className="expertise-card-top"><span className="expertise-card-icon"><Icon size={23} strokeWidth={1.6} aria-hidden="true" /></span><span className="expertise-card-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span></div>
-            <div className="expertise-card-copy"><h3>{preview?.title ?? service.title}</h3><p>{preview?.summary ?? service.description}</p></div>
-            <div className="expertise-card-bottom"><span>{preview?.label ?? "Explore this service"}</span><span className="expertise-card-arrow"><ArrowUpRight size={18} aria-hidden="true" /></span></div>
+            <div className="expertise-card-heading">
+              <span className="expertise-card-icon" aria-hidden="true">
+                <i className={`fa-solid ${expertiseIcons[service.icon]}`} />
+              </span>
+              <h3>{preview?.title ?? service.title}</h3>
+            </div>
+            <p className="expertise-card-copy">{preview?.summary ?? service.description}</p>
+            <div className="expertise-card-bottom">
+              <span>{preview?.label ?? "Explore this service"}</span>
+              <span className="expertise-card-arrow" aria-hidden="true"><i className="fa-solid fa-arrow-right" /></span>
+            </div>
           </Link>
         </ScrollReveal>;
       })}
     </div>
-    <ScrollReveal distance={20} duration={.65} once><Link className="action-text mt-8" href="/services">Explore the full scope <ArrowUpRight size={15} aria-hidden="true" /></Link></ScrollReveal>
+    <ScrollReveal distance={20} duration={.65} once><Link className="action-text mt-8" href="/services">Explore the full scope <i className="fa-solid fa-arrow-right" aria-hidden="true" /></Link></ScrollReveal>
   </Container></section>;
 }
