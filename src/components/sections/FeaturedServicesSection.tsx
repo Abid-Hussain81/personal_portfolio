@@ -38,15 +38,13 @@ export function FeaturedServicesSection() {
         return <ScrollReveal distance={24} duration={.65} delay={(index % 3) * .07} once key={service.id}>
           <Link href={"/services#" + service.id} className={"expertise-card expertise-card-" + service.id}>
             <div className="expertise-card-heading">
-              <span className="expertise-card-icon" aria-hidden="true">
-                <i className={`fa-solid ${expertiseIcons[service.icon]}`} />
-              </span>
+              <i className={`expertise-card-icon fa-solid ${expertiseIcons[service.icon]}`} aria-hidden="true" />
               <h3>{preview?.title ?? service.title}</h3>
             </div>
             <p className="expertise-card-copy">{preview?.summary ?? service.description}</p>
             <div className="expertise-card-bottom">
               <span>{preview?.label ?? "Explore this service"}</span>
-              <span className="expertise-card-arrow" aria-hidden="true"><i className="fa-solid fa-arrow-right" /></span>
+              <i className="expertise-card-arrow fa-solid fa-arrow-right" aria-hidden="true" />
             </div>
           </Link>
         </ScrollReveal>;
