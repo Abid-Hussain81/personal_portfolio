@@ -35,7 +35,7 @@
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse at 72% 30%, #000, transparent 68%);
 }
-.home-page .hero-copy > .section-kicker { width: fit-content; max-width: 100%; padding: .55rem .8rem; border: 1px solid #ffffffc9; border-radius: 100px; background: #fffefa80; box-shadow: 0 4px 20px #53604405; font-size: .65rem; }
+.home-page .hero-heading { margin-top: 0; }
 .home-page .hero-heading-accent { text-shadow: 0 6px 30px #a3432810; }
 .home-page .hero-availability { width: fit-content; padding: .5rem .8rem; border: 1px solid #d8dfcaa3; border-radius: 100px; background: #f5f7ed99; color: #536044; font-size: .75rem; }
 .home-page .hero-availability .status-dot { box-shadow: 0 0 0 4px #53604412; }
@@ -78,7 +78,7 @@
 .home-page .contact-panel .action-primary { background: #e4e8d0; border-color: #f6f8eb80; color: var(--foreground); }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .home-page .portrait-frame, .home-page .portrait-caption, .portrait-glass-label, .home-page .hero-footnote, .home-page .hero-copy > .section-kicker {
+  .home-page .portrait-frame, .home-page .portrait-caption, .portrait-glass-label, .home-page .hero-footnote {
     -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
   }
   .home-page .portrait-caption { background: #fffefabf; }
@@ -93,7 +93,6 @@
   .home-page .hero-copy > :nth-child(2) { animation-delay: .1s; }
   .home-page .hero-copy > :nth-child(3) { animation-delay: .2s; }
   .home-page .hero-copy > :nth-child(4) { animation-delay: .3s; }
-  .home-page .hero-copy > :nth-child(5) { animation-delay: .4s; }
   .home-page .portrait-frame { animation: portrait-enter 1.1s .15s cubic-bezier(.16,1,.3,1) both; }
   .home-page .hero-footnote { animation: hero-enter .85s .5s cubic-bezier(.16,1,.3,1) both; }
   .hero-orb-sage { animation: ambient-drift 18s ease-in-out infinite alternate; }
@@ -115,7 +114,6 @@
   .home-page .hero-section { padding-top: 6.5rem; }
   .home-page .hero-grid { gap: 3rem; }
   .home-page .hero-heading { font-size: clamp(2.5rem, 9.5vw, 3.6rem); }
-  .home-page .hero-copy > .section-kicker { font-size: .56rem; gap: .5rem; letter-spacing: .04em; }
   .home-page .hero-availability { align-items: flex-start; border-radius: .85rem; font-size: .7rem; }
   .home-page .hero-availability .status-dot { margin-top: .35rem; }
   .home-page .portrait-frame { max-width: 18rem; width: calc(100% - 1rem); }
@@ -143,7 +141,6 @@
   .home-page .text-sm, .home-page .text-lead { font-size: 1.0625rem; line-height: 1.8; }
   .home-page .text-xs { font-size: .9375rem; line-height: 1.75; }
   .home-page .text-eyebrow { font-size: .8125rem; }
-  .home-page .hero-copy > .section-kicker { font-size: .8125rem; padding: .65rem 1rem; }
   .home-page .hero-description { font-size: 1.1875rem; max-width: 36rem; }
   .home-page .action-primary, .home-page .action-text { font-size: 1rem; }
   .home-page .hero-availability { font-size: .9375rem; }
@@ -154,7 +151,7 @@
   .home-page .service-index { font-size: .8125rem; width: 2.25rem; height: 2.25rem; }
   .home-page .service-row h3, .home-page .process-step h3, .home-page .toolkit-label { font-size: 1.125rem; }
   .home-page .service-row p, .home-page .toolkit-items { font-size: 1.0625rem; color: var(--muted-foreground); }
-  .home-page .contact-panel .text-white\/60, .home-page .contact-panel .text-white\/65 { color: #f7f5f0d9; }
+  .home-page .contact-panel .text-white\/65 { color: #f7f5f0d9; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-page [data-reveal] { opacity: 1 !important; transform: none !important; }

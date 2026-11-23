@@ -7,7 +7,6 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 export function WorkOverview() {
   return <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
     <ScrollReveal direction="left"><div>
-      <p className="section-kicker text-eyebrow text-muted">03 / Experience</p>
       <h2 className="text-h2 max-w-sm">Practical experience.<br />Thoughtful execution.</h2>
       <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">My experience spans production interfaces, booking workflows and API integration. Some professional work remains private. Project details are shared only with permission.</p>
       <div className="mt-7 flex flex-wrap gap-6"><Link className="action-text" href="/resume">Read my background <ArrowUpRight size={14} aria-hidden="true" /></Link><a href={profile.github} className="action-text" target="_blank" rel="noopener noreferrer">Public GitHub <ArrowUpRight size={14} aria-hidden="true" /></a></div>

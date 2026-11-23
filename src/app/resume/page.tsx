@@ -14,7 +14,6 @@ export default function ResumePage() {
   return (
     <InteriorPage className="experience-page">
       <InteriorHero
-        eyebrow="03 / Experience"
         title="Practical experience."
         accent="Thoughtful execution."
         description="The roles, projects and learning behind the work. Explore my experience, skills, education and certifications."

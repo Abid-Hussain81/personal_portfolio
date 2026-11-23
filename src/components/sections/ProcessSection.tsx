@@ -17,7 +17,7 @@ const stepDetails = [
 export function ProcessSection() {
   return <section className="section-pad section-divider" id="approach"><Container>
     <div className="process-stack-intro">
-      <ScrollReveal direction="left"><SectionHeading eyebrow="02 / Approach" title="From first conversation to final handover." description="Four considered steps. One clear way forward." /></ScrollReveal>
+      <ScrollReveal direction="left"><SectionHeading title="From first conversation to final handover." description="Four considered steps. One clear way forward." /></ScrollReveal>
       <p className="process-scroll-cue"><ArrowDown size={16} aria-hidden="true" />Scroll through the process</p>
     </div>
     <ProcessStack>

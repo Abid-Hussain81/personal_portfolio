@@ -15,7 +15,7 @@ export const metadata: Metadata = createMetadata({
 
 export default function ContactPage() {
   return <InteriorPage className="contact-page">
-    <InteriorHero eyebrow="04 / Contact" title="Good work starts" accent="with a conversation." description="A new product, an integration or an extra pair of hands. Tell me what you have in mind, and let's work through the next step." />
+    <InteriorHero title="Good work starts" accent="with a conversation." description="A new product, an integration or an extra pair of hands. Tell me what you have in mind, and let's work through the next step." />
     <Container className="interior-content"><div className="contact-layout">
       <div className="interior-stack">
         <InteriorReveal><InteriorPanel tone="teal" className="contact-direct">

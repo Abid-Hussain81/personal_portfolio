@@ -14,9 +14,9 @@ export function ResumePageContent() {
     </div></InteriorReveal>
     <div className="interior-grid mt-8">
       <div className="interior-stack">
-        <InteriorReveal><InteriorPanel tone="sage"><p className="interior-section-label">At a glance</p><h2>Professional summary</h2><p className="interior-body">{resume.summary}</p></InteriorPanel></InteriorReveal>
+        <InteriorReveal><InteriorPanel tone="sage"><h2>Professional summary</h2><p className="interior-body">{resume.summary}</p></InteriorPanel></InteriorReveal>
         <InteriorPanel>
-          <p className="interior-section-label">01 / Work history</p><h2>Professional experience</h2>
+          <h2>Professional experience</h2>
           <div className="interior-stack mt-8">
             {resume.experience.map(job => <InteriorReveal key={job.id}><article className="resume-job">
               <p className="text-eyebrow text-primary">{job.period}</p>

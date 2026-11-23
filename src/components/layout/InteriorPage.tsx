@@ -12,11 +12,10 @@ export function InteriorReveal({ children, className, delay = 0 }: { children: R
   return <ScrollReveal className={className} distance={24} duration={.65} delay={delay} once>{children}</ScrollReveal>;
 }
 
-export function InteriorHero({ eyebrow, title, accent, description, children }: {
-  eyebrow: string; title: string; accent?: string; description: string; children?: ReactNode;
+export function InteriorHero({ title, accent, description, children }: {
+  title: string; accent?: string; description: string; children?: ReactNode;
 }) {
   return <section className="interior-hero"><Container><InteriorReveal>
-    <p className="section-kicker text-eyebrow">{eyebrow}</p>
     <h1>{title}{accent && <> <em>{accent}</em></>}</h1>
     <p className="interior-description">{description}</p>
     {children}

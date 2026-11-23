@@ -74,9 +74,6 @@ export function FeaturedProjectsSection() {
         <ScrollReveal direction="left">
           <div className="mb-10 flex items-end justify-between">
             <div>
-              <span className="text-eyebrow mb-3 inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.5 text-primary">
-                Projects
-              </span>
               <h2 className="text-h2 mt-3 text-foreground">Selected Works</h2>
             </div>
             <Link

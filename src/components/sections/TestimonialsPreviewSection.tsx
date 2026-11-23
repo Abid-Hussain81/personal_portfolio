@@ -46,7 +46,6 @@ export function TestimonialsPreviewSection() {
       <Container>
         <FadeIn>
           <SectionHeading
-            eyebrow="Testimonials"
             title="What Clients Say"
             description="Real feedback from clients and collaborators who've worked with me on web projects."
           />

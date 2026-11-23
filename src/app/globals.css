@@ -98,8 +98,6 @@ button { cursor: pointer; }
 .hero-footnote { display: grid; gap: 1rem; margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
 .hero-specialties { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; list-style: none; color: var(--muted); font-size: .8125rem; }
 .hero-specialties li + li::before { content: "/"; margin-right: 1.5rem; color: #999d8e; }
-.section-kicker { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.2rem; }
-.section-kicker::before { content: ""; width: 1.5rem; height: 1px; background: var(--primary); }
 .service-index { font-family: var(--font-geist-mono), monospace; font-size: .7rem; color: var(--primary); }
 .service-row { display: flex; height: 100%; gap: 1.4rem; padding: 1.7rem 0; border-top: 1px solid var(--border); }
 .service-row:hover h3 { color: var(--primary); }
@@ -116,10 +114,9 @@ button { cursor: pointer; }
 .contact-panel .action-primary { background: #e4e8d0; color: var(--foreground); border-color: #e4e8d0; }
 .site-footer { padding-top: 2.5rem; padding-bottom: 2rem; border-top: 1px solid var(--border); }
 .page-header { padding-top: 9rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border); }
-.page-header h1 { margin-top: 1rem; }
 .page-header p { margin-top: 1.25rem; max-width: 40rem; }
 .card-hover:hover { border-color: var(--primary); }
 @media(min-width:640px) { :root { --container-px: 2rem; } .hero-footnote { grid-template-columns: 1fr auto; align-items: center; } .hero-section { padding-top: 9rem; } .contact-panel { padding: 3rem; } }
 @media(min-width:1024px) { :root { --container-px: 2.5rem; } .hero-grid { grid-template-columns: minmax(0, 1fr) 21.25rem; gap: clamp(2rem, 5vw, 5rem); } .hero-heading { font-size: clamp(3rem, 4.7vw, 4.125rem); } .portrait-frame { max-width: 21.25rem; margin-right: .65rem; } .contact-panel { grid-template-columns: 1fr auto; align-items: center; padding: 4rem; } .hero-section { padding-top: 9.5rem; padding-bottom: 3.5rem; } }
-@media(max-width:639px) { .hero-section .section-kicker { font-size: .6875rem; letter-spacing: .06em; } .hero-heading { max-width: 18ch; } .hero-specialties { gap: .5rem 1rem; } .hero-specialties li + li::before { margin-right: 1rem; } }
+@media(max-width:639px) { .hero-heading { max-width: 18ch; } .hero-specialties { gap: .5rem 1rem; } .hero-specialties li + li::before { margin-right: 1rem; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }

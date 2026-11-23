@@ -29,7 +29,7 @@ export function FeaturedServicesSection() {
   const featured = services.filter(service => featuredServiceIds.includes(service.id));
   return <section className="section-pad section-divider" id="expertise"><Container>
     <div className="expertise-intro">
-      <ScrollReveal distance={20} duration={.65} once><SectionHeading eyebrow="01 / Expertise" title="The right expertise for your next move." /></ScrollReveal>
+      <ScrollReveal distance={20} duration={.65} once><SectionHeading title="The right expertise for your next move." /></ScrollReveal>
       <ScrollReveal distance={20} duration={.65} delay={.08} once><p className="expertise-intro-copy">From the first screen to the final integration, practical support for the work ahead.</p></ScrollReveal>
     </div>
     <div className="expertise-grid">

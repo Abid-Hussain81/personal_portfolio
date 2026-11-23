@@ -25,5 +25,5 @@ export function Container({
 }
 
 export function PageHeader({ title, description, children }: { title: string; description?: string; children?: ReactNode }) {
-  return <section className="page-header"><Container><span className="section-kicker text-eyebrow text-muted">Abid Hussain / Portfolio</span><h1 className="text-h1 max-w-3xl">{title}</h1>{description && <p className="text-lead">{description}</p>}{children}</Container></section>;
+  return <section className="page-header"><Container><h1 className="text-h1 max-w-3xl">{title}</h1>{description && <p className="text-lead">{description}</p>}{children}</Container></section>;
 }

@@ -22,7 +22,6 @@ export default function AboutPage() {
   return (
     <InteriorPage>
       <InteriorHero
-        eyebrow="01 / About"
         title="Thoughtful work."
         accent="A human approach."
         description={`${profile.role}, helping founders and teams build web applications and connected workflows.`}
@@ -33,7 +32,6 @@ export default function AboutPage() {
           <div className="interior-stack">
             <InteriorReveal>
               <InteriorPanel>
-                <p className="interior-section-label">A little introduction</p>
                 <h2>Interfaces with purpose.</h2>
                 <p className="interior-body">{profile.about}</p>
               </InteriorPanel>
@@ -41,7 +39,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel tone="peach">
-                <p className="interior-section-label">My story</p>
                 <h2>Learning through real work.</h2>
                 <p className="interior-body">{profile.careerStory}</p>
               </InteriorPanel>
@@ -49,7 +46,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel tone="lilac">
-                <p className="interior-section-label">What I do</p>
                 <h2>From design to a working product.</h2>
                 <ul className="about-capabilities">
                   {profile.whatIDo.map((item) => (
@@ -64,7 +60,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel>
-                <p className="interior-section-label">Learning journey</p>
                 <h2>Curiosity, put into practice.</h2>
                 <p className="interior-body">{profile.learningJourney}</p>
               </InteriorPanel>
@@ -72,7 +67,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel>
-                <p className="interior-section-label">Along the way</p>
                 <h2>Education &amp; experience.</h2>
                 <div className="about-timeline">
                   {profile.timeline.map((item) => (
@@ -121,7 +115,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel tone="sage">
-                <p className="interior-section-label">Personal mission</p>
                 <h2>Make the complex feel clear.</h2>
                 <p className="interior-body">{profile.mission}</p>
               </InteriorPanel>
@@ -129,7 +122,6 @@ export default function AboutPage() {
 
             <InteriorReveal>
               <InteriorPanel tone="lilac">
-                <p className="interior-section-label">Technologies</p>
                 <h2>Tools for the task.</h2>
                 <ul className="interior-chips">
                   {profile.focus.map((tech) => <li key={tech}>{tech}</li>)}

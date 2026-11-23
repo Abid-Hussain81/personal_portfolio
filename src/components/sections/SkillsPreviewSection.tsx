@@ -16,7 +16,7 @@ export function SkillsPreviewSection() {
   return <section className="section-pad section-divider" id="toolkit" aria-label="Development toolkit"><Container>
     <div className="toolkit-layout">
       <div className="toolkit-intro">
-        <ScrollReveal distance={24} duration={.65} once><SectionHeading eyebrow="04 / Toolkit" title="Tools that work together." description="A frontend foundation, backed by the systems and tools that connect the pieces." /></ScrollReveal>
+        <ScrollReveal distance={24} duration={.65} once><SectionHeading title="Tools that work together." description="A frontend foundation, backed by the systems and tools that connect the pieces." /></ScrollReveal>
         <ScrollReveal distance={20} duration={.65} delay={.08} once><Link href="/skills" className="toolkit-full-link">Explore the full toolkit <span><ArrowUpRight size={18} aria-hidden="true" /></span></Link></ScrollReveal>
       </div>
       <div className="toolkit-panels">

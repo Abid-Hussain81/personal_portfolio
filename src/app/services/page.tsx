@@ -25,7 +25,6 @@ export default function ServicesPage() {
   return (
     <InteriorPage>
       <InteriorHero
-        eyebrow="02 / Expertise"
         title="The right support."
         accent="Where it matters."
         description="From responsive interfaces to connected workflows, practical development support for your product and the people who use it."
