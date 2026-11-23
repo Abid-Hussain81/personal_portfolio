@@ -9,7 +9,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/abid-hussain-6853043a1/",
   github: "https://github.com/Abid-Hussain81",
   resumeUrl: "/resume.pdf",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://abidhussainportfolio.vercel.app",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aabidev.site",
   focus: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "REST APIs", "PHP", "CodeIgniter", "Node.js", "NestJS", "PostgreSQL", "Prisma", "Git", "Figma"],
   mission: "Make complex application workflows easier to use through clear interfaces, dependable integrations and maintainable code.",
   learningJourney: "My toolkit spans frontend development, backend support, authentication, databases and automation. I choose tools around the requirements and keep learning through practical implementation and debugging.",

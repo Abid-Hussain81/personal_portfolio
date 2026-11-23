@@ -37,7 +37,7 @@ The generator uses a local Chrome/Chromium installation. Set CHROME_PATH if it i
 
 ## Configuration
 
-NEXT_PUBLIC_SITE_URL sets the canonical site URL; the existing default is https://abidhussainportfolio.vercel.app. Set it to the actual deployment URL before publishing.
+The canonical site URL defaults to https://www.aabidev.site. If you set `NEXT_PUBLIC_SITE_URL` in Vercel, use the final production URL without a trailing slash.
 
 The contact form uses the existing server-side Gmail SMTP integration. Configure EMAIL_USER and EMAIL_PASS in local or deployment environment variables for delivery. Never commit credentials. Direct email, LinkedIn and GitHub links are also available on the Contact page.
 
@@ -45,4 +45,4 @@ The contact form uses the existing server-side Gmail SMTP integration. Configure
 
 The interface uses warm ivory, charcoal, olive and rust with a symbol-based header and a concise founder-facing introduction. Geist fonts are self-hosted with their original licenses, so builds do not fetch Google Fonts. The standard development and production scripts use Next.js with its native compiler; no Webpack override is required.
 
-The connected production app is https://abidhussainportfolio.vercel.app/. Pushes to main use the existing Git-to-Vercel deployment integration.
+The production site is https://www.aabidev.site/. Pushes to main use the existing Git-to-Vercel deployment integration.
