@@ -62,7 +62,7 @@ export function ProjectsGrid() {
 
 export function ProjectsPageContent() {
   return (
-    <Container className="py-16 sm:py-20">
+    <Container className="section-pad">
       <ProjectsGrid />
     </Container>
   );

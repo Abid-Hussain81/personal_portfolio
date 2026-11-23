@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[70vh] items-center py-28">
+    <section className="page-content flex min-h-[70vh] items-center">
       <Container>
         <div className="mx-auto max-w-lg text-center">
           <p className="text-8xl font-bold gradient-text">404</p>

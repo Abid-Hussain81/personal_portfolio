@@ -19,7 +19,7 @@ export const metadata: Metadata = createMetadata({
 
 export default function TestimonialsPage() {
   if (testimonials.length === 0) {
-    return <><PageHeader title="Professional Background" description="Explore my experience and connect with me about a role or project." /><Container className="py-16"><p className="max-w-2xl text-muted-foreground">For my professional background, visit my LinkedIn profile or review my experience and education.</p><div className="mt-6 flex flex-wrap gap-6"><a className="font-semibold text-primary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">View LinkedIn profile</a><Link className="font-semibold text-primary" href="/resume">View resume</Link></div></Container></>;
+    return <><PageHeader title="Professional Background" description="Explore my experience and connect with me about a role or project." /><Container className="section-pad"><p className="max-w-2xl text-muted-foreground">For my professional background, visit my LinkedIn profile or review my experience and education.</p><div className="mt-6 flex flex-wrap gap-6"><a className="font-semibold text-primary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">View LinkedIn profile</a><Link className="font-semibold text-primary" href="/resume">View resume</Link></div></Container></>;
   }
   return (
     <>
@@ -27,7 +27,7 @@ export default function TestimonialsPage() {
         title="Testimonials"
         description="Hear from clients and collaborators who have worked with me on web development projects."
       />
-      <Container className="py-16 sm:py-20">
+      <Container className="section-pad">
         <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
             <StaggerItem key={testimonial.id}>

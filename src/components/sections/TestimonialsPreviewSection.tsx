@@ -42,7 +42,7 @@ export function TestimonialCard({
 export function TestimonialsPreviewSection() {
   if (testimonials.length === 0) return null;
   return (
-    <section className="border-y border-border bg-secondary/40 py-20">
+    <section className="border-y border-border bg-secondary/40 section-pad">
       <Container>
         <FadeIn>
           <SectionHeading

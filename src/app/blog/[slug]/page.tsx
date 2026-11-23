@@ -36,7 +36,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <Container className="py-28 sm:py-32">
+    <Container className="page-content">
       <Link
         href="/blog"
         className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
         Back to Blog
       </Link>
 
-      <article className="mx-auto mt-10 max-w-3xl">
+      <article className="mx-auto mt-6 max-w-3xl">
         <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/8 px-3 py-1 text-xs font-semibold text-primary">
           {post.category}
         </span>

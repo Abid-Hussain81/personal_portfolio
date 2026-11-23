@@ -69,7 +69,7 @@ export function ProjectCard({
 export function FeaturedProjectsSection() {
   if (featuredProjects.length === 0) return <section className="section-pad section-divider" id="experience"><Container><WorkOverview /></Container></section>;
   return (
-    <section className="py-20">
+    <section className="section-pad">
       <Container>
         <ScrollReveal direction="left">
           <div className="mb-10 flex items-end justify-between">

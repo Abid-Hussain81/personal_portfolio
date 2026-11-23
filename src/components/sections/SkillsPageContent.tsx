@@ -4,7 +4,7 @@ import { StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 export function SkillsPageContent() {
   return (
-    <Container className="py-16 sm:py-20">
+    <Container className="section-pad">
       <StaggerContainer className="grid gap-6 lg:grid-cols-2">
         {skillCategories.map((category) => (
           <StaggerItem key={category.id}>

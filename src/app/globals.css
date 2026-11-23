@@ -15,9 +15,10 @@
   --secondary: #eeeee5;
   --ring: #a34328;
   --container-max: 76rem;
+  --page-top: clamp(6.5rem, 8vw, 7rem);
   --container-px: 1.25rem;
-  --section-py: 5rem;
-  --section-py-sm: 3rem;
+  --section-py: clamp(2.25rem, 4vw, 3.5rem);
+  --section-py-sm: clamp(1.5rem, 3vw, 2.5rem);
 }
 @theme inline {
   --color-background: var(--background);
@@ -55,6 +56,8 @@ button { cursor: pointer; }
 .text-caption { font-size: .8rem; line-height: 1.6; color: var(--muted); }
 .section-pad { padding-block: var(--section-py); }
 .section-pad-sm { padding-block: var(--section-py-sm); }
+.section-end { padding-bottom: var(--section-py); }
+.page-content { padding-block: var(--page-top) var(--section-py); }
 .gradient-text, .shimmer-text { color: var(--foreground); background: none; animation: none; }
 .gradient-bg { background: var(--foreground); }
 .grid-pattern { background-image: none; }
@@ -112,8 +115,8 @@ button { cursor: pointer; }
 .toolkit-items { margin-top: .85rem; color: var(--muted); font-size: .8rem; line-height: 1.9; }
 .contact-panel { display: grid; gap: 2rem; padding: 2.2rem; border-radius: 1rem; background: var(--foreground); color: #f7f5f0; }
 .contact-panel .action-primary { background: #e4e8d0; color: var(--foreground); border-color: #e4e8d0; }
-.site-footer { padding-top: 2.5rem; padding-bottom: 2rem; border-top: 1px solid var(--border); }
-.page-header { padding-top: 9rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--border); }
+.site-footer { padding-block: var(--section-py-sm); border-top: 1px solid var(--border); }
+.page-header { padding-block: var(--page-top) var(--section-py-sm); border-bottom: 1px solid var(--border); }
 .page-header p { margin-top: 1.25rem; max-width: 40rem; }
 .card-hover:hover { border-color: var(--primary); }
 @media(min-width:640px) { :root { --container-px: 2rem; } .hero-footnote { grid-template-columns: 1fr auto; align-items: center; } .hero-section { padding-top: 9rem; } .contact-panel { padding: 3rem; } }
