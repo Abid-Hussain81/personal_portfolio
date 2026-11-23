@@ -18,12 +18,12 @@ export default function ContactPage() {
     <InteriorHero title="Good work starts" accent="with a conversation." description="A new product, an integration or an extra pair of hands. Tell me what you have in mind, and let's work through the next step." />
     <Container className="interior-content"><div className="contact-layout">
       <div className="interior-stack">
-        <InteriorReveal><InteriorPanel tone="teal" className="contact-direct">
+        <InteriorReveal><InteriorPanel tone="sage" className="contact-direct">
           <h2>Let&apos;s connect<br />the right pieces.</h2>
           <p>Tell me what you need to build, what already exists and your expected scope or timeline. I&apos;m also open to international remote development roles.</p>
           <a className="contact-email" href={"mailto:" + profile.email}><MailIcon className="h-4 w-4 shrink-0" />{profile.email}<ArrowUpRight size={16} className="shrink-0" aria-hidden="true" /></a>
           <p className="contact-meta"><MapPin size={16} className="shrink-0" aria-hidden="true" />{profile.location}</p>
-          <p className="contact-meta"><span className="status-dot bg-[#c5d8b5]" aria-hidden="true" />Open to freelance projects and remote roles</p>
+          <p className="contact-meta"><span className="status-dot" aria-hidden="true" />Open to freelance projects and remote roles</p>
         </InteriorPanel></InteriorReveal>
         <InteriorReveal delay={.08}><InteriorPanel tone="lilac"><h2 className="resume-section-title">Find me elsewhere</h2><p className="interior-body">A little more about the work, and a direct way to reach me.</p><ul className="contact-socials">
           {socialLinks.map(link => {

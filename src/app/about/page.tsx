@@ -83,7 +83,7 @@ export default function AboutPage() {
 
           <aside className="interior-stack" aria-label="Profile and approach">
             <InteriorReveal delay={0.08}>
-              <InteriorPanel tone="teal">
+              <InteriorPanel tone="sage">
                 <div className="about-profile-image">
                   <Image
                     src="/Profile.jpg"
@@ -132,7 +132,7 @@ export default function AboutPage() {
         </div>
 
         <InteriorReveal>
-          <InteriorPanel tone="teal" className="interior-cta">
+          <InteriorPanel tone="sage" className="interior-cta">
             <div>
               <h2>Have something in mind?</h2>
               <p>Let’s talk about your application, interface or next integration.</p>

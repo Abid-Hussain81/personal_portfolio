@@ -20,7 +20,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function ServicesPage() {
-  const tones = ["teal", "lilac", undefined, "peach", undefined, "sage", "lilac", undefined];
+  const tones = ["sage", "lilac", undefined, "peach", undefined, "sage", "lilac", undefined];
 
   return (
     <InteriorPage>
@@ -59,7 +59,7 @@ export default function ServicesPage() {
         </div>
 
         <InteriorReveal>
-          <InteriorPanel tone="teal" className="interior-cta">
+          <InteriorPanel tone="sage" className="interior-cta">
             <div>
               <h2>Have a specific scope in mind?</h2>
               <p>

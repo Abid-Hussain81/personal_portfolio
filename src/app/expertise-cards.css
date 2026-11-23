@@ -18,7 +18,7 @@
   color: var(--expertise-ink);
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
-.home-page .expertise-card-web-applications { --expertise-bg: #244b47; --expertise-ink: #fafbf4; --expertise-body: #d0dfd8; --expertise-edge: #244b47; }
+.home-page .expertise-card-web-applications { --expertise-bg: var(--sage-surface); --expertise-ink: var(--sage-ink); --expertise-body: var(--sage-body); --expertise-edge: var(--sage-edge); }
 .home-page .expertise-card-api-integrations { --expertise-bg: #eceaf5; --expertise-ink: #504773; --expertise-body: #59556b; --expertise-edge: #50477314; }
 .home-page .expertise-card-figma-to-code { --expertise-bg: #edf3f5; --expertise-ink: #345d70; --expertise-body: #50616a; --expertise-edge: #345d7014; }
 .home-page .expertise-card-website-performance { --expertise-bg: #f5ede3; --expertise-ink: #835338; --expertise-body: #6c5b50; --expertise-edge: #83533814; }

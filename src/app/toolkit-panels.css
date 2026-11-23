@@ -2,7 +2,7 @@
 .home-page .toolkit-intro .section-heading { max-width: 27rem; }
 .home-page .toolkit-full-link { display: inline-flex; align-items: center; gap: 1.25rem; margin-top: 2rem; padding-block: .25rem; font-size: 1rem; color: #294b46; }
 .home-page .toolkit-full-link > span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid #294b4626; border-radius: 50%; transition: background .25s, color .25s; }
-.home-page .toolkit-full-link:hover > span { background: #294b46; color: #fffefa; }
+.home-page .toolkit-full-link:hover > span { background: var(--sage-action); color: var(--sage-ink); }
 .home-page .toolkit-panels { display: grid; gap: 1rem; }
 .home-page .toolkit-panel {
   --toolkit-bg: #fdfcf8;
@@ -19,7 +19,7 @@
   background: var(--toolkit-bg);
   color: var(--toolkit-ink);
 }
-.home-page .toolkit-panel-frontend { --toolkit-bg: #244b47; --toolkit-ink: #fafbf4; --toolkit-muted: #ceded6; --toolkit-edge: #ffffff26; --toolkit-chip: #ffffff0d; }
+.home-page .toolkit-panel-frontend { --toolkit-bg: var(--sage-surface); --toolkit-ink: var(--sage-ink); --toolkit-muted: var(--sage-body); --toolkit-edge: var(--sage-edge); --toolkit-chip: #ffffff80; }
 .home-page .toolkit-panel-data-auth { --toolkit-bg: #eceaf5; --toolkit-ink: #504773; --toolkit-muted: #625c77; --toolkit-edge: #5047731a; --toolkit-chip: #ffffff66; }
 .home-page .toolkit-panel-tools { --toolkit-bg: #f5ede3; --toolkit-ink: #835338; --toolkit-muted: #715e51; --toolkit-edge: #8353381a; --toolkit-chip: #ffffff66; }
 .home-page .toolkit-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }

@@ -22,6 +22,6 @@ export function InteriorHero({ title, accent, description, children }: {
   </InteriorReveal></Container></section>;
 }
 
-export function InteriorPanel({ children, className = "", tone }: { children: ReactNode; className?: string; tone?: "teal" | "lilac" | "peach" | "sage" }) {
+export function InteriorPanel({ children, className = "", tone }: { children: ReactNode; className?: string; tone?: "lilac" | "peach" | "sage" }) {
   return <section className={"interior-panel " + (tone ? "tone-" + tone + " " : "") + className}>{children}</section>;
 }
