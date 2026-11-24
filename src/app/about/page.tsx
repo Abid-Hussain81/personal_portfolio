@@ -14,7 +14,7 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "About",
-  description: `Learn about ${profile.name}, a ${profile.role} from ${profile.location} building web applications, booking workflows and API integrations.`,
+  description: `Meet ${profile.name}, a full stack developer in ${profile.location}, and learn about his work on responsive interfaces, booking workflows, and APIs.`,
   path: "/about",
 });
 

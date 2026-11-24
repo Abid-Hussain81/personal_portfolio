@@ -8,8 +8,8 @@ import { ContactForm } from "@/components/sections/ContactForm";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Contact",
-  description: `Get in touch with ${profile.name} for freelance development projects, contracts and international remote roles.`,
+  title: "Contact for Web Development",
+  description: `Contact ${profile.name} about freelance web development, booking platforms, API integrations, or remote developer roles.`,
   path: "/contact",
 });
 

@@ -4,9 +4,9 @@ import { ResumePageContent } from "@/components/sections/ResumePageContent";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Resume",
+  title: "Experience & Resume",
   description:
-    "Professional resume of Abid Hussain, a frontend-focused full-stack developer working on production interfaces, booking workflows and API integrations.",
+    "Read Abid Hussain’s work history, technical skills, education, and certifications. Download the resume for details on frontend and API integration work.",
   path: "/resume",
 });
 

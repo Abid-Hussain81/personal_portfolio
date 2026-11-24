@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { profile } from "@/data/profile";
 
+export const siteDescription =
+  "Abid Hussain is a full stack developer in Lahore, Pakistan, focused on frontend development, web applications, booking platforms, and API integrations.";
+
 type PageMetadataOptions = {
   title?: string;
   description?: string;
@@ -10,19 +13,21 @@ type PageMetadataOptions = {
 
 export function createMetadata({
   title,
-  description = "Abid Hussain helps startup founders build web applications, booking platforms and API integrations. Frontend-focused full-stack developer in Lahore, Pakistan.",
-  path = "",
-  image = "/og-image.png",
+  description = siteDescription,
+  path = "/",
+  image,
 }: PageMetadataOptions = {}): Metadata {
   const pageTitle = title
     ? `${title} | ${profile.name}`
-    : `${profile.name} — ${profile.role}`;
-  const url = `${profile.siteUrl}${path}`;
+    : `${profile.name} | Full Stack Developer`;
+  const url = new URL(path, profile.siteUrl).href;
+  const socialImage = image
+    ? { url: image, alt: pageTitle }
+    : { url: "/social-preview", width: 1200, height: 630, alt: `${profile.name}, ${profile.role}` };
 
   return {
     title: pageTitle,
     description,
-    icons: { icon: "/brand-mark.svg", apple: "/brand-mark.svg" },
     authors: [{ name: profile.name }],
     creator: profile.name,
     metadataBase: new URL(profile.siteUrl),
@@ -36,20 +41,13 @@ export function createMetadata({
       title: pageTitle,
       description,
       siteName: profile.name,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: pageTitle,
-        },
-      ],
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
       description,
-      images: [image],
+      images: [socialImage],
     },
     robots: {
       index: true,

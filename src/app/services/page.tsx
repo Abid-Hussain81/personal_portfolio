@@ -13,9 +13,9 @@ import {
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Services",
+  title: "Web Development Services",
   description:
-    "Web application development, booking interfaces, REST API integrations, Figma implementation and backend support for startups and software teams.",
+    "Explore Abid Hussain’s web development services, including booking interfaces, REST API integrations, Figma implementation, and PHP backend support.",
   path: "/services",
 });
 
