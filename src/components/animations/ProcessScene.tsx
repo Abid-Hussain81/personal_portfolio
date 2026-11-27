@@ -1,126 +1,185 @@
 "use client";
 
+import { ContactShadows, Environment, Lightformer, OrthographicCamera, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Component, useEffect, useRef, useState, type ReactNode } from "react";
-import { MathUtils, type Group } from "three";
+import { animate } from "framer-motion";
+import { Component, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
+import {
+  Color, CubicBezierCurve3, Euler, MathUtils, Quaternion, Vector3,
+  type Group, type Mesh, type MeshBasicMaterial, type MeshPhysicalMaterial, type OrthographicCamera as Camera,
+} from "three";
+import { processPieces, type PiecePose } from "./process-poses";
 
-const stageColors = ["#75896a", "#ad7052", "#6f855d", "#527e72"];
-const ivory = "#fbf8ee";
-const ink = "#384d43";
+function Piece({ step, poses, frosted = false }: { step: number; poses: readonly PiecePose[]; frosted?: boolean }) {
+  const mesh = useRef<Mesh>(null);
+  const material = useRef<MeshPhysicalMaterial>(null);
+  const initial = poses[0];
+  const pose = poses[step] ?? initial;
+  const target = useMemo(() => ({
+    position: new Vector3(...pose.position),
+    size: new Vector3(...pose.size),
+    rotation: new Quaternion().setFromEuler(new Euler(...pose.rotation)),
+    color: new Color(pose.color),
+  }), [pose]);
 
-type Vector = [number, number, number];
+  useFrame(({ invalidate }, delta) => {
+    const block = mesh.current;
+    const coat = material.current;
+    if (!block || !coat) return;
+    const amount = 1 - Math.exp(-6.5 * Math.min(delta, 0.05));
+    block.position.lerp(target.position, amount);
+    block.scale.lerp(target.size, amount);
+    block.quaternion.slerp(target.rotation, amount);
+    coat.color.lerp(target.color, amount);
 
-function Block({ at, size, color, angle = 0 }: { at: Vector; size: Vector; color: string; angle?: number }) {
+    const busy = block.position.distanceToSquared(target.position) > 0.00001 ||
+      block.scale.distanceToSquared(target.size) > 0.00001 ||
+      block.quaternion.angleTo(target.rotation) > 0.003 ||
+      Math.max(
+        Math.abs(coat.color.r - target.color.r),
+        Math.abs(coat.color.g - target.color.g),
+        Math.abs(coat.color.b - target.color.b),
+      ) > 0.002;
+    if (busy) invalidate();
+  });
+
   return (
-    <mesh position={at} rotation-z={angle}>
-      <boxGeometry args={size} />
-      <meshStandardMaterial color={color} roughness={0.62} />
-    </mesh>
+    <RoundedBox ref={mesh} args={[1, 1, 1]} radius={0.07} smoothness={5}
+      position={initial.position} rotation={initial.rotation} scale={initial.size}>
+      <meshPhysicalMaterial
+        ref={material}
+        color={initial.color}
+        roughness={frosted ? 0.44 : 0.63}
+        clearcoat={frosted ? 0.45 : 0.18}
+        clearcoatRoughness={0.38}
+        transmission={frosted ? 0.08 : 0}
+        thickness={0.18}
+      />
+    </RoundedBox>
   );
 }
 
-function Interface({ color, wireframe }: { color: string; wireframe: boolean }) {
-  return (
-    <group>
-      <Block at={[0, 0, 0]} size={[wireframe ? 2.8 : 2.65, 1.75, 0.16]} color={ivory} />
-      <Block at={[0, 0.68, 0.12]} size={[2.38, 0.16, 0.08]} color={color} />
-      {[-1.08, -0.9, -0.72].map(x => (
-        <Block key={x} at={[x, 0.68, 0.17]} size={[0.09, 0.06, 0.03]} color={ivory} />
-      ))}
-      {wireframe ? (
-        <>
-          <Block at={[-0.65, -0.04, 0.13]} size={[1.05, 0.9, 0.06]} color="#d3ddc9" />
-          <Block at={[-0.65, -0.04, 0.17]} size={[0.86, 0.7, 0.04]} color={ivory} />
-          {[0.27, 0.06, -0.15, -0.36].map(y => (
-            <Block key={y} at={[0.62, y, 0.13]} size={[0.85, 0.065, 0.06]} color={color} />
-          ))}
-        </>
-      ) : (
-        <>
-          <Block at={[0, 0.29, 0.13]} size={[2.35, 0.27, 0.08]} color="#e5dacb" />
-          {[-0.8, 0, 0.8].map(x => (
-            <group key={x} position-x={x}>
-              <Block at={[0, -0.28, 0.12]} size={[0.69, 0.6, 0.09]} color="#ecdfd1" />
-              <Block at={[0, -0.21, 0.18]} size={[0.5, 0.24, 0.04]} color={color} />
-              <Block at={[0, -0.44, 0.18]} size={[0.38, 0.05, 0.04]} color={ink} />
-            </group>
-          ))}
-        </>
-      )}
-    </group>
-  );
-}
+function DataFlow({ active }: { active: boolean }) {
+  const tube = useRef<MeshBasicMaterial>(null);
+  const halo = useRef<MeshBasicMaterial>(null);
+  const particles = useRef<Group>(null);
+  const progress = useRef(0);
+  const curve = useMemo(() => new CubicBezierCurve3(
+    new Vector3(-0.62, -0.25, 0.31),
+    new Vector3(-0.12, -0.74, 1.12),
+    new Vector3(0.10, 0.69, 0.88),
+    new Vector3(0.62, 0.23, 0.31),
+  ), []);
 
-function Connections({ color }: { color: string }) {
-  return (
-    <group>
-      <Block at={[-0.01, 0, 0]} size={[1.95, 0.11, 0.12]} color={color} />
-      <Block at={[0.93, 0, 0]} size={[0.11, 1.12, 0.12]} color={color} />
-      {[-0.56, 0.56].map(y => (
-        <group key={y} position-y={y}>
-          <Block at={[1.06, 0, 0]} size={[0.35, 0.11, 0.12]} color={color} />
-          <Block at={[1.48, 0, 0]} size={[0.74, 0.44, 0.22]} color={ivory} />
-          <Block at={[1.48, 0, 0.15]} size={[0.36, 0.065, 0.07]} color={color} />
-        </group>
-      ))}
-      <group position={[-0.94, 0, 0.08]} scale={0.68}>
-        <Interface color={color} wireframe={false} />
-      </group>
-    </group>
-  );
-}
+  useFrame(({ invalidate }, delta) => {
+    if (!tube.current || !halo.current || !particles.current) return;
+    const time = Math.min(delta, 0.05);
+    const opacity = MathUtils.damp(tube.current.opacity, active ? 0.9 : 0, 8, time);
+    tube.current.opacity = opacity;
+    halo.current.opacity = opacity * 0.23;
+    particles.current.visible = opacity > 0.01;
+    if (particles.current.visible) {
+      progress.current = (progress.current + time * 0.52) % 1;
+      particles.current.children.forEach((dot, index) => {
+        const along = (progress.current + index / 3) % 1;
+        curve.getPointAt(along, dot.position);
+        dot.scale.setScalar(Math.sin(Math.PI * along) * 0.68 + 0.32);
+        (dot as Mesh<never, MeshBasicMaterial>).material.opacity = opacity;
+      });
+    }
+    if (active || opacity > 0.003) invalidate();
+  });
 
-function Confirmation({ color }: { color: string }) {
   return (
     <group>
-      <group position={[-0.22, 0, 0]}>
-        <Block at={[0, 0, 0]} size={[1.72, 2, 0.18]} color={ivory} />
-        <Block at={[0, 0.72, 0.13]} size={[1.35, 0.16, 0.08]} color={color} />
-        {[0.35, 0.06, -0.23, -0.52].map(y => (
-          <Block key={y} at={[-0.15, y, 0.13]} size={[0.98, 0.09, 0.08]} color="#a7b6a6" />
+      <mesh>
+        <tubeGeometry args={[curve, 40, 0.038, 8, false]} />
+        <meshBasicMaterial ref={tube} transparent opacity={0} color="#709c8a" depthWrite={false} />
+      </mesh>
+      <mesh>
+        <tubeGeometry args={[curve, 40, 0.091, 8, false]} />
+        <meshBasicMaterial ref={halo} transparent opacity={0} color="#9fd8b6" depthWrite={false} />
+      </mesh>
+      <group ref={particles} visible={false}>
+        {[0, 1, 2].map(index => (
+          <mesh key={index}>
+            <sphereGeometry args={[0.076, 12, 12]} />
+            <meshBasicMaterial transparent opacity={0} color="#edfff4" depthWrite={false} />
+          </mesh>
         ))}
       </group>
-      <mesh position={[0.95, -0.31, 0.22]} rotation-x={Math.PI / 2}>
-        <cylinderGeometry args={[0.61, 0.61, 0.24, 24]} />
-        <meshStandardMaterial color={color} roughness={0.5} />
-      </mesh>
-      <Block at={[0.79, -0.38, 0.38]} size={[0.11, 0.32, 0.08]} color={ivory} angle={0.77} />
-      <Block at={[1.02, -0.29, 0.38]} size={[0.11, 0.52, 0.08]} color={ivory} angle={-0.76} />
     </group>
   );
 }
 
-function Stage({ step, onReady }: { step: number; onReady: () => void }) {
-  const group = useRef<Group>(null);
+function HandoverSeal({ active }: { active: boolean }) {
+  const seal = useRef<Group>(null);
+  const invalidate = useThree(state => state.invalidate);
+  useEffect(() => {
+    const group = seal.current;
+    if (!group) return;
+    const spring = animate(group.scale.x, active ? 1 : 0.001, {
+      type: "spring", stiffness: 175, damping: 15,
+      onUpdate: size => {
+        const scale = Math.max(0.001, size);
+        group.scale.setScalar(scale);
+        group.position.y = -0.67 - (1 - scale) * 0.18;
+        invalidate();
+      },
+    });
+    return () => spring.stop();
+  }, [active, invalidate]);
+
+  return (
+    <group ref={seal} position={[1.23, -0.67, 0.42]} rotation={[0, 0, 0.08]} scale={0.001}>
+      <mesh rotation-x={Math.PI / 2}>
+        <cylinderGeometry args={[0.43, 0.43, 0.14, 32]} />
+        <meshPhysicalMaterial color="#6f9380" roughness={0.28} clearcoat={0.65} />
+      </mesh>
+      <RoundedBox args={[0.085, 0.22, 0.038]} radius={0.018} position={[-0.105, -0.039, 0.082]} rotation-z={0.77}>
+        <meshBasicMaterial color="#fff7e9" />
+      </RoundedBox>
+      <RoundedBox args={[0.085, 0.34, 0.038]} radius={0.018} position={[0.075, 0.027, 0.082]} rotation-z={-0.74}>
+        <meshBasicMaterial color="#fff7e9" />
+      </RoundedBox>
+    </group>
+  );
+}
+
+function StudioCamera() {
+  const ref = useRef<Camera>(null);
+  const { width, height } = useThree(state => state.size);
+  useLayoutEffect(() => ref.current?.lookAt(0, 0.04, 0), []);
+  return <OrthographicCamera ref={ref} makeDefault position={[3.65, 2.65, 8.5]} zoom={Math.min(width / 5.7, height / 4.55)} near={0.1} far={30} />;
+}
+
+function SceneStatus({ step, onReady, onFailure }: { step: number; onReady: () => void; onFailure: () => void }) {
   const ready = useRef(false);
-  const color = stageColors[step] ?? stageColors[0];
-  useFrame(({ invalidate }, delta) => {
-    const model = group.current;
-    if (!model) return;
+  const canvas = useThree(state => state.gl.domElement);
+  const invalidate = useThree(state => state.invalidate);
+  useEffect(() => {
+    canvas.addEventListener("webglcontextlost", onFailure);
+    return () => canvas.removeEventListener("webglcontextlost", onFailure);
+  }, [canvas, onFailure]);
+  useEffect(() => invalidate(), [step, invalidate]);
+  useFrame(() => {
     if (!ready.current) {
       ready.current = true;
       onReady();
     }
-    const amount = Math.min(delta, 0.05);
-    model.rotation.y = MathUtils.damp(model.rotation.y, -0.4, 7, amount);
-    model.position.y = MathUtils.damp(model.position.y, 0, 7, amount);
-    if (Math.abs(model.rotation.y + 0.4) > 0.002) invalidate();
   });
-
-  return (
-    <group ref={group} position-y={-0.28} rotation={[0.23, -0.8, -0.09]}>
-      {step < 2 && <Interface color={color} wireframe={step === 0} />}
-      {step === 2 && <Connections color={color} />}
-      {step === 3 && <Confirmation color={color} />}
-    </group>
-  );
+  return null;
 }
 
-class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class SceneBoundary extends Component<{ children: ReactNode; onFailure: () => void }, { failed: boolean }> {
   state = { failed: false };
 
   static getDerivedStateFromError() {
     return { failed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onFailure();
   }
 
   render() {
@@ -128,42 +187,27 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-function ContextMonitor({ onLost }: { onLost: () => void }) {
-  const canvas = useThree(state => state.gl.domElement);
-  useEffect(() => {
-    canvas.addEventListener("webglcontextlost", onLost);
-    return () => canvas.removeEventListener("webglcontextlost", onLost);
-  }, [canvas, onLost]);
-  return null;
-}
-
-function Scene({ step }: { step: number }) {
-  const [ready, setReady] = useState(false);
-  const [failed, setFailed] = useState(false);
-  if (failed) return null;
-
+export default function ProcessScene({ step, onReady, onFailure }: { step: number; onReady: () => void; onFailure: () => void }) {
   return (
-    <div className={ready ? "process-3d-ready" : undefined}>
-      <Canvas
-        orthographic
-        camera={{ position: [0, 0, 6], zoom: 66 }}
-        dpr={[1, 1.5]}
-        frameloop="demand"
-      >
-        <ContextMonitor onLost={() => setFailed(true)} />
-        <ambientLight intensity={1.3} />
-        <directionalLight position={[2, 4, 6]} intensity={2} />
-        <directionalLight position={[-4, -2, 1]} intensity={0.7} color="#d5e7d0" />
-        <Stage key={step} step={step} onReady={() => setReady(true)} />
-      </Canvas>
-    </div>
-  );
-}
-
-export default function ProcessScene({ step }: { step: number }) {
-  return (
-    <SceneBoundary>
-      <Scene step={step} />
+    <SceneBoundary onFailure={onFailure}>
+      <div className="process-stage-canvas">
+        <Canvas dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }} frameloop="demand">
+          <StudioCamera />
+          <SceneStatus step={step} onReady={onReady} onFailure={onFailure} />
+          <Environment resolution={128}>
+            <Lightformer form="rect" color="#fff4e1" intensity={2.8} position={[0, 4, 2]} rotation-x={Math.PI / 3} scale={[6, 3, 1]} />
+            <Lightformer form="rect" color="#fff7ee" intensity={1.8} position={[-4, 1.25, 2.5]} rotation-y={-Math.PI / 3} scale={[3, 4, 1]} />
+            <Lightformer form="rect" color="#e2e9f7" intensity={1.6} position={[3, 1.4, -3]} rotation-y={Math.PI / 2} scale={[2, 5, 1]} />
+          </Environment>
+          <directionalLight position={[3, 4, 5]} intensity={1.22} />
+          {Object.entries(processPieces).map(([name, poses]) => (
+            <Piece key={name} step={step} poses={poses} frosted={name === "foundation" || name === "secondaryPanel"} />
+          ))}
+          <DataFlow active={step === 2} />
+          <HandoverSeal active={step === 3} />
+          <ContactShadows position={[0, -1.62, 0]} color="#796b59" opacity={0.32} scale={7} blur={2.5} far={4} resolution={256} frames={1} />
+        </Canvas>
+      </div>
     </SceneBoundary>
   );
 }
