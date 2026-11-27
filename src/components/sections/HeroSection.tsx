@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Code2, Download } from "lucide-react";
+import { ArrowUpRight, Code2, Download, RotateCcw } from "lucide-react";
 import { profile } from "@/data/profile";
+import { PortraitFlip } from "@/components/animations/PortraitFlip";
 import { Container } from "@/components/layout/Container";
+
+const availability = "Open to freelance projects and remote roles";
+const specialties = ["Web applications", "Booking platforms", "API integrations"];
 
 export function HeroSection() {
   return (
@@ -20,21 +24,38 @@ export function HeroSection() {
               <Link className="action-primary" href="/contact">Let&apos;s discuss your project <ArrowUpRight size={16} aria-hidden="true" /></Link>
               <Link className="action-text" href="/resume">View experience</Link>
             </div>
-            <p className="hero-availability"><span className="status-dot" aria-hidden="true" />Open to freelance projects and remote roles</p>
+            <p className="hero-availability"><span className="status-dot" aria-hidden="true" />{availability}</p>
           </div>
           <div className="portrait-frame">
             <div className="portrait-orbit" aria-hidden="true" />
             <div className="portrait-glass-label" aria-hidden="true"><Code2 size={17} /><span>Thoughtfully built.<br /><strong>From idea to interface.</strong></span></div>
-            <figure>
-              <div className="portrait-image"><Image src="/Profile.jpg" alt="Abid Hussain" fill sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, (max-width: 359px) calc(100vw - 40px), 320px" className="object-cover object-center" priority /></div>
-              <figcaption className="portrait-caption">
-                <div><p className="portrait-name">{profile.name}</p><p className="portrait-role">{profile.role}</p></div>
-              </figcaption>
-            </figure>
+            <PortraitFlip
+              front={
+                <figure>
+                  <div className="portrait-image"><Image src="/Profile.jpg" alt={profile.name} fill sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, (max-width: 359px) calc(100vw - 40px), 320px" className="object-cover object-center" priority /></div>
+                  <figcaption className="portrait-caption">
+                    <div><p className="portrait-name">{profile.name}</p><p className="portrait-role">{profile.role}</p></div>
+                  </figcaption>
+                </figure>
+              }
+              back={
+                <>
+                  <div>
+                    <h2 className="portrait-back-heading">Availability</h2>
+                    <p className="portrait-back-status"><span className="status-dot" aria-hidden="true" />{availability}</p>
+                  </div>
+                  <div className="portrait-back-focus">
+                    <h2 className="portrait-back-heading">Core focus</h2>
+                    <ul>{specialties.map(specialty => <li key={specialty}>{specialty}</li>)}</ul>
+                  </div>
+                  <p className="portrait-back-hint" aria-hidden="true"><RotateCcw size={15} />Flip back</p>
+                </>
+              }
+            />
           </div>
         </div>
         <div className="hero-footnote">
-          <ul className="hero-specialties" aria-label="Specialties"><li>Web applications</li><li>Booking platforms</li><li>API integrations</li></ul>
+          <ul className="hero-specialties" aria-label="Specialties">{specialties.map(specialty => <li key={specialty}>{specialty}</li>)}</ul>
           <a className="action-text" href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><Download size={14} aria-hidden="true" />Download resume</a>
         </div>
       </Container>
