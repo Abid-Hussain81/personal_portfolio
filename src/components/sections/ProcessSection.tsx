@@ -42,7 +42,6 @@ export function ProcessSection() {
               <div className="process-stack-visual" aria-hidden="true">
                 <div className="process-visual-orbit" />
                 <div className="process-visual-window"><div className="process-visual-toolbar"><i /><i /><i /></div><Icon className="process-visual-icon" strokeWidth={1.15} /><div className="process-visual-lines"><span /><span /></div></div>
-                <span className="process-visual-badge">{step.number} / 04</span>
               </div>
             </div>
           </article>
