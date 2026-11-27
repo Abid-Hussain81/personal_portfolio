@@ -8,6 +8,8 @@ import { badgeBaseZoom, fitBadgeInFrame } from "./badge-framing";
 import { BadgeRibbon } from "./BadgeRibbon";
 
 const attachment = 1.68;
+const anchorHeight = 3;
+const minimumHang = 0.42;
 const step = 1 / 60;
 const ropeLength = 0.38;
 const swivelMaterial = { color: "#a59e8c", metalness: 0.9, roughness: 0.33, anisotropy: 0.56 };
@@ -181,7 +183,8 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     dragging.current = true;
     pointer.target.copy(pointer.point).add(pointer.offset);
     pointer.target.x = MathUtils.clamp(pointer.target.x, -0.62, 0.62);
-    pointer.target.y = MathUtils.clamp(pointer.target.y, -0.45, 1.8);
+    // Keep enough vertical room between the anchor and clasp for the slack ribbon.
+    pointer.target.y = MathUtils.clamp(pointer.target.y, -0.45, anchorHeight - attachment - minimumHang);
   };
 
   const handleUp = (event: BadgePointer) => {
@@ -212,7 +215,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
 
   return (
     <>
-      <RigidBody ref={anchor} type="fixed" position={[0, 3, 0]} colliders={false} />
+      <RigidBody ref={anchor} type="fixed" position={[0, anchorHeight, 0]} colliders={false} />
       <RigidBody ref={upper} position={[0.07, 2.64, 0]} colliders={false} linearDamping={1.8}>
         <BallCollider args={[0.025]} mass={0.055} collisionGroups={0} />
       </RigidBody>
@@ -254,7 +257,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
           </RoundedBox>
         </group>
       </RigidBody>
-      <BadgeRibbon points={[anchor, upper, middle, badge]} attachment={attachment} />
+      <BadgeRibbon supports={[anchor, upper, middle]} badge={artwork} attachment={attachment} />
     </>
   );
 }

@@ -76,6 +76,7 @@
 .hero-badge-canvas {
   position: absolute; inset: 0; opacity: 0; pointer-events: none;
   touch-action: pan-y pinch-zoom; transition: opacity .3s ease;
+  filter: drop-shadow(2px 5px 6px #25281e26) drop-shadow(7px 11px 13px #25281e29);
 }
 .hero-badge[data-badge-ready="true"] .hero-badge-canvas { opacity: 1; pointer-events: auto; }
 .hero-badge-canvas canvas { touch-action: pan-y pinch-zoom; }
@@ -206,8 +207,8 @@
   .hero-studio-set {
     inset: -2rem calc(min(0px, (var(--container-max) - 100vw) / 2) - var(--container-px)) -1.2rem -1.25rem;
     background:
-      linear-gradient(0deg, #20251cc2, transparent 56%),
-      linear-gradient(117deg, #a8a18b 0%, #696b58 39%, #3a4033 78%, #292f26);
+      linear-gradient(0deg, #363b2d85, transparent 56%),
+      linear-gradient(117deg, #b2aa94 0%, #838574 39%, #6c7260 78%, #606856);
     mask-image: linear-gradient(90deg, transparent, #000 29%), linear-gradient(0deg, transparent, #000 14%);
     mask-composite: intersect;
   }

@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import type { RapierRigidBody } from "@react-three/rapier";
 import { useEffect, useRef, useState, type RefObject } from "react";
-import { BufferGeometry, CanvasTexture, CatmullRomCurve3, DoubleSide, Quaternion, RepeatWrapping, SRGBColorSpace, Vector3 } from "three";
+import { BufferGeometry, CanvasTexture, CatmullRomCurve3, DoubleSide, type Group, Quaternion, RepeatWrapping, SRGBColorSpace, Vector3 } from "three";
 
 const segments = 24;
 const indices: number[] = [];
@@ -45,12 +45,18 @@ function weaveTexture() {
   return texture;
 }
 
-export function BadgeRibbon({ points, attachment }: { points: RefObject<RapierRigidBody | null>[]; attachment: number }) {
+type RibbonProps = {
+  supports: RefObject<RapierRigidBody | null>[];
+  badge: RefObject<Group | null>;
+  attachment: number;
+};
+
+export function BadgeRibbon({ supports, badge, attachment }: RibbonProps) {
   const geometry = useRef<BufferGeometry>(null);
   const lastTwist = useRef(0);
   const [positions] = useState(() => new Float32Array((segments + 1) * 12));
   const [weave] = useState(weaveTexture);
-  const curve = useRef(new CatmullRomCurve3(points.map(() => new Vector3())));
+  const [curve] = useState(() => new CatmullRomCurve3(Array.from({ length: supports.length + 2 }, () => new Vector3())));
   const scratch = useRef({
     center: new Vector3(), tangent: new Vector3(), width: new Vector3(), thickness: new Vector3(),
     attachingRight: new Vector3(), rotation: new Quaternion(),
@@ -59,31 +65,36 @@ export function BadgeRibbon({ points, attachment }: { points: RefObject<RapierRi
 
   useFrame(() => {
     const mesh = geometry.current;
-    const badge = points[points.length - 1].current;
-    if (!mesh || !badge) return;
+    const clasp = badge.current;
+    if (!mesh || !clasp) return;
     const { center, tangent, width, thickness, attachingRight, rotation } = scratch.current;
-    const q = badge.rotation();
-    rotation.set(q.x, q.y, q.z, q.w);
+    clasp.getWorldQuaternion(rotation);
     attachingRight.set(1, 0, 0).applyQuaternion(rotation);
     const wrappedTwist = Math.atan2(-attachingRight.z, attachingRight.x) - lastTwist.current;
     lastTwist.current += Math.atan2(Math.sin(wrappedTwist), Math.cos(wrappedTwist));
 
-    points.forEach((point, index) => {
+    supports.forEach((point, index) => {
       const body = point.current;
       if (!body) return;
       const p = body.translation();
-      const sample = curve.current.points[index];
-      if (body === badge) sample.set(0, attachment, 0).applyQuaternion(rotation).add(p);
-      else sample.set(p.x, p.y, p.z);
+      curve.points[index].set(p.x, p.y, p.z);
     });
+    // Match the rendered clasp, including interpolation between physics steps.
+    // A short guide keeps the ribbon entering the clasp along its local up axis.
+    curve.points[supports.length].set(0, attachment + 0.15, 0).applyMatrix4(clasp.matrixWorld);
+    curve.points[supports.length + 1].set(0, attachment, 0).applyMatrix4(clasp.matrixWorld);
 
     for (let segment = 0; segment <= segments; segment++) {
       const t = segment / segments;
-      curve.current.getPoint(t, center);
-      curve.current.getTangent(t, tangent);
+      curve.getPoint(t, center);
+      curve.getTangent(t, tangent);
       const angle = lastTwist.current * t;
       width.set(Math.cos(angle), 0, -Math.sin(angle));
-      width.addScaledVector(tangent, -width.dot(tangent)).normalize();
+      width.addScaledVector(tangent, -width.dot(tangent));
+      if (width.lengthSq() < 0.0001) {
+        width.set(0, 1, 0).addScaledVector(tangent, -tangent.y);
+      }
+      width.normalize();
       thickness.crossVectors(width, tangent).normalize().multiplyScalar(0.013);
       width.multiplyScalar(0.092);
 
