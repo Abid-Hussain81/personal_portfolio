@@ -128,7 +128,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     if (!event.ray.intersectPlane(pointer.plane, pointer.point)) return;
     dragging.current = true;
     pointer.target.copy(pointer.point).add(pointer.offset);
-    pointer.target.x = MathUtils.clamp(pointer.target.x, -0.9, 0.9);
+    pointer.target.x = MathUtils.clamp(pointer.target.x, -0.62, 0.62);
     pointer.target.y = MathUtils.clamp(pointer.target.y, -0.45, 1.8);
   };
 
