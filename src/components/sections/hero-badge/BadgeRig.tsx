@@ -2,8 +2,9 @@ import { RoundedBox } from "@react-three/drei";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { BallCollider, CuboidCollider, RigidBody, useBeforePhysicsStep, useRopeJoint, useSphericalJoint, type RapierRigidBody } from "@react-three/rapier";
 import { useEffect, useRef } from "react";
-import { Euler, MathUtils, Plane, Quaternion, Vector3, type Texture } from "three";
+import { Euler, MathUtils, OrthographicCamera, Plane, Quaternion, Vector3, type Group, type Texture } from "three";
 import { faceSize, resumeHitbox } from "./badge-art";
+import { badgeBaseZoom, fitBadgeInFrame } from "./badge-framing";
 import { BadgeRibbon } from "./BadgeRibbon";
 
 const attachment = 1.68;
@@ -30,9 +31,12 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
   const middle = useRef<RapierRigidBody>(null!);
   const swivel = useRef<RapierRigidBody>(null!);
   const badge = useRef<RapierRigidBody>(null!);
+  const artwork = useRef<Group>(null);
   const press = useRef<Press | null>(null);
   const dragging = useRef(false);
   const ready = useRef(false);
+  const idle = useRef({ time: 0, phase: 0.9, strength: 0.45, resumeAt: 0, flipped });
+  const frame = useRef({ baseZoom: 0, left: 0, right: 0 });
   const deviceTilt = useRef({ pitch: 0, yaw: 0 });
   const canvas = useThree(state => state.gl.domElement);
   const drag = useRef({
@@ -47,14 +51,41 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
   useSphericalJoint(swivel, badge, [[0, 0, 0], [0, attachment, 0]]);
 
   useEffect(() => {
-    const cancel = () => { press.current = null; dragging.current = false; };
+    const cancel = (event: Event) => {
+      if (!press.current || (event instanceof PointerEvent && event.pointerId !== press.current.id)) return;
+      press.current = null;
+      dragging.current = false;
+      idle.current.resumeAt = idle.current.time + 0.8;
+    };
     canvas.addEventListener("pointercancel", cancel);
     canvas.addEventListener("lostpointercapture", cancel);
+    window.addEventListener("pointerup", cancel);
     window.addEventListener("blur", cancel);
     return () => {
       canvas.removeEventListener("pointercancel", cancel);
       canvas.removeEventListener("lostpointercapture", cancel);
+      window.removeEventListener("pointerup", cancel);
       window.removeEventListener("blur", cancel);
+    };
+  }, [canvas]);
+
+  useEffect(() => {
+    const measure = () => {
+      const { left, right, width, height } = canvas.getBoundingClientRect();
+      const center = left + width / 2;
+      frame.current = {
+        baseZoom: badgeBaseZoom(width, height),
+        left: center - Math.max(left, 0),
+        right: Math.min(right, document.documentElement.clientWidth) - center,
+      };
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(canvas);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
     };
   }, [canvas]);
 
@@ -74,6 +105,19 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
   useBeforePhysicsStep(() => {
     const body = badge.current;
     if (!body) return;
+    const motion = idle.current;
+    motion.time += step;
+    if (motion.flipped !== flipped) {
+      motion.flipped = flipped;
+      motion.resumeAt = motion.time + 1.45;
+    }
+    if (!press.current && motion.time >= motion.resumeAt) {
+      motion.phase += step * 1.08;
+      motion.strength = MathUtils.damp(motion.strength, 1, 2.5, step);
+    } else {
+      motion.strength = 0;
+    }
+    const sway = Math.sin(motion.phase) * motion.strength;
     const pose = orientation.current;
     const q = body.rotation();
     const angular = body.angvel();
@@ -81,7 +125,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     const rotation = pose.euler.setFromQuaternion(pose.rotation, "YXZ");
     const wrappedYaw = rotation.y - pose.yaw;
     pose.yaw += Math.atan2(Math.sin(wrappedYaw), Math.cos(wrappedYaw));
-    const yawError = (flipped ? Math.PI : 0) + deviceTilt.current.yaw - pose.yaw;
+    const yawError = (flipped ? Math.PI : 0) + deviceTilt.current.yaw + sway * 0.085 - pose.yaw;
     body.applyTorqueImpulse({
       x: ((deviceTilt.current.pitch - rotation.x) * 3 - angular.x) * step,
       y: (yawError * 9 - angular.y * 1.1) * step,
@@ -97,10 +141,18 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
         y: MathUtils.clamp((target.y - position.y) * 27 - velocity.y * 5, -20, 20) * step,
         z: (-position.z * 8 - velocity.z * 4) * step,
       }, true);
+    } else if (motion.strength > 0) {
+      body.applyImpulse({ x: sway * 0.92 * step, y: 0, z: 0 }, true);
     }
   });
 
-  useFrame(() => {
+  useFrame(({ camera }, delta) => {
+    const surface = artwork.current;
+    const { baseZoom, left, right } = frame.current;
+    if (surface && camera instanceof OrthographicCamera && baseZoom > 0) {
+      surface.updateWorldMatrix(true, false);
+      fitBadgeInFrame(camera, surface.matrixWorld, baseZoom, left, right, delta);
+    }
     if (!ready.current && badge.current) {
       ready.current = true;
       onReady();
@@ -137,6 +189,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     if (!start || start.id !== event.pointerId) return;
     event.stopPropagation();
     press.current = null;
+    idle.current.resumeAt = idle.current.time + 0.8;
     const moved = dragging.current;
     dragging.current = false;
     const target = event.target as Element;
@@ -172,7 +225,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
       <RigidBody ref={badge} position={[0.21, 0.24, 0]} rotation={[0.04, -0.2, 0.045]}
         colliders={false} linearDamping={1.55} angularDamping={1.4} canSleep={false}>
         <CuboidCollider args={[1.1, 1.55, 0.04]} mass={0.8} collisionGroups={0} />
-        <group onPointerDown={handleDown} onPointerMove={handleMove} onPointerUp={handleUp}>
+        <group ref={artwork} onPointerDown={handleDown} onPointerMove={handleMove} onPointerUp={handleUp}>
           {/* Drei's extrusion extends to 0.16 with this radius. Scale Z to keep the printed faces flush. */}
           <RoundedBox args={[2.2, 3.1, 0.08]} radius={0.12} smoothness={6} scale-z={0.5}>
             <meshPhysicalMaterial color="#f0ebdd" clearcoat={0.8} clearcoatRoughness={0.15} roughness={0.25} metalness={0.05} />

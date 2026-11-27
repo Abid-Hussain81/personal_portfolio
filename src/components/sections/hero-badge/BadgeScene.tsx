@@ -6,6 +6,7 @@ import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { TextureLoader } from "three";
 import { backArtwork, frontArtwork } from "./badge-art";
+import { badgeBaseZoom } from "./badge-framing";
 import { BadgeRig } from "./BadgeRig";
 import type { BadgeProfile } from "./HeroBadge";
 
@@ -32,7 +33,7 @@ function BadgeCamera({ onFailure }: Pick<SceneProps, "onFailure">) {
       makeDefault
       position={[0, 1.85, 10]}
       rotation={[-Math.atan2(1.49, 10), 0, 0]}
-      zoom={Math.min(width / 2.83, height / 4.75)}
+      zoom={badgeBaseZoom(width, height)}
       near={0.1}
       far={30}
     />
@@ -62,7 +63,7 @@ function Studio({ profile, flipped, onFlip, onReady }: Omit<SceneProps, "active"
         <Lightformer form="rect" intensity={2.3} color="#dfe8d6" position={[3.5, 1.1, -1.5]} rotation-y={Math.PI / 2} scale={[1.8, 4.5, 1]} />
         <Lightformer form="rect" intensity={1.2} color="#f7e6d8" position={[1.7, -2.4, 3.5]} rotation-x={-0.35} scale={[3, 1.5, 1]} />
       </Environment>
-      <Physics gravity={[0, -9.81, 0]} timeStep={1 / 60}>
+      <Physics gravity={[0, -9.81, 0]} timeStep={1 / 60} updatePriority={-1}>
         <BadgeRig front={front} back={back} resumeUrl={profile.resumeUrl} touch={touch} flipped={flipped} onFlip={onFlip} onReady={onReady} />
       </Physics>
       <ContactShadows position={[0, -2.1, 0]} opacity={0.22} scale={6} blur={2.4} far={4} color="#706859" resolution={256} frames={1} />
