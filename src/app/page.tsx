@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { FeaturedProjectsSection } from "@/components/sections/FeaturedProjectsSection";
 import { FeaturedServicesSection } from "@/components/sections/FeaturedServicesSection";
+import { CapabilitiesSection } from "@/components/sections/CapabilitiesSection";
 import { SkillsPreviewSection } from "@/components/sections/SkillsPreviewSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ContactCTASection } from "@/components/sections/ContactCTASection";
@@ -12,6 +13,7 @@ import "./process-showcase.css";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import "@fortawesome/fontawesome-free/css/solid.min.css";
 import "./expertise-cards.css";
+import "./capability-demos.css";
 import "./toolkit-panels.css";
 
 export default function HomePage() {
@@ -46,6 +48,7 @@ export default function HomePage() {
       <HomeEffects>
         <HeroSection />
         <FeaturedServicesSection />
+        <CapabilitiesSection />
         <ProcessSection />
         <FeaturedProjectsSection />
         <SkillsPreviewSection />

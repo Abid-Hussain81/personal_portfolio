@@ -23,7 +23,7 @@ export const resume = {
     {
       id: "independent", role: "Freelance Web Developer", company: "Independent Projects",
       period: "Before Jun 2025", location: "Freelance",
-      highlights: ["Delivered multiple independent freelance web development projects before joining The Mind Gauge."],
+      highlights: ["Delivered web development projects directly for freelance clients."],
     },
   ],
   education: [
