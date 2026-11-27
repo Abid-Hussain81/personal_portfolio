@@ -20,7 +20,6 @@ const badgeProfile = {
 export function HeroSection() {
   return (
     <section className="hero-section" aria-labelledby="hero-heading">
-      <div className="hero-grid-pattern" aria-hidden="true" />
       <Container>
         <div className="hero-grid">
           <div className="hero-copy">
@@ -35,40 +34,46 @@ export function HeroSection() {
               <Link className="action-text" href="#capabilities">Explore work</Link>
             </div>
             <p className="hero-availability"><span className="status-dot" aria-hidden="true" />{availability}</p>
-          </div>
-          <HeroBadge profile={badgeProfile}>
-            <div className="portrait-frame">
-              <div className="portrait-orbit" aria-hidden="true" />
-              <div className="portrait-glass-label" aria-hidden="true"><Code2 size={17} /><span>Thoughtfully built.<br /><strong>From idea to interface.</strong></span></div>
-              <PortraitFlip
-                front={
-                  <figure>
-                    <div className="portrait-image"><Image src="/Profile.jpg" alt={profile.name} fill sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, (max-width: 359px) calc(100vw - 40px), 320px" className="object-cover object-center" priority /></div>
-                    <figcaption className="portrait-caption">
-                      <div><p className="portrait-name">{profile.name}</p><p className="portrait-role">{profile.role}</p></div>
-                    </figcaption>
-                  </figure>
-                }
-                back={
-                  <>
-                    <div>
-                      <h2 className="portrait-back-heading">Availability</h2>
-                      <p className="portrait-back-status"><span className="status-dot" aria-hidden="true" />{availability}</p>
-                    </div>
-                    <div className="portrait-back-focus">
-                      <h2 className="portrait-back-heading">Core focus</h2>
-                      <ul>{specialties.map(specialty => <li key={specialty}>{specialty}</li>)}</ul>
-                    </div>
-                    <p className="portrait-back-hint" aria-hidden="true"><RotateCcw size={15} />Flip back</p>
-                  </>
-                }
-              />
+            <div className="hero-footnote">
+              <p className="hero-technology">React · Next.js · TypeScript</p>
+              <a className="action-text" href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><Download size={14} aria-hidden="true" />Download resume</a>
             </div>
-          </HeroBadge>
-        </div>
-        <div className="hero-footnote">
-          <p className="hero-technology">React · Next.js · TypeScript</p>
-          <a className="action-text" href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><Download size={14} aria-hidden="true" />Download resume</a>
+          </div>
+          <div className="hero-studio">
+            <div className="hero-studio-set" aria-hidden="true">
+              <div className="hero-studio-light" />
+              <div className="hero-studio-floor" />
+            </div>
+            <HeroBadge profile={badgeProfile}>
+              <div className="portrait-frame">
+                <div className="portrait-orbit" aria-hidden="true" />
+                <div className="portrait-glass-label" aria-hidden="true"><Code2 size={17} /><span>Thoughtfully built.<br /><strong>From idea to interface.</strong></span></div>
+                <PortraitFlip
+                  front={
+                    <figure>
+                      <div className="portrait-image"><Image src="/Profile.jpg" alt={profile.name} fill sizes="(min-width: 1024px) 340px, (min-width: 640px) 320px, (max-width: 359px) calc(100vw - 40px), 320px" className="object-cover object-center" priority /></div>
+                      <figcaption className="portrait-caption">
+                        <div><p className="portrait-name">{profile.name}</p><p className="portrait-role">{profile.role}</p></div>
+                      </figcaption>
+                    </figure>
+                  }
+                  back={
+                    <>
+                      <div>
+                        <h2 className="portrait-back-heading">Availability</h2>
+                        <p className="portrait-back-status"><span className="status-dot" aria-hidden="true" />{availability}</p>
+                      </div>
+                      <div className="portrait-back-focus">
+                        <h2 className="portrait-back-heading">Core focus</h2>
+                        <ul>{specialties.map(specialty => <li key={specialty}>{specialty}</li>)}</ul>
+                      </div>
+                      <p className="portrait-back-hint" aria-hidden="true"><RotateCcw size={15} />Flip back</p>
+                    </>
+                  }
+                />
+              </div>
+            </HeroBadge>
+          </div>
         </div>
       </Container>
     </section>
