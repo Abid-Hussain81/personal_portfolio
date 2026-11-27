@@ -25,7 +25,7 @@
 .home-header .nav-link { transition: color .25s, text-decoration-color .25s; }
 .home-page .hero-section { position: relative; overflow: clip; padding-block: var(--page-top) var(--section-py-sm); background: #f7f5ef; }
 .home-page .hero-section > .container-base { position: relative; z-index: 1; }
-.home-page .hero-grid { gap: .85rem; }
+.home-page .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: .85rem; }
 .home-page .hero-copy { position: relative; z-index: 1; max-width: 34rem; }
 .home-page .hero-eyebrow {
   color: #536044; font: 500 clamp(.72rem, 1.2vw, .84rem)/1.5 var(--font-geist-mono), monospace;

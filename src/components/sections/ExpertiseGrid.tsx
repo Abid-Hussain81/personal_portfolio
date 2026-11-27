@@ -1,32 +1,58 @@
 "use client";
 
-import { motion, useReducedMotion, type Transition, type Variants } from "framer-motion";
+import { motion, useInView, useReducedMotion, type Transition, type Variants } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-type ExpertiseCard = {
-  id: string;
-  icon: string;
-  title: string;
-  summary: string;
+const compactCards = [
+  { id: "figma-to-code", icon: "fa-pen-nib", title: "Design to code", summary: "Turn Figma files into responsive interfaces.", chips: ["Components", "Breakpoints"] },
+  { id: "backend-support", icon: "fa-wrench", title: "Backend support", summary: "Debug application logic and data issues.", chips: ["PHP", "CodeIgniter"] },
+  { id: "website-performance", icon: "fa-gauge-high", title: "Speed & performance", summary: "Trim assets and improve page load times.", chips: ["Images", "Caching"] },
+] as const;
+
+const spring = { type: "spring", stiffness: 280, damping: 22 } satisfies Transition;
+const entrance = { opacity: 1, y: 0 };
+const viewport = { once: true, margin: "-80px" } as const;
+const badgeLift: Variants = {
+  rest: { y: 0, z: 0, rotateX: 0, transition: spring },
+  lift: (index: number) => ({ y: -4 - index * 2, z: 12 + index * 5, rotateX: -6, transition: spring }),
+};
+const slotFan: Variants = {
+  rest: (index: number) => ({ x: index * 8, y: -index * 10, z: -index * 16, rotateZ: -index * 4, transition: spring }),
+  lift: (index: number) => ({ x: index * 23, y: -index * 16, z: -index * 27, rotateZ: -index * 9, transition: spring }),
 };
 
-const MotionLink = motion.create(Link);
-const spring = { type: "spring", stiffness: 300, damping: 24 } satisfies Transition;
-const tilt: Variants = {
-  rest: { rotateX: 0, rotateY: 0, transition: spring },
-  lift: { rotateX: 6, rotateY: -6, transition: spring },
-};
-const elevate: Variants = {
-  rest: { z: 0, transition: spring },
-  lift: { z: 14, transition: spring },
-};
-const shadow: Variants = {
-  rest: { opacity: 0, scale: 0.75, transition: spring },
-  lift: { opacity: 0.34, scale: 1.15, transition: spring },
-};
+function BookingVisual() {
+  return (
+    <div className="expertise-booking" aria-hidden="true">
+      <div className="expertise-booking-deck">
+        {[2, 1, 0].map((layer) => (
+          <motion.div key={layer} className="expertise-slot" data-layer={layer} custom={layer} variants={slotFan}>
+            {layer === 0 && <>
+              <div className="expertise-slot-title"><i className="fa-solid fa-calendar-days" /> Check availability</div>
+              <div className="expertise-slot-times"><span>09:00</span><span>11:30</span><span>14:00</span></div>
+            </>}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-export function ExpertiseGrid({ cards }: { cards: ExpertiseCard[] }) {
+function ApiVisual({ reducedMotion }: { reducedMotion: boolean | null }) {
+  const flow = useRef<HTMLDivElement>(null);
+  const inView = useInView(flow);
+  return (
+    <div className="expertise-api-flow" ref={flow} data-playing={inView && !reducedMotion} aria-hidden="true">
+      <div className="expertise-api-rail"><span /></div>
+      <span><i className="fa-solid fa-window-maximize" />Frontend</span>
+      <span><i className="fa-solid fa-code" />API</span>
+      <span><i className="fa-solid fa-database" />Database</span>
+    </div>
+  );
+}
+
+export function ExpertiseGrid() {
   const grid = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
@@ -90,39 +116,54 @@ export function ExpertiseGrid({ cards }: { cards: ExpertiseCard[] }) {
     };
   }, []);
 
+  const initial = reduceMotion ? false : { opacity: 0.75, y: 16 };
+  const reveal = (index: number) => ({ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] } satisfies Transition);
+  const hover = reduceMotion ? undefined : "lift";
+
   return (
     <div className="expertise-grid" ref={grid}>
-      {cards.map((card, index) => (
+      <motion.div className="expertise-card-entry expertise-entry-booking" initial={initial} whileInView={entrance} viewport={viewport} transition={reveal(0)}>
+        <motion.article className="expertise-card expertise-card-booking" initial="rest" animate="rest" whileHover={hover}>
+          <div className="expertise-feature-copy">
+            <span className="expertise-badge">Product interfaces</span>
+            <h3>Web apps &amp; booking platforms</h3>
+            <p>Build reusable interfaces and smooth reservations.</p>
+          </div>
+          <BookingVisual />
+          <div className="expertise-feature-links">
+            <Link href="/services#web-applications">Web applications <i className="fa-solid fa-arrow-right" aria-hidden="true" /></Link>
+            <Link href="/services#booking-platforms">Booking platforms <i className="fa-solid fa-arrow-right" aria-hidden="true" /></Link>
+          </div>
+        </motion.article>
+      </motion.div>
+      <motion.div className="expertise-card-entry expertise-entry-api" initial={initial} whileInView={entrance} viewport={viewport} transition={reveal(1)}>
+        <Link className="expertise-card expertise-card-api" href="/services#api-integrations">
+          <div className="expertise-feature-copy">
+            <span className="expertise-badge">Connected systems</span>
+            <h3>API integrations</h3>
+            <p>Connect your app, services, and data.</p>
+          </div>
+          <ApiVisual reducedMotion={reduceMotion} />
+          <i className="expertise-arrow fa-solid fa-arrow-right" aria-hidden="true" />
+        </Link>
+      </motion.div>
+      {compactCards.map((card, index) => (
         <motion.div
-          className="expertise-card-entry"
+          className="expertise-card-entry expertise-entry-compact"
           key={card.id}
-          initial={reduceMotion ? false : { opacity: 0.76, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.52, delay: (index % 3) * 0.075, ease: [0.22, 1, 0.36, 1] }}
+          initial={initial}
+          whileInView={entrance}
+          viewport={viewport}
+          transition={reveal(index)}
         >
-          <MotionLink
-            href={`/services#${card.id}`}
-            className={`expertise-card expertise-card-${card.id}`}
-            initial="rest"
-            animate="rest"
-            whileHover={reduceMotion ? undefined : "lift"}
-            whileFocus={reduceMotion ? undefined : "lift"}
-          >
-            <div className="expertise-card-heading">
-              <span className="expertise-icon-frame" aria-hidden="true">
-                <motion.span className="expertise-icon-scene" variants={tilt}>
-                  <motion.span className="expertise-icon-shadow" variants={shadow} />
-                  <motion.i className={`expertise-card-icon fa-solid ${card.icon}`} variants={elevate} />
-                </motion.span>
-              </span>
-              <h3>{card.title}</h3>
+          <motion.div className="expertise-card expertise-card-compact" initial="rest" animate="rest" whileHover={hover}>
+            <h3><Link href={`/services#${card.id}`} className="expertise-compact-link"><i className={`fa-solid ${card.icon}`} aria-hidden="true" />{card.title}</Link></h3>
+            <p>{card.summary}</p>
+            <div className="expertise-chip-scene" aria-hidden="true">
+              {card.chips.map((chip, position) => <motion.span className="expertise-chip" key={chip} custom={position} variants={badgeLift}>{chip}</motion.span>)}
             </div>
-            <p className="expertise-card-copy">{card.summary}</p>
-            <span className="expertise-card-bottom" aria-hidden="true">
-              <i className="expertise-card-arrow fa-solid fa-arrow-right" />
-            </span>
-          </MotionLink>
+            <i className="expertise-arrow fa-solid fa-arrow-right" aria-hidden="true" />
+          </motion.div>
         </motion.div>
       ))}
     </div>
