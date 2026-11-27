@@ -61,7 +61,7 @@ export function ProcessShowcase({ steps }: { steps: readonly Step[] }) {
       setNearby(nearStage);
       if (!nearStage) setReady(false);
       schedule();
-    }, { rootMargin: "160px 0px" });
+    }, { rootMargin: "280px 0px" });
     observer.observe(artwork);
     syncLayout();
     desktopMedia.addEventListener("change", syncLayout);
@@ -92,10 +92,10 @@ export function ProcessShowcase({ steps }: { steps: readonly Step[] }) {
             className="process-step-entry"
             data-active={current === index}
             aria-current={desktop && current === index ? "step" : undefined}
-            initial={reducedMotion ? false : { opacity: 0.8, y: 12 }}
+            initial={reducedMotion ? false : { opacity: 0.82, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px 0px" }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ margin: "12px 0px" }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="process-step-content">
               <span className="process-step-number" aria-hidden="true">{step.number}</span>

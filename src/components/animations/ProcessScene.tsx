@@ -1,6 +1,6 @@
 "use client";
 
-import { ContactShadows, Environment, Lightformer, OrthographicCamera, RoundedBox } from "@react-three/drei";
+import { Environment, Lightformer, OrthographicCamera, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { animate } from "framer-motion";
 import { Component, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
@@ -65,10 +65,10 @@ function DataFlow({ active }: { active: boolean }) {
   const particles = useRef<Group>(null);
   const progress = useRef(0);
   const curve = useMemo(() => new CubicBezierCurve3(
-    new Vector3(-0.62, -0.25, 0.31),
-    new Vector3(-0.12, -0.74, 1.12),
-    new Vector3(0.10, 0.69, 0.88),
-    new Vector3(0.62, 0.23, 0.31),
+    new Vector3(-0.63, -0.25, 0.30),
+    new Vector3(-0.28, -0.31, 0.63),
+    new Vector3(0.27, 0.29, 0.63),
+    new Vector3(0.62, 0.23, 0.30),
   ), []);
 
   useFrame(({ invalidate }, delta) => {
@@ -93,17 +93,17 @@ function DataFlow({ active }: { active: boolean }) {
   return (
     <group>
       <mesh>
-        <tubeGeometry args={[curve, 40, 0.038, 8, false]} />
+        <tubeGeometry args={[curve, 36, 0.028, 8, false]} />
         <meshBasicMaterial ref={tube} transparent opacity={0} color="#709c8a" depthWrite={false} />
       </mesh>
       <mesh>
-        <tubeGeometry args={[curve, 40, 0.091, 8, false]} />
+        <tubeGeometry args={[curve, 36, 0.061, 8, false]} />
         <meshBasicMaterial ref={halo} transparent opacity={0} color="#9fd8b6" depthWrite={false} />
       </mesh>
       <group ref={particles} visible={false}>
         {[0, 1, 2].map(index => (
           <mesh key={index}>
-            <sphereGeometry args={[0.076, 12, 12]} />
+            <sphereGeometry args={[0.053, 12, 12]} />
             <meshBasicMaterial transparent opacity={0} color="#edfff4" depthWrite={false} />
           </mesh>
         ))}
@@ -123,7 +123,7 @@ function HandoverSeal({ active }: { active: boolean }) {
       onUpdate: size => {
         const scale = Math.max(0.001, size);
         group.scale.setScalar(scale);
-        group.position.y = -0.67 - (1 - scale) * 0.18;
+        group.position.y = -0.53 - (1 - scale) * 0.14;
         invalidate();
       },
     });
@@ -131,15 +131,15 @@ function HandoverSeal({ active }: { active: boolean }) {
   }, [active, invalidate]);
 
   return (
-    <group ref={seal} position={[1.23, -0.67, 0.42]} rotation={[0, 0, 0.08]} scale={0.001}>
+    <group ref={seal} position={[1.15, -0.53, 0.24]} scale={0.001}>
       <mesh rotation-x={Math.PI / 2}>
-        <cylinderGeometry args={[0.43, 0.43, 0.14, 32]} />
+        <cylinderGeometry args={[0.35, 0.35, 0.11, 32]} />
         <meshPhysicalMaterial color="#6f9380" roughness={0.28} clearcoat={0.65} />
       </mesh>
-      <RoundedBox args={[0.085, 0.22, 0.038]} radius={0.018} position={[-0.105, -0.039, 0.082]} rotation-z={0.77}>
+      <RoundedBox args={[0.063, 0.15, 0.036]} radius={0.018} position={[-0.101, -0.026, 0.064]} rotation-z={0.79}>
         <meshBasicMaterial color="#fff7e9" />
       </RoundedBox>
-      <RoundedBox args={[0.085, 0.34, 0.038]} radius={0.018} position={[0.075, 0.027, 0.082]} rotation-z={-0.74}>
+      <RoundedBox args={[0.063, 0.26, 0.036]} radius={0.018} position={[0.036, 0.008, 0.064]} rotation-z={-0.8}>
         <meshBasicMaterial color="#fff7e9" />
       </RoundedBox>
     </group>
@@ -150,7 +150,7 @@ function StudioCamera() {
   const ref = useRef<Camera>(null);
   const { width, height } = useThree(state => state.size);
   useLayoutEffect(() => ref.current?.lookAt(0, 0.04, 0), []);
-  return <OrthographicCamera ref={ref} makeDefault position={[3.65, 2.65, 8.5]} zoom={Math.min(width / 5.7, height / 4.55)} near={0.1} far={30} />;
+  return <OrthographicCamera ref={ref} makeDefault position={[2.7, 2.05, 8.5]} zoom={Math.min(width / 5.65, height / 4.05)} near={0.1} far={30} />;
 }
 
 function SceneStatus({ step, onReady, onFailure }: { step: number; onReady: () => void; onFailure: () => void }) {
@@ -205,7 +205,6 @@ export default function ProcessScene({ step, onReady, onFailure }: { step: numbe
           ))}
           <DataFlow active={step === 2} />
           <HandoverSeal active={step === 3} />
-          <ContactShadows position={[0, -1.62, 0]} color="#796b59" opacity={0.32} scale={7} blur={2.5} far={4} resolution={256} frames={1} />
         </Canvas>
       </div>
     </SceneBoundary>

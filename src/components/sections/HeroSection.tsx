@@ -21,8 +21,8 @@ export function HeroSection() {
   return (
     <section className="hero-section" aria-labelledby="hero-heading">
       <Container>
-        <div className="hero-grid">
-          <div className="hero-copy">
+        <div className="hero-grid" data-reveal-group>
+          <div className="hero-copy" data-reveal="up" data-reveal-distance={12}>
             <p className="hero-eyebrow">Frontend-focused full-stack developer</p>
             <h1 id="hero-heading" className="text-display hero-heading">
               <span>Turning ideas into</span>{" "}

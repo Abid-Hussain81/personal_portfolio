@@ -3,6 +3,7 @@
 import { motion, useInView, useReducedMotion, type Transition, type Variants } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 const compactCards = [
   { id: "figma-to-code", icon: "fa-pen-nib", title: "Design to code", summary: "Turn Figma files into responsive interfaces.", chips: ["Components", "Breakpoints"] },
@@ -11,8 +12,6 @@ const compactCards = [
 ] as const;
 
 const spring = { type: "spring", stiffness: 280, damping: 22 } satisfies Transition;
-const entrance = { opacity: 1, y: 0 };
-const viewport = { once: true, margin: "-80px" } as const;
 const badgeLift: Variants = {
   rest: { y: 0, z: 0, rotateX: 0, transition: spring },
   lift: (index: number) => ({ y: -4 - index * 2, z: 12 + index * 5, rotateX: -6, transition: spring }),
@@ -116,13 +115,11 @@ export function ExpertiseGrid() {
     };
   }, []);
 
-  const initial = reduceMotion ? false : { opacity: 0.75, y: 16 };
-  const reveal = (index: number) => ({ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] } satisfies Transition);
   const hover = reduceMotion ? undefined : "lift";
 
   return (
     <div className="expertise-grid" ref={grid}>
-      <motion.div className="expertise-card-entry expertise-entry-booking" initial={initial} whileInView={entrance} viewport={viewport} transition={reveal(0)}>
+      <ScrollReveal className="expertise-card-entry expertise-entry-booking" distance={16}>
         <motion.article className="expertise-card expertise-card-booking" initial="rest" animate="rest" whileHover={hover}>
           <div className="expertise-feature-copy">
             <span className="expertise-badge">Product interfaces</span>
@@ -135,8 +132,8 @@ export function ExpertiseGrid() {
             <Link href="/services#booking-platforms">Booking platforms <i className="fa-solid fa-arrow-right" aria-hidden="true" /></Link>
           </div>
         </motion.article>
-      </motion.div>
-      <motion.div className="expertise-card-entry expertise-entry-api" initial={initial} whileInView={entrance} viewport={viewport} transition={reveal(1)}>
+      </ScrollReveal>
+      <ScrollReveal className="expertise-card-entry expertise-entry-api" distance={16} delay={.07}>
         <Link className="expertise-card expertise-card-api" href="/services#api-integrations">
           <div className="expertise-feature-copy">
             <span className="expertise-badge">Connected systems</span>
@@ -146,15 +143,13 @@ export function ExpertiseGrid() {
           <ApiVisual reducedMotion={reduceMotion} />
           <i className="expertise-arrow fa-solid fa-arrow-right" aria-hidden="true" />
         </Link>
-      </motion.div>
+      </ScrollReveal>
       {compactCards.map((card, index) => (
-        <motion.div
+        <ScrollReveal
           className="expertise-card-entry expertise-entry-compact"
           key={card.id}
-          initial={initial}
-          whileInView={entrance}
-          viewport={viewport}
-          transition={reveal(index)}
+          distance={16}
+          delay={index * .07}
         >
           <motion.div className="expertise-card expertise-card-compact" initial="rest" animate="rest" whileHover={hover}>
             <h3><Link href={`/services#${card.id}`} className="expertise-compact-link"><i className={`fa-solid ${card.icon}`} aria-hidden="true" />{card.title}</Link></h3>
@@ -164,7 +159,7 @@ export function ExpertiseGrid() {
             </div>
             <i className="expertise-arrow fa-solid fa-arrow-right" aria-hidden="true" />
           </motion.div>
-        </motion.div>
+        </ScrollReveal>
       ))}
     </div>
   );
