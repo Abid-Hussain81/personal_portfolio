@@ -34,7 +34,7 @@ export function HeroBadge({ profile, children }: { profile: BadgeProfile; childr
   const root = useRef<HTMLDivElement>(null);
   const [nearby, setNearby] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [motion, setMotion] = useState(false);
+  const [motion, setMotion] = useState<boolean | null>(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -65,13 +65,14 @@ export function HeroBadge({ profile, children }: { profile: BadgeProfile; childr
     };
   }, []);
 
-  const renderScene = nearby && motion && !failed;
+  const renderScene = nearby && motion === true && !failed;
   const showScene = renderScene && ready;
+  const showFallback = motion === false || failed;
   const flip = () => setFlipped(current => !current);
   const fail = () => setFailed(true);
 
   return (
-    <div className="hero-badge" ref={root} data-badge-ready={showScene}>
+    <div className="hero-badge" ref={root} data-badge-ready={showScene} data-badge-fallback={showFallback}>
       <div className="hero-badge-fallback" aria-hidden={showScene} inert={showScene}>{children}</div>
       {renderScene && (
         <div className="hero-badge-canvas" aria-hidden="true">
