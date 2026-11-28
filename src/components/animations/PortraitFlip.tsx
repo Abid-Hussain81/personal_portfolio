@@ -4,15 +4,15 @@ import { RotateCw } from "lucide-react";
 import { useId, useState, type PointerEvent, type ReactNode } from "react";
 
 function trackPointer(event: PointerEvent<HTMLDivElement>) {
-  if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (event.pointerType !== "mouse" || !window.matchMedia("(min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference)").matches) return;
 
   const card = event.currentTarget;
   const bounds = card.getBoundingClientRect();
   const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
   const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
 
-  card.style.setProperty("--portrait-rotate-x", `${(0.5 - y) * 12}deg`);
-  card.style.setProperty("--portrait-rotate-y", `${(x - 0.5) * 14}deg`);
+  card.style.setProperty("--portrait-rotate-x", `${(0.5 - y) * 6}deg`);
+  card.style.setProperty("--portrait-rotate-y", `${(x - 0.5) * 8}deg`);
   card.style.setProperty("--portrait-light-x", `${x * 100}%`);
   card.style.setProperty("--portrait-light-y", `${y * 100}%`);
   card.dataset.tilting = "true";
@@ -39,7 +39,7 @@ export function PortraitFlip({ front, back }: { front: ReactNode; back: ReactNod
       <button
         className="portrait-flip-trigger"
         type="button"
-        aria-label={flipped ? "Flip back to the portrait" : "Flip card to see availability and core focus"}
+        aria-label={flipped ? "Flip back to the portrait" : "Flip profile card to see location and core focus"}
         aria-expanded={flipped}
         aria-controls={detailsId}
         onClick={() => setFlipped(current => !current)}

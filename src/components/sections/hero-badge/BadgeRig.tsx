@@ -20,13 +20,13 @@ type Props = {
   front: Texture;
   back: Texture;
   resumeUrl: string;
-  touch: boolean;
+  compact: boolean;
   flipped: boolean;
   onFlip: () => void;
   onReady: () => void;
 };
 
-export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onReady }: Props) {
+export function BadgeRig({ front, back, resumeUrl, compact, flipped, onFlip, onReady }: Props) {
   // Rapier's joint hooks accept refs before their bodies mount but declare non-null refs.
   const anchor = useRef<RapierRigidBody>(null!);
   const upper = useRef<RapierRigidBody>(null!);
@@ -39,7 +39,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
   const ready = useRef(false);
   const idle = useRef({ time: 0, phase: 0.9, strength: 0.45, resumeAt: 0, flipped });
   const frame = useRef({ baseZoom: 0, left: 0, right: 0 });
-  const deviceTilt = useRef({ pitch: 0, yaw: 0 });
+  const cursorTilt = useRef({ pitch: 0, yaw: 0 });
   const canvas = useThree(state => state.gl.domElement);
   const drag = useRef({
     plane: new Plane(new Vector3(0, 0, 1), 0),
@@ -73,12 +73,11 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
 
   useEffect(() => {
     const measure = () => {
-      const { left, right, width, height } = canvas.getBoundingClientRect();
-      const center = left + width / 2;
+      const { width, height } = canvas.getBoundingClientRect();
       frame.current = {
         baseZoom: badgeBaseZoom(width, height),
-        left: center - Math.max(left, 0),
-        right: Math.min(right, document.documentElement.clientWidth) - center,
+        left: width / 2,
+        right: width / 2,
       };
     };
     measure();
@@ -92,17 +91,28 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
   }, [canvas]);
 
   useEffect(() => {
-    if (!touch) return;
-    let zero: { pitch: number; yaw: number } | undefined;
-    const orient = ({ beta, gamma }: DeviceOrientationEvent) => {
-      if (beta === null || gamma === null) return;
-      zero ??= { pitch: beta, yaw: gamma };
-      deviceTilt.current.pitch = MathUtils.degToRad(MathUtils.clamp(beta - zero.pitch, -15, 15)) * 0.5;
-      deviceTilt.current.yaw = MathUtils.degToRad(MathUtils.clamp(gamma - zero.yaw, -20, 20)) * 0.5;
+    const desktop = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+    const reset = () => {
+      cursorTilt.current.pitch = 0;
+      cursorTilt.current.yaw = 0;
     };
-    window.addEventListener("deviceorientation", orient);
-    return () => window.removeEventListener("deviceorientation", orient);
-  }, [touch]);
+    const orient = (event: PointerEvent) => {
+      if (!desktop.matches || event.pointerType !== "mouse" || press.current) return;
+      const bounds = canvas.getBoundingClientRect();
+      const x = MathUtils.clamp((event.clientX - bounds.left) / bounds.width - 0.5, -0.5, 0.5);
+      const y = MathUtils.clamp((event.clientY - bounds.top) / bounds.height - 0.5, -0.5, 0.5);
+      cursorTilt.current.pitch = -y * 0.16;
+      cursorTilt.current.yaw = x * 0.26;
+    };
+    canvas.addEventListener("pointermove", orient);
+    canvas.addEventListener("pointerleave", reset);
+    desktop.addEventListener("change", reset);
+    return () => {
+      canvas.removeEventListener("pointermove", orient);
+      canvas.removeEventListener("pointerleave", reset);
+      desktop.removeEventListener("change", reset);
+    };
+  }, [canvas]);
 
   useBeforePhysicsStep(() => {
     const body = badge.current;
@@ -119,7 +129,7 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     } else {
       motion.strength = 0;
     }
-    const sway = Math.sin(motion.phase) * motion.strength;
+    const sway = Math.sin(motion.phase) * motion.strength * (compact ? 0.35 : 0.7);
     const pose = orientation.current;
     const q = body.rotation();
     const angular = body.angvel();
@@ -127,9 +137,10 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
     const rotation = pose.euler.setFromQuaternion(pose.rotation, "YXZ");
     const wrappedYaw = rotation.y - pose.yaw;
     pose.yaw += Math.atan2(Math.sin(wrappedYaw), Math.cos(wrappedYaw));
-    const yawError = (flipped ? Math.PI : 0) + deviceTilt.current.yaw + sway * 0.085 - pose.yaw;
+    const yawTarget = (flipped ? Math.PI : 0) - 0.08 + cursorTilt.current.yaw + sway * 0.085;
+    const yawError = yawTarget - pose.yaw;
     body.applyTorqueImpulse({
-      x: ((deviceTilt.current.pitch - rotation.x) * 3 - angular.x) * step,
+      x: ((0.03 + cursorTilt.current.pitch - rotation.x) * 3 - angular.x) * step,
       y: (yawError * 9 - angular.y * 1.1) * step,
       z: (-rotation.z * 2.1 - angular.z * 0.7) * step,
     }, true);
@@ -230,8 +241,8 @@ export function BadgeRig({ front, back, resumeUrl, touch, flipped, onFlip, onRea
         <CuboidCollider args={[1.1, 1.55, 0.04]} mass={0.8} collisionGroups={0} />
         <group ref={artwork} onPointerDown={handleDown} onPointerMove={handleMove} onPointerUp={handleUp}>
           {/* Drei's extrusion extends to 0.16 with this radius. Scale Z to keep the printed faces flush. */}
-          <RoundedBox args={[2.2, 3.1, 0.08]} radius={0.12} smoothness={6} scale-z={0.5}>
-            <meshPhysicalMaterial color="#f0ebdd" clearcoat={0.8} clearcoatRoughness={0.15} roughness={0.25} metalness={0.05} />
+          <RoundedBox args={[2.2, 3.1, 0.08]} radius={0.12} smoothness={compact ? 3 : 5} scale-z={0.5}>
+            <meshPhysicalMaterial color="#e3e3d2" clearcoat={0.55} clearcoatRoughness={0.25} roughness={0.35} metalness={0.07} />
           </RoundedBox>
           <mesh position={[0, 0, 0.041]}>
             <planeGeometry args={[...faceSize]} />
