@@ -15,7 +15,7 @@ const scenes = [
     id: "mind-gauge",
     period: "June 2025 – Present",
     label: "Production frontend",
-    stack: ["React.js", "Next.js", "JavaScript", "TypeScript"],
+    stack: ["React.js", "Next.js", "JavaScript", "TypeScript", "PHP"],
   },
   {
     id: "gaply",
