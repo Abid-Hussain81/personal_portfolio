@@ -38,7 +38,7 @@ export const greetings = {
 } satisfies Record<HomeSection, Suggestion>;
 
 export const generalGreetings: Suggestion[] = [
-  { id: "welcome", text: "Hey! Welcome to Aabi’s portfolio.", label: "Explore my work", href: "/projects", action: "portfolio" },
+  { id: "welcome", text: "Hey! Welcome to Abid’s portfolio.", label: "Explore my work", href: "/projects", action: "portfolio" },
   { id: "demo", text: "Have you tried the interactive demos?", label: "Explore demos", href: "/#capabilities", action: "portfolio" },
   { id: "build", text: "Building something exciting? Let’s talk.", label: "Get in touch", href: companionContactHref(), action: "contact" },
 ];
