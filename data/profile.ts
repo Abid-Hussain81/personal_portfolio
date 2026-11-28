@@ -8,6 +8,7 @@ export const profile = {
   email: "dev.abidhussain@gmail.com",
   linkedin: "https://www.linkedin.com/in/abid-hussain-6853043a1/",
   github: "https://github.com/Abid-Hussain81",
+  whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL,
   resumeUrl: "/resume.pdf",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aabidev.site",
   focus: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "REST APIs", "PHP", "CodeIgniter", "Node.js", "NestJS", "PostgreSQL", "Prisma", "Git", "Figma"],

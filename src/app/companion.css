@@ -1,0 +1,240 @@
+.bit-widget,
+.bit-concepts {
+  --bit-outline: #465044;
+  --bit-cream: #f6edde;
+  --bit-sage: #b9c9ae;
+  --bit-sage-deep: #748575;
+  --bit-visor: #31433b;
+  --bit-visor-line: #667e6d;
+  --bit-terra: #a95037;
+  --bit-russet: #c68666;
+  --bit-eye: #e5efdb;
+  --bit-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+.bit-widget {
+  --bit-size: 86px;
+  --bit-right: 28px;
+  --bit-bottom: 24px;
+  position: fixed;
+  z-index: 35;
+  inset: auto max(var(--bit-right), env(safe-area-inset-right, 0px)) calc(var(--bit-bottom) + env(safe-area-inset-bottom, 0px)) auto;
+  color: var(--foreground);
+  line-height: 1.45;
+}
+
+.bit-widget[hidden] { display: none; }
+.bit-widget :where(button, a):focus-visible,
+.bit-preview-controls button:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+.bit-launcher {
+  display: grid;
+  place-items: center;
+  width: var(--bit-size);
+  background: transparent;
+  border: 0;
+  border-radius: .7rem;
+  animation: bit-entrance .5s var(--bit-ease) both;
+}
+.bit-character { display: block; width: 100%; height: auto; overflow: visible; }
+.bit-shadow { fill: #2d392b; opacity: .19; }
+.bit-pose, .bit-head, .bit-eyes, .bit-hand { transform-box: fill-box; }
+.bit-pose { transform-origin: center bottom; animation: bit-breathe 4.8s ease-in-out infinite; }
+.bit-eyes { transform-origin: center; animation: bit-blink 6.6s ease-in-out infinite; }
+.bit-head { transform-origin: center 86%; transition: transform .28s var(--bit-ease); }
+.bit-hand { transform-origin: 12% 60%; transition: transform .28s var(--bit-ease); }
+.bit-gaze {
+  transform: translate(var(--bit-gaze-x, 0px), var(--bit-gaze-y, 0px));
+  transition: transform .16s ease-out;
+}
+.bit-smile-eyes, .bit-sleep-eyes, .bit-smile { opacity: 0; transition: opacity .22s ease; }
+.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"]) :is(.bit-smile-eyes, .bit-smile) { opacity: 1; }
+.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"], [data-state="resting"]) .bit-eyes { opacity: 0; animation: none; }
+.bit-character:is([data-state="greeting"], [data-state="farewell"]) .bit-hand { animation: bit-wave 1s var(--bit-ease) 1; }
+.bit-character[data-state="happy"] .bit-pose { animation: bit-hop .58s var(--bit-ease) 1; }
+.bit-character[data-state="curious"] .bit-head { transform: rotate(-7deg) translateY(-1px); }
+.bit-character[data-state="thinking"] .bit-head { transform: rotate(6deg) translateY(1px); }
+.bit-character[data-state="guiding"] .bit-hand { animation: bit-point 1.55s var(--bit-ease) 1; }
+.bit-character[data-state="resting"] .bit-head { transform: translateY(2px) rotate(-4deg); }
+.bit-character[data-state="resting"] .bit-sleep-eyes { opacity: 1; }
+.bit-character[data-state="resting"] .bit-pose { animation-duration: 7s; }
+.bit-widget[data-page-hidden="true"] :is(.bit-launcher, .bit-character *) { animation-play-state: paused; }
+
+.bit-panel,
+.bit-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 9px);
+  border: 1px solid var(--sage-edge);
+  background: var(--card);
+  box-shadow: 0 14px 36px #333c2621, 0 2px 7px #333c260c;
+  transform-origin: right bottom;
+}
+.bit-panel {
+  width: min(306px, calc(100vw - var(--bit-right) - 14px - env(safe-area-inset-right, 0px) - env(safe-area-inset-left, 0px)));
+  max-height: calc(100dvh - var(--bit-size) - var(--bit-bottom) - 94px - env(safe-area-inset-bottom, 0px));
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 13px 16px 15px;
+  border-radius: 18px;
+  animation: bit-entrance .3s var(--bit-ease) both;
+}
+.bit-panel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 30px;
+  margin: -4px -6px 2px 0;
+}
+.bit-icon-button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  flex: none;
+  color: var(--sage-ink);
+  border-radius: 8px;
+}
+.bit-icon-button:hover { background: var(--sage-surface); }
+.bit-close { margin-inline-start: auto; }
+.bit-panel[data-step="home"] .bit-panel-toolbar {
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  right: 7px;
+  margin: 0;
+}
+.bit-panel[data-step="home"] .bit-panel-step { padding-top: 6px; }
+.bit-panel[data-step="home"] h2 { margin-inline-end: 40px; }
+.bit-panel[data-step="home"] p { margin-block-start: 6px; }
+.bit-back,
+.bit-preferences button {
+  color: var(--sage-ink);
+  font-size: .75rem;
+  font-weight: 650;
+  min-height: 36px;
+}
+.bit-back { display: flex; align-items: center; gap: 5px; }
+.bit-panel-step { animation: bit-step .24s var(--bit-ease) both; }
+.bit-panel h2 {
+  font-size: 1.24rem;
+  line-height: 1.17;
+  letter-spacing: -.045em;
+  font-weight: 650;
+  color: var(--sage-ink);
+}
+.bit-panel h2:focus { outline: none; }
+.bit-panel p { margin-block-start: 5px; color: var(--muted-foreground); font-size: .8rem; }
+.bit-options { display: grid; gap: 5px; margin-block-start: 13px; }
+.bit-option {
+  display: grid;
+  grid-template-columns: 19px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 1px solid var(--sage-edge);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--sage-surface) 64%, var(--card));
+  color: var(--sage-ink);
+  text-align: start;
+  font-size: .8rem;
+  font-weight: 600;
+  transition: background .16s ease, border-color .16s ease;
+}
+.bit-option svg:last-child:not(:first-child) { transition: transform .16s ease; }
+.bit-option:not(:disabled):hover { background: var(--sage-surface); border-color: var(--sage-action-edge); }
+.bit-option:not(:disabled):hover svg:last-child:not(:first-child) { transform: translate(1px, -1px); }
+.bit-option:disabled { color: var(--muted-foreground); background: var(--secondary); border-color: var(--border); cursor: default; }
+.bit-option small { display: block; font-size: .7rem; font-weight: 400; }
+.bit-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-block-start: 8px;
+  padding-block-start: 2px;
+  border-top: 1px solid var(--border);
+}
+.bit-preferences button:hover, .bit-back:hover { text-decoration: underline; text-underline-offset: 3px; }
+.bit-bubble {
+  width: min(230px, calc(100vw - var(--bit-right) - 14px - env(safe-area-inset-right, 0px) - env(safe-area-inset-left, 0px)));
+  padding: 13px 42px 9px 14px;
+  border-radius: 14px;
+  animation: bit-entrance .25s var(--bit-ease) both;
+}
+.bit-bubble[data-fading="true"] { animation: bit-entrance .24s ease-in reverse both; }
+.bit-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: calc(var(--bit-size) * .46);
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  background: var(--card);
+  border-right: 1px solid var(--sage-edge);
+  border-bottom: 1px solid var(--sage-edge);
+}
+.bit-bubble-close { position: absolute; top: 4px; right: 4px; }
+.bit-bubble p { color: var(--sage-ink); font-size: .84rem; font-weight: 560; }
+.bit-bubble-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  color: var(--sage-ink);
+  font-size: .77rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.bit-restore {
+  min-height: 44px;
+  padding-inline: 11px;
+  border: 1px solid var(--sage-edge);
+  border-radius: 999px;
+  color: var(--sage-ink);
+  background: var(--card);
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.bit-concepts { width: min(100% - 2.5rem, 920px); margin: var(--page-top) auto 4rem; }
+.bit-preview-controls { display: flex; flex-wrap: wrap; gap: 7px; margin: 24px 0; }
+.bit-preview-controls button {
+  min-height: 44px;
+  padding-inline: 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .8rem;
+  text-transform: capitalize;
+}
+.bit-preview-controls button[aria-pressed="true"] { color: var(--sage-ink); background: var(--sage-surface); border-color: var(--sage-action-edge); }
+.bit-concept-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.bit-concept { overflow: hidden; padding: 15px; border: 1px solid var(--border); border-radius: 18px; background: var(--card); }
+.bit-concept-stage { display: grid; place-items: center; min-height: 182px; background: var(--sage-surface); border-radius: 11px; }
+.bit-concept-stage .bit-character { width: 118px; }
+.bit-concept h2 { margin-top: 10px; color: var(--sage-ink); font-size: 1.15rem; font-weight: 650; }
+.bit-concept p { color: var(--muted-foreground); font-size: .84rem; }
+
+@keyframes bit-entrance { from { opacity: 0; transform: translateY(6px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes bit-step { from { opacity: .45; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes bit-breathe { 0%, 100% { transform: none; } 50% { transform: translateY(-1.3px) scaleY(1.014); } }
+@keyframes bit-blink { 0%, 42%, 46%, 91%, 95%, 100% { transform: none; } 44%, 93% { transform: scaleY(.12); } }
+@keyframes bit-wave { 0%, 100% { transform: none; } 24%, 60% { transform: rotate(-40deg); } 42%, 76% { transform: rotate(-27deg); } }
+@keyframes bit-point { 0%, 100% { transform: none; } 25%, 68% { transform: rotate(-44deg) translate(1px, -1px); } }
+@keyframes bit-hop { 0%, 100% { transform: none; } 20% { transform: scaleY(.96); } 56% { transform: translateY(-4px); } }
+
+@media (max-width: 767px) {
+  .bit-widget { --bit-size: 58px; --bit-right: 14px; --bit-bottom: 14px; }
+  .bit-panel { max-height: min(410px, calc(100dvh - var(--bit-size) - var(--bit-bottom) - 90px - env(safe-area-inset-bottom, 0px))); }
+  .bit-icon-button { width: 40px; height: 40px; }
+  .bit-bubble { padding-right: 47px; }
+  .bit-concept-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 175px), 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.bit-widget, .bit-concepts) *,
+  :is(.bit-widget, .bit-concepts) *::after { animation: none !important; transition: none !important; }
+}

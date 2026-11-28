@@ -1,14 +1,17 @@
 // Contact form component without reCAPTCHA integration
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormGetFieldState, type UseFormResetField } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { readCompanionInquiry } from "@/lib/companion-inquiry";
+import { trackCompanion } from "@/lib/companion-analytics";
 
 type ContactFormProps = {
   className?: string;
@@ -27,6 +30,18 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+function CompanionSubject({ resetField, getFieldState }: {
+  resetField: UseFormResetField<FormData>;
+  getFieldState: UseFormGetFieldState<FormData>;
+}) {
+  const query = useSearchParams();
+  const { subject } = readCompanionInquiry(query);
+  useEffect(() => {
+    if (subject && !getFieldState("subject").isDirty) resetField("subject", { defaultValue: subject });
+  }, [getFieldState, resetField, subject]);
+  return null;
+}
+
 export function ContactForm({ className }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -36,10 +51,16 @@ export function ContactForm({ className }: ContactFormProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+    resetField,
+    getFieldState,
+    formState: { errors, isDirty },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: { name: "", email: "", subject: "", message: "", _gotcha: "" },
+  });
 
   const onSubmit = async (data: FormData) => {
+    const inquiry = readCompanionInquiry(new URLSearchParams(window.location.search));
     setLoading(true);
     setDeliveryError(false);
     try {
@@ -51,6 +72,7 @@ export function ContactForm({ className }: ContactFormProps) {
       if (!res.ok) throw new Error("Server error");
       setSubmitted(true);
       reset();
+      if (inquiry.referred && !data._gotcha) trackCompanion("mascot_conversion", { category: inquiry.category, action: "contact_form_submitted" });
     } catch {
       setDeliveryError(true);
     } finally {
@@ -76,7 +98,8 @@ export function ContactForm({ className }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("rounded-lg border border-border bg-white p-6  sm:p-8", className)}>
+    <form id="contact-form" data-contact-form data-active={isDirty || loading} onSubmit={handleSubmit(onSubmit)} className={cn("rounded-lg border border-border bg-white p-6  sm:p-8", className)}>
+      <Suspense><CompanionSubject resetField={resetField} getFieldState={getFieldState} /></Suspense>
       {deliveryError && <div role="alert" className="mb-6 rounded-lg border border-border bg-secondary p-4 text-sm text-muted-foreground">Your message could not be sent. Please try again or <a className="font-medium text-primary underline underline-offset-4" href={"mailto:" + profile.email}>email me directly</a>. Your draft is still here.</div>}
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
