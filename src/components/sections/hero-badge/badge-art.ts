@@ -83,6 +83,7 @@ export function frontArtwork(photo: HTMLImageElement, profile: BadgeProfile, com
     ctx.restore();
 
     text(ctx, profile.name, inset, 441, "600 49px Arial, sans-serif");
+    text(ctx, profile.title, inset, 505, "500 22px Arial, sans-serif", muted);
 
     const { left, top, width: buttonWidth, height: buttonHeight } = resumeArea;
     fillRounded(ctx, left, top, buttonWidth, buttonHeight, 10, "#d9e5d2");

@@ -8,6 +8,7 @@ const BadgeScene = dynamic(() => import("./BadgeScene"), { ssr: false });
 
 export type BadgeProfile = {
   name: string;
+  title: string;
   location: string;
   photoUrl: string;
   resumeUrl: string;
@@ -112,7 +113,7 @@ export function HeroBadge({ profile, children }: { profile: BadgeProfile; childr
           <p className="sr-only" aria-live="polite">
             {flipped
               ? `${profile.location}. Core focus: ${profile.specialties.join(", ")}.`
-              : profile.name}
+              : `${profile.name}. ${profile.title}.`}
           </p>
         </div>
       )}

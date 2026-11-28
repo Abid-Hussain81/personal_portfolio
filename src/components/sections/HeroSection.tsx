@@ -6,9 +6,10 @@ import { PortraitFlip } from "@/components/animations/PortraitFlip";
 import { Container } from "@/components/layout/Container";
 import { HeroBadge } from "@/components/sections/hero-badge/HeroBadge";
 
-const specialties = ["Web applications", "API integrations"];
+const specialties = ["TravelTech & Booking Systems", "Travel API Integrations", "Full-Stack Development"];
 const badgeProfile = {
   name: profile.name,
+  title: "TravelTech & Full-Stack Developer",
   location: profile.location,
   // The fixed-size Next image URL uses the 2x candidate, sized for the badge texture.
   photoUrl: getImageProps({ src: "/Profile.jpg", alt: "", width: 192, height: 226 }).props.src,
@@ -29,15 +30,15 @@ export function HeroSection() {
             <p className="hero-intro">Hi, I&apos;m {profile.name}.</p>
             <h1 id="hero-heading" className="text-display hero-heading">
               <span>Building modern</span>{" "}
-              <span className="hero-heading-accent">digital experiences.</span>
+              <span className="hero-heading-accent">travel platforms &amp; booking&nbsp;experiences.</span>
             </h1>
-            <p className="hero-description">Full-stack developer building web applications, booking platforms and API integrations.</p>
+            <p className="hero-description">Full-stack developer specializing in TravelTech, booking systems, API integrations and scalable web applications.</p>
             <div className="hero-actions">
               <Link className="action-primary" href="/projects">
-                Explore my work <ArrowUpRight size={15} aria-hidden="true" />
+                Explore My Work <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
               <Link className="action-text hero-action-secondary" href="/contact">
-                Let&apos;s connect <ArrowUpRight size={15} aria-hidden="true" />
+                Let&apos;s Connect <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
             </div>
           </div>
@@ -51,6 +52,7 @@ export function HeroSection() {
                       <div className="portrait-image"><Image src="/Profile.jpg" alt="" fill sizes="(min-width: 1024px) 260px, 208px" className="object-cover" loading="eager" fetchPriority="low" /></div>
                       <figcaption className="portrait-caption">
                         <p className="portrait-name">{profile.name}</p>
+                        <p className="portrait-role">{badgeProfile.title}</p>
                       </figcaption>
                     </figure>
                   }
