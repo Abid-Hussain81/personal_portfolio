@@ -92,7 +92,7 @@ export function CompanionPanel({ view, heading, muted, whatsapp, onView, onDesti
       </div>
       <div key={step} className="bit-panel-step">
         <h2 id="bit-panel-heading" ref={heading} tabIndex={-1}>{headings[step]}</h2>
-        {step === "home" && <p>Aabi’s little digital companion. How can I help?</p>}
+        {step === "home" && <p>Abid’s little digital companion. How can I help?</p>}
         {step === "project-contact" && <p>{projectTopics[view.topic]}</p>}
         {step === "hire-contact" && <p>{hiringTopics[view.topic]}</p>}
         <div className="bit-options">
