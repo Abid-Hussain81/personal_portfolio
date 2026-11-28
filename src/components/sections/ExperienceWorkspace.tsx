@@ -168,6 +168,12 @@ export function ExperienceWorkspace() {
                 <p className="workspace-role">{job.role}</p>
                 <p className="workspace-location">{job.id === "gaply" ? "Remote, part-time alongside The Mind Gauge" : job.location}</p>
                 <p className="workspace-description">{job.highlights[0]}</p>
+                {job.featuredHighlight && (
+                  <div className="workspace-highlight">
+                    <h4>TravelTech highlight</h4>
+                    <p>{job.featuredHighlight}</p>
+                  </div>
+                )}
                 <dl className="workspace-stack">
                   <dt>{job.id === "independent" ? "Illustrative stack" : "Technologies"}</dt>
                   <dd>{job.stack.join(" · ")}</dd>

@@ -1,11 +1,15 @@
+const mindGaugeTravelTechHighlight = "Used GraphQL to fetch hotel details and check room availability before checkout. Collaborated on the TravelgateX integration.";
+
 export const resume = {
   summary: "Frontend-focused full-stack developer with 2+ years of experience across freelance projects and production web applications. Skilled in responsive UI implementation, REST API integration and booking workflows, with backend support experience in PHP and CodeIgniter. Interested in international remote roles, contract work and freelance projects.",
   experience: [
     {
       id: "mind-gauge", role: "Frontend Developer", company: "The Mind Gauge",
       period: "Jun 2025 - Present", location: "Lahore, Pakistan · On-site",
+      featuredHighlight: mindGaugeTravelTechHighlight,
       highlights: [
         "Develop and maintain production frontend features using React.js, Next.js, JavaScript and TypeScript, collaborating with designers and backend developers.",
+        mindGaugeTravelTechHighlight,
         "Implement responsive interfaces from Figma designs and integrate REST APIs, including API-driven application states and booking workflows.",
         "Support PHP and CodeIgniter applications through backend debugging, API integration, data handling and cross-stack issue resolution.",
         "Use Lighthouse and Google PageSpeed Insights to identify performance issues and apply image optimization, WebP conversion, minification and caching.",
@@ -68,5 +72,5 @@ export const resume = {
       skills: ["JavaScript", "JavaScript Libraries"],
     },
   ],
-  skills: ["React.js & Next.js", "JavaScript & TypeScript", "Responsive UI & Figma implementation", "REST API Integration", "Tailwind CSS & Bootstrap", "PHP & CodeIgniter", "Node.js & NestJS", "MySQL & PostgreSQL", "Prisma ORM", "Clerk & JWT Authentication", "Git & Postman", "Lighthouse & PageSpeed Insights", "WordPress & Elementor"],
+  skills: ["React.js & Next.js", "JavaScript & TypeScript", "Responsive UI & Figma implementation", "REST APIs & GraphQL", "Tailwind CSS & Bootstrap", "PHP & CodeIgniter", "Node.js & NestJS", "MySQL & PostgreSQL", "Prisma ORM", "Clerk & JWT Authentication", "Git & Postman", "Lighthouse & PageSpeed Insights", "WordPress & Elementor"],
 };

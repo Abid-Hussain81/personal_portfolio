@@ -92,6 +92,19 @@
 .workspace-role { margin-top: .3rem; color: var(--primary); font-size: .96rem; font-weight: 550; }
 .workspace-location { color: var(--muted); font-size: .8125rem; }
 .workspace-description { max-width: 40ch; margin-top: .7rem; color: var(--muted-foreground); font-size: .9375rem; line-height: 1.6; text-wrap: pretty; }
+.workspace-highlight {
+  max-width: 42ch;
+  margin-top: .85rem;
+  padding: .6rem .75rem;
+  border-inline-start: 2px solid var(--sage-action-edge);
+  border-radius: 0 .55rem .55rem 0;
+  background: var(--sage-surface);
+  color: var(--sage-body);
+  font-size: .85rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.workspace-highlight h4 { margin-bottom: .22rem; color: var(--sage-ink); font-size: .78rem; font-weight: 650; }
 .workspace-stack { margin-top: .8rem; padding-top: .65rem; border-top: 1px solid var(--border); }
 .workspace-stack dt { color: var(--muted); font-size: .72rem; }
 .workspace-stack dd { color: var(--sage-ink); font-size: .8125rem; font-weight: 550; }
