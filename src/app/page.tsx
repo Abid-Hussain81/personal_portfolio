@@ -14,6 +14,7 @@ import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import "@fortawesome/fontawesome-free/css/solid.min.css";
 import "./expertise-cards.css";
 import "./capability-demos.css";
+import "./experience-workspace.css";
 import "./toolkit-panels.css";
 
 export default function HomePage() {

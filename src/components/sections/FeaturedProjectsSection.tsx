@@ -7,7 +7,7 @@ import { GitHubIcon } from "@/components/icons/SocialIcons";
 import { featuredProjects } from "@/data/projects";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Container } from "@/components/layout/Container";
-import { WorkOverview } from "@/components/sections/WorkOverview";
+import { ExperienceWorkspace } from "@/components/sections/ExperienceWorkspace";
 
 export function ProjectCard({
   project,
@@ -67,7 +67,7 @@ export function ProjectCard({
 }
 
 export function FeaturedProjectsSection() {
-  if (featuredProjects.length === 0) return <section className="section-pad section-divider" id="experience"><Container><WorkOverview /></Container></section>;
+  if (featuredProjects.length === 0) return <ExperienceWorkspace />;
   return (
     <section className="section-pad">
       <Container>
