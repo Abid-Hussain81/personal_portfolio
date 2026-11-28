@@ -49,9 +49,15 @@ export default function ServicesPage() {
                   </div>
                   <h2>{service.title}</h2>
                   <p>{service.description}</p>
-                  <Link href="/contact" className="action-text" aria-label={"Discuss " + service.title}>
-                    Discuss this service <ArrowUpRight size={16} aria-hidden="true" />
-                  </Link>
+                  {service.id === "api-integrations" ? (
+                    <Link href="/services/api-integration" className="action-text">
+                      Explore API integration services <ArrowUpRight size={16} aria-hidden="true" />
+                    </Link>
+                  ) : (
+                    <Link href="/contact" className="action-text" aria-label={"Discuss " + service.title}>
+                      Discuss this service <ArrowUpRight size={16} aria-hidden="true" />
+                    </Link>
+                  )}
                 </article>
               </InteriorReveal>
             );

@@ -1,4 +1,4 @@
-const mindGaugeTravelTechHighlight = "Used GraphQL to fetch hotel details and check room availability before checkout. Collaborated on the TravelgateX integration.";
+export const mindGaugeTravelTechHighlight = "Used GraphQL to fetch hotel details and check room availability before checkout. Collaborated on the TravelgateX integration.";
 
 export const resume = {
   summary: "Frontend-focused full-stack developer with 2+ years of experience across freelance projects and production web applications. Skilled in responsive UI implementation, REST API integration and booking workflows, with backend support experience in PHP and CodeIgniter. Interested in international remote roles, contract work and freelance projects.",

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { FeaturedProjectsSection } from "@/components/sections/FeaturedProjectsSection";
 import { FeaturedServicesSection } from "@/components/sections/FeaturedServicesSection";
@@ -7,7 +8,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ContactCTASection } from "@/components/sections/ContactCTASection";
 import { HomeEffects } from "@/components/animations/HomeEffects";
 import { profile } from "@/data/profile";
-import { siteDescription } from "@/lib/metadata";
+import { createMetadata, siteDescription } from "@/lib/metadata";
 import "./home-effects.css";
 import "./process-showcase.css";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
@@ -16,6 +17,8 @@ import "./expertise-cards.css";
 import "./capability-demos.css";
 import "./experience-workspace.css";
 import "./toolkit-panels.css";
+
+export const metadata: Metadata = createMetadata({ title: "API Integration & TravelTech Developer" });
 
 export default function HomePage() {
   const url = new URL("/", profile.siteUrl).href;

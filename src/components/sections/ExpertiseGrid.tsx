@@ -134,11 +134,11 @@ export function ExpertiseGrid() {
         </motion.article>
       </ScrollReveal>
       <ScrollReveal className="expertise-card-entry expertise-entry-api" distance={16} delay={.07}>
-        <Link className="expertise-card expertise-card-api" href="/services#api-integrations">
+        <Link className="expertise-card expertise-card-api" href="/services/api-integration">
           <div className="expertise-feature-copy">
             <span className="expertise-badge">Connected systems</span>
             <h3>API integrations</h3>
-            <p>Connect your app, services, and data.</p>
+            <p>Connect REST and GraphQL APIs to your product.</p>
           </div>
           <ApiVisual reducedMotion={reduceMotion} />
           <i className="expertise-arrow fa-solid fa-arrow-right" aria-hidden="true" />

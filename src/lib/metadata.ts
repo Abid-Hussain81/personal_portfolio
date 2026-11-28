@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { profile } from "@/data/profile";
 
 export const siteDescription =
-  "Abid Hussain is a full stack developer in Lahore, Pakistan, focused on frontend development, web applications, booking platforms, and API integrations.";
+  "Abid Hussain is a full-stack developer in Lahore, Pakistan. He builds travel and hotel booking workflows, integrates REST and GraphQL APIs, and develops React and Next.js interfaces.";
 
 type PageMetadataOptions = {
   title?: string;
