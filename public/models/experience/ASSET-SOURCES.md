@@ -5,9 +5,11 @@ Both device models are by Tevy and use the [CC0 1.0 Universal license](https://c
 - [Tevy Laptop](https://tevy.dev/models/laptop), [v1 LOD0 GLB](https://tevy.dev/models/laptop/v1/lod0.glb), 22,122 triangles.
 - [Tevy Smartphone](https://tevy.dev/models/smartphone), [v1 LOD1 GLB](https://tevy.dev/models/smartphone/v1/lod1.glb), 6,038 triangles.
 
-The local GLBs preserve the original mesh geometry, node transforms, and material assignments. The laptop textures were resized to 1024 pixels and the handset textures to 768 pixels. Both use embedded lossless WebP textures instead of a runtime Basis transcoder. The renderer applies a satin finish to the laptop bezel.
+The local GLBs preserve the original mesh geometry, node transforms, and material assignments. The laptop textures were resized to 1024 pixels and the handset textures to 768 pixels. Both use embedded lossless WebP textures instead of a runtime Basis transcoder. The renderer applies a matte graphite finish to the laptop lid and a satin finish to the phone frame.
 
-The WebP device previews were rendered in Chrome from the same models and sample React interfaces. The courtyard photo is an original ImageGen illustration for the fictional Form & Field website.
+The two supplied display meshes have no UV coordinates. The renderer derives UVs from the laptop's 296 × 185 mm XZ aperture and the phone's 67.1 × 145.6 mm XY aperture. The meshes retain their original outlines and the phone's camera opening. The 1920 × 1200 and 832 × 1805 sRGB screen textures are generated from sample data at runtime.
+
+The desktop and mobile WebP previews were rendered in Chrome from the same scene and sample interfaces. The courtyard photo is an original ImageGen illustration for the fictional Form & Field website.
 
 ## ImageGen prompt
 

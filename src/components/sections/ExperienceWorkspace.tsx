@@ -8,7 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { profile } from "@/data/profile";
 import { resume } from "@/data/resume";
 import { ExperienceLaptop, type LaptopMotion } from "./ExperienceLaptop";
-import { WorkspaceAnnotations, type ExperienceScene } from "./ExperienceScreens";
+import { experienceDisplays, type ExperienceScene } from "./ExperienceDisplayConfig";
 
 const scenes = [
   {
@@ -45,6 +45,7 @@ function WorkspaceVisual({ active }: { active: ExperienceScene }) {
     setInvalidate: callback => { invalidate.current = callback; },
   });
   const scene = scenes.find(item => item.id === active);
+  const display = experienceDisplays[active];
 
   useEffect(() => {
     const stage = root.current;
@@ -57,8 +58,6 @@ function WorkspaceVisual({ active }: { active: ExperienceScene }) {
       pointer = undefined;
       cancelAnimationFrame(frame);
       frame = 0;
-      stage?.style.removeProperty("--workspace-x");
-      stage?.style.removeProperty("--workspace-y");
       tilt.current.x = 0;
       tilt.current.y = 0;
       invalidate.current?.();
@@ -74,8 +73,6 @@ function WorkspaceVisual({ active }: { active: ExperienceScene }) {
         const rect = stage.getBoundingClientRect();
         const x = Math.max(-.5, Math.min(.5, (pointer.clientX - rect.left) / rect.width - .5));
         const y = Math.max(-.5, Math.min(.5, (pointer.clientY - rect.top) / rect.height - .5));
-        stage.style.setProperty("--workspace-x", String(x));
-        stage.style.setProperty("--workspace-y", String(y));
         Object.assign(tilt.current, { x, y });
         invalidate.current?.();
       });
@@ -103,11 +100,14 @@ function WorkspaceVisual({ active }: { active: ExperienceScene }) {
 
   return (
     <figure className="workspace-figure">
-      <div className="workspace-stage" ref={root} data-workspace={active} aria-hidden="true">
-        <div className="workspace-scene">
-          <ExperienceLaptop active={active} motion={tilt} />
-          <WorkspaceAnnotations active={active} />
-        </div>
+      <div
+        className="workspace-stage"
+        ref={root}
+        data-workspace={active}
+        style={{ "--workspace-tint": display.tint, "--workspace-edge": display.edge } as CSSProperties}
+        aria-hidden="true"
+      >
+        <ExperienceLaptop active={active} motion={tilt} />
       </div>
       <figcaption><span>Illustrative workspace</span><span>{scene?.label}</span></figcaption>
     </figure>

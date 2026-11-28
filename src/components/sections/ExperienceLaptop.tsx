@@ -3,7 +3,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Component, useEffect, useState, type ReactNode, type RefObject } from "react";
-import type { ExperienceScene } from "./ExperienceScreens";
+import { experienceDisplays, type ExperienceScene } from "./ExperienceDisplayConfig";
 
 const LaptopScene = dynamic(() => import("./ExperienceLaptopScene"), { ssr: false });
 
@@ -36,15 +36,19 @@ export function ExperienceLaptop({
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const preview = experienceDisplays[active];
 
   useEffect(() => {
     if (!element) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+    const canRender = typeof window.WebGL2RenderingContext !== "undefined" && (memory === undefined || memory > 2);
     let nearby = false;
 
     function update() {
-      setEnabled(!preference.matches && typeof window.WebGL2RenderingContext !== "undefined");
-      if (nearby && !preference.matches) setMounted(true);
+      const allowed = canRender && !preference.matches;
+      setEnabled(allowed);
+      if (nearby && allowed) setMounted(true);
     }
 
     const preload = new IntersectionObserver(([entry]) => {
@@ -66,9 +70,9 @@ export function ExperienceLaptop({
     <div className="workspace-laptop" ref={setElement}>
       <div className="workspace-laptop-fallback">
         <picture>
-          <source media="(max-width: 639px)" srcSet={`/models/experience/${active}-mobile.webp`} />
+          <source media="(max-width: 639px)" srcSet={preview.mobilePreview} />
           <Image
-            src={`/models/experience/${active}.webp`}
+            src={preview.preview}
             alt=""
             fill
             loading="lazy"
