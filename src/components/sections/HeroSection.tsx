@@ -1,19 +1,12 @@
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
-import { Braces, Download, Mail, RotateCcw } from "lucide-react";
+import { ArrowUpRight, RotateCcw } from "lucide-react";
 import { profile } from "@/data/profile";
 import { PortraitFlip } from "@/components/animations/PortraitFlip";
 import { Container } from "@/components/layout/Container";
 import { HeroBadge } from "@/components/sections/hero-badge/HeroBadge";
 
 const specialties = ["Web applications", "API integrations"];
-const stack = [
-  { name: "React", logo: "/hero/react.svg" },
-  { name: "Next.js", logo: "/hero/nextjs.svg" },
-  { name: "TypeScript", logo: "/hero/typescript.svg" },
-  { name: "REST APIs" },
-  { name: "Tailwind CSS", logo: "/hero/tailwind-css.svg" },
-];
 const badgeProfile = {
   name: profile.name,
   location: profile.location,
@@ -29,33 +22,23 @@ export function HeroSection() {
       <Container>
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="hero-availability"><span className="status-dot" aria-hidden="true" />Available for opportunities</p>
-            <p className="hero-eyebrow">Frontend-Focused Full-Stack Developer</p>
+            <p className="hero-availability">
+              <span className="status-dot" aria-hidden="true" />
+              Available for work
+            </p>
+            <p className="hero-intro">Hi, I&apos;m {profile.name}.</p>
             <h1 id="hero-heading" className="text-display hero-heading">
-              <span>Building Modern</span>{" "}
-              <span className="hero-heading-accent">Digital Experiences.</span>
+              <span>Building modern</span>{" "}
+              <span className="hero-heading-accent">digital experiences.</span>
             </h1>
-            <p className="hero-description">I build scalable web applications, intuitive user interfaces, booking platforms, and seamless API integrations — combining thoughtful design with reliable engineering.</p>
+            <p className="hero-description">Full-stack developer building web applications, booking platforms and API integrations.</p>
             <div className="hero-actions">
-              <Link className="action-primary" href="/projects">Explore My Work</Link>
-              <Link className="hero-action-secondary" href="/contact"><Mail size={17} aria-hidden="true" />Let&apos;s Connect</Link>
-            </div>
-            <div className="hero-footnote">
-              <ul className="hero-stack" aria-label="Technology stack" role="list">
-                {stack.map(({ name, logo }) => (
-                  <li key={name}>
-                    {logo ? (
-                      <span
-                        aria-hidden="true"
-                        className="hero-stack-logo"
-                        style={{ maskImage: `url(${logo})` }}
-                      />
-                    ) : <Braces size={16} aria-hidden="true" />}
-                    {name}
-                  </li>
-                ))}
-              </ul>
-              <a className="action-text" href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><Download size={14} aria-hidden="true" />Download resume</a>
+              <Link className="action-primary" href="/projects">
+                Explore my work <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
+              <Link className="action-text hero-action-secondary" href="/contact">
+                Let&apos;s connect <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
             </div>
           </div>
           <div className="hero-studio">

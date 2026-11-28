@@ -1,6 +1,6 @@
 ﻿import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, Check, MapPin } from "lucide-react";
+import { ArrowRight, Check, Download, MapPin } from "lucide-react";
 import { profile, stats } from "@/data/profile";
 import { Container } from "@/components/layout/Container";
 import {
@@ -99,6 +99,10 @@ export default function AboutPage() {
                   <MapPin size={16} aria-hidden="true" />
                   {profile.location}
                 </p>
+                <a className="action-text mt-3" href={profile.resumeUrl} download>
+                  <Download size={16} aria-hidden="true" />
+                  Download resume
+                </a>
               </InteriorPanel>
             </InteriorReveal>
 
