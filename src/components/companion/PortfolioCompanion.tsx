@@ -19,8 +19,10 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
   const [panel, setPanel] = useState<{ view: PanelView; pathname: string } | null>(null);
   const [gesture, setGesture] = useState<"happy" | "farewell" | null>(null);
   const [bubbleEngaged, setBubbleEngaged] = useState(false);
+  const [hover, setHover] = useState<{ pathname: string; phase: "hover" | "excited" } | null>(null);
   const widget = useRef<HTMLDivElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
+  const promptButton = useRef<HTMLButtonElement>(null);
   const restoreButton = useRef<HTMLButtonElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const impression = useRef(false);
@@ -29,11 +31,24 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
   const { session, setSession, hidden, setCompanionHidden } = useCompanionPreferences();
   const view = !obstructed && panel?.pathname === pathname ? panel.view : null;
   const visible = entered && !hidden && !obstructed && !conceptPreview;
+  const canHover = visible && !pageHidden && !view && gesture !== "farewell";
+  const hoverPhase = canHover && hover?.pathname === pathname ? hover.phase : null;
+  const showHoverPrompt = hoverPhase === "excited" && !bubbleEngaged;
   const { message, fading, clearMessage } = useCompanionMessages({
-    pathname, section, blocked: !visible || pageHidden || Boolean(view) || gesture === "farewell",
+    pathname, section, blocked: !canHover || showHoverPrompt,
     engaged: bubbleEngaged, session, onSession: setSession,
   });
-  const curious = useCompanionGaze(launcher, visible && !pageHidden && !view && !message);
+  const curious = useCompanionGaze(launcher, canHover && !hoverPhase && !message);
+
+  useEffect(() => {
+    if (!hover || hoverPhase === "excited") return;
+    const next = hoverPhase ? { ...hover, phase: "excited" as const } : null;
+    const timer = window.setTimeout(
+      () => setHover(current => current === hover ? next : current),
+      hoverPhase ? timing.hoverPrompt : 0,
+    );
+    return () => window.clearTimeout(timer);
+  }, [hover, hoverPhase]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setEntered(true), Math.max(0, timing.entrance - performance.now()));
@@ -60,14 +75,21 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
   }, [obstructed, panel, pathname, section]);
 
   useEffect(() => {
-    if (!view && !message) return;
+    if (!view && !message && !showHoverPrompt) return;
     function onOutside(event: PointerEvent) {
       if (!view || widget.current?.contains(event.target as Node)) return;
       setPanel(null);
       trackCompanion("mascot_panel_close", { section: section.current.section, action: "outside" });
     }
     function onEscape(event: KeyboardEvent) {
-      if (event.key !== "Escape" || event.defaultPrevented || (!view && !widget.current?.contains(document.activeElement))) return;
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      if (showHoverPrompt) {
+        event.preventDefault();
+        if (document.activeElement === promptButton.current) launcher.current?.focus({ preventScroll: true });
+        setHover(null);
+        return;
+      }
+      if (!view && !widget.current?.contains(document.activeElement)) return;
       event.preventDefault();
       if (view) {
         setPanel(null);
@@ -85,7 +107,7 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
       window.removeEventListener("pointerdown", onOutside);
       window.removeEventListener("keydown", onEscape);
     };
-  }, [message, section, setSession, view]);
+  }, [message, section, setSession, showHoverPrompt, view]);
 
   useEffect(() => () => window.clearTimeout(gestureTimer.current), []);
 
@@ -107,6 +129,7 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
 
   function togglePanel() {
     track("mascot_click", { action: view ? "close" : "open" });
+    setHover(null);
     if (view) { closePanel("launcher"); return; }
     setBubbleEngaged(false);
     clearMessage();
@@ -148,10 +171,21 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
   }
 
   if (!entered || conceptPreview) return null;
-  const state: CharacterState = gesture ?? (view ? "thinking" : message ? (message.first ? "greeting" : "guiding") : curious ? "curious" : resting ? "resting" : "idle");
+  const idleState: CharacterState = curious ? "curious" : resting ? "resting" : "idle";
+  const messageState = message ? (message.first ? "greeting" : "guiding") : idleState;
+  const hoverState = showHoverPrompt ? "excited" : hoverPhase && "hover";
+  const state: CharacterState = gesture ?? (view ? "thinking" : hoverState ?? messageState);
 
   return (
-    <div ref={widget} className="bit-widget" data-page-hidden={pageHidden} hidden={obstructed}>
+    <div
+      ref={widget}
+      className="bit-widget"
+      data-page-hidden={pageHidden}
+      hidden={obstructed}
+      onPointerLeave={() => {
+        if (!promptButton.current || document.activeElement !== promptButton.current) setHover(null);
+      }}
+    >
       {hidden ? (
         <button ref={restoreButton} type="button" className="bit-restore" onClick={restore}>Show Bit</button>
       ) : <>
@@ -165,9 +199,30 @@ export function PortfolioCompanion({ whatsapp }: { whatsapp?: string }) {
           aria-controls={view ? "bit-panel" : undefined}
           aria-haspopup="dialog"
           onClick={togglePanel}
+          onPointerEnter={event => {
+            if (event.pointerType === "mouse" && canHover && !hoverPhase) setHover({ pathname, phase: "hover" });
+          }}
+          onPointerLeave={() => {
+            if (!showHoverPrompt) setHover(null);
+          }}
         >
           <CompanionCharacter state={state} />
         </button>
+        {showHoverPrompt && (
+          <button
+            ref={promptButton}
+            type="button"
+            className="bit-bubble bit-hover-prompt"
+            aria-label="Click me! Open Bit’s companion panel"
+            aria-haspopup="dialog"
+            onClick={togglePanel}
+            onBlur={() => {
+              if (!widget.current?.matches(":hover")) setHover(null);
+            }}
+          >
+            Click me!
+          </button>
+        )}
         {message && (
           <CompanionBubble
             suggestion={message}

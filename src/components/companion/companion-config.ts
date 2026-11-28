@@ -10,6 +10,7 @@ export const timing = {
   dwell: 4500,
   rest: 60000,
   curious: 1200,
+  hoverPrompt: 1000,
   farewell: 1050,
 } as const;
 

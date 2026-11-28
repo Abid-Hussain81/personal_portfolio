@@ -37,6 +37,7 @@
   animation: bit-entrance .5s var(--bit-ease) both;
 }
 .bit-character { display: block; width: 100%; height: auto; overflow: visible; }
+.bit-launcher .bit-character { pointer-events: none; }
 .bit-shadow { fill: #2d392b; opacity: .19; }
 .bit-pose, .bit-head, .bit-eyes, .bit-hand { transform-box: fill-box; }
 .bit-pose { transform-origin: center bottom; animation: bit-breathe 4.8s ease-in-out infinite; }
@@ -47,17 +48,21 @@
   transform: translate(var(--bit-gaze-x, 0px), var(--bit-gaze-y, 0px));
   transition: transform .16s ease-out;
 }
-.bit-smile-eyes, .bit-sleep-eyes, .bit-smile { opacity: 0; transition: opacity .22s ease; }
-.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"]) :is(.bit-smile-eyes, .bit-smile) { opacity: 1; }
-.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"], [data-state="resting"]) .bit-eyes { opacity: 0; animation: none; }
-.bit-character:is([data-state="greeting"], [data-state="farewell"]) .bit-hand { animation: bit-wave 1s var(--bit-ease) 1; }
+.bit-smile-eyes, .bit-sleep-eyes, .bit-smile, .bit-excited-face { opacity: 0; transition: opacity .22s ease; }
+.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"], [data-state="hover"]) :is(.bit-smile-eyes, .bit-smile) { opacity: 1; }
+.bit-character:is([data-state="greeting"], [data-state="happy"], [data-state="farewell"], [data-state="resting"], [data-state="hover"], [data-state="excited"]) .bit-eyes { opacity: 0; animation: none; }
+.bit-character:is([data-state="greeting"], [data-state="farewell"], [data-state="excited"]) .bit-hand { animation: bit-wave 1s var(--bit-ease) 1; }
 .bit-character[data-state="happy"] .bit-pose { animation: bit-hop .58s var(--bit-ease) 1; }
+.bit-character[data-state="hover"] .bit-pose { animation: bit-grow .48s var(--bit-ease) both; }
 .bit-character[data-state="curious"] .bit-head { transform: rotate(-7deg) translateY(-1px); }
 .bit-character[data-state="thinking"] .bit-head { transform: rotate(6deg) translateY(1px); }
 .bit-character[data-state="guiding"] .bit-hand { animation: bit-point 1.55s var(--bit-ease) 1; }
 .bit-character[data-state="resting"] .bit-head { transform: translateY(2px) rotate(-4deg); }
 .bit-character[data-state="resting"] .bit-sleep-eyes { opacity: 1; }
 .bit-character[data-state="resting"] .bit-pose { animation-duration: 7s; }
+.bit-character[data-state="excited"] .bit-head { transform: translateY(-1px) rotate(5deg); }
+.bit-character[data-state="excited"] .bit-pose { animation: none; }
+.bit-character[data-state="excited"] .bit-excited-face { opacity: 1; }
 .bit-widget[data-page-hidden="true"] :is(.bit-launcher, .bit-character *) { animation-play-state: paused; }
 
 .bit-panel,
@@ -190,6 +195,22 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.bit-bubble.bit-hover-prompt {
+  width: max-content;
+  min-width: calc(var(--bit-size) + 6px);
+  min-height: 44px;
+  padding: .55rem .75rem;
+  color: var(--sage-ink);
+  font-size: .84rem;
+  font-weight: 650;
+}
+.bit-hover-prompt:hover { text-decoration: underline; text-underline-offset: 3px; }
+.bit-hover-prompt::before {
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 12px;
+  content: "";
+}
 .bit-restore {
   min-height: 44px;
   padding-inline: 11px;
@@ -226,6 +247,7 @@
 @keyframes bit-wave { 0%, 100% { transform: none; } 24%, 60% { transform: rotate(-40deg); } 42%, 76% { transform: rotate(-27deg); } }
 @keyframes bit-point { 0%, 100% { transform: none; } 25%, 68% { transform: rotate(-44deg) translate(1px, -1px); } }
 @keyframes bit-hop { 0%, 100% { transform: none; } 20% { transform: scaleY(.96); } 56% { transform: translateY(-4px); } }
+@keyframes bit-grow { 0%, 100% { transform: none; } 42% { transform: scale(1.12); } }
 
 @media (max-width: 767px) {
   .bit-widget { --bit-size: 58px; --bit-right: 14px; --bit-bottom: 14px; }

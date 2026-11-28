@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export const characterStates = ["idle", "greeting", "curious", "happy", "thinking", "guiding", "resting", "farewell"] as const;
-export type CharacterState = (typeof characterStates)[number];
+export type CharacterState = (typeof characterStates)[number] | "hover" | "excited";
 
 export function CharacterFrame({ state, children }: { state: CharacterState; children: ReactNode }) {
   return (
@@ -43,6 +43,11 @@ export function CompanionCharacter({ state }: { state: CharacterState }) {
             <path className="bit-smile-eyes" d="M33 43q3-6 7 0m16 0q3-6 7 0" stroke="var(--bit-eye)" strokeWidth="2.4" fill="none" />
             <path className="bit-sleep-eyes" d="M34 42q2.5 2 5 0m18 0q2.5 2 5 0" stroke="var(--bit-eye)" fill="none" />
             <path className="bit-smile" d="M45 48q3 3 6 0" stroke="var(--bit-eye)" strokeWidth="1.5" fill="none" />
+            <g className="bit-excited-face">
+              <path d="M33 44q3.5-7 7 0m15 0q3.5-7 7 0" stroke="var(--bit-eye)" strokeWidth="2.4" fill="none" />
+              <path d="M43.5 47.5h9c-.5 3.1-2.1 5-4.5 5s-4-1.9-4.5-5Z" fill="var(--bit-eye)" />
+              <path d="M29 35q.6 2.6 3 3-2.4.6-3 3-.6-2.4-3-3 2.4-.4 3-3Zm38-3q.6 2.7 3.4 3.4-2.8.6-3.4 3.4-.6-2.8-3.4-3.4 2.8-.7 3.4-3.4Z" fill="#e8c991" />
+            </g>
           </g>
           <path d="M41 60h14" stroke="var(--bit-sage-deep)" strokeWidth="1" />
         </g>
