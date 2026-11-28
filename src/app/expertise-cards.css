@@ -69,7 +69,7 @@
 }
 .expertise-api-rail span { position: absolute; inset: calc(50% - 2px) 0 auto; opacity: 0; }
 .expertise-api-rail span::before { content: ""; display: block; width: .43rem; height: .3rem; border-radius: 99px; background: #3d7248; box-shadow: 0 0 .5rem .15rem #76a06e8c; }
-.expertise-api-flow[data-playing="true"] .expertise-api-rail span { animation: expertise-pulse 2.4s ease-in-out 2; }
+.expertise-api-flow[data-playing="true"] .expertise-api-rail span { animation: expertise-pulse 2.4s ease-in-out infinite; }
 @keyframes expertise-pulse { 0% { transform: translateX(0); opacity: 0; } 18%, 82% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
 .expertise-chip-scene { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: auto; padding-top: .8rem; perspective: 16rem; transform-style: preserve-3d; }
 .expertise-chip { box-shadow: 0 3px 6px #48534210; }
